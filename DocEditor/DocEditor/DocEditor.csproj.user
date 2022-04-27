@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="DictionaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FontListWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FormatTextView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="HomeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="InsertView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PageSettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PageSettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PdfViewer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Spacing.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="DictionaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FontListWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FormatTextView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="HomeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="InsertView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PageSettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PageSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PdfViewer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Spacing.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StyleResources\AllButtonStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StyleResources\HomeStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StyleResources\MenuItemStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StyleResources\RadioButtonStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StyleResources\TextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StyleResources\WindowStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

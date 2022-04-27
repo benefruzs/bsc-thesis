@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DOGjp2XjUklyi7cg+KvskSrsSV65SbmDgsGyUizRyOVwgbbnFU3HDQeM3sddWKXcY49FV6yLFq/r7pjmb8B6nw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fruzs\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,12 @@
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\bin\Debug\net5.0\DocEditor.Model.deps.json
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\bin\Debug\net5.0\DocEditor.Model.dll
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\bin\Debug\net5.0\ref\DocEditor.Model.dll
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\bin\Debug\net5.0\DocEditor.Model.pdb
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.csproj.AssemblyReference.cache
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.AssemblyInfoInputs.cache
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.AssemblyInfo.cs
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.csproj.CoreCompileInputs.cache
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.dll
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\ref\DocEditor.Model.dll
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.Model\obj\Debug\net5.0\DocEditor.Model.pdb

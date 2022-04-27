@@ -1,0 +1,193 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0-windows7.0": {
+      "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "DocEditor.Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DocEditor.Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DocEditor.Model.dll": {}
+        }
+      },
+      "DocEditor.View/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.ViewModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DocEditor.View.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DocEditor.View.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "DocEditor.ViewModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DocEditor.Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DocEditor.ViewModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DocEditor.ViewModel.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
+      "sha512": "8PZKqw9QOcu42xk8puY4P1+EXHL9YGOR9b7qhaYx5cILHul456H073tj99vyPcCt0W0781T9RwHqkx507ZyUpQ==",
+      "type": "package",
+      "path": "microsoft.xaml.behaviors.wpf/1.1.39",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Design/Microsoft.Xaml.Behaviors.Design.dll",
+        "lib/net45/Microsoft.Xaml.Behaviors.dll",
+        "lib/net45/Microsoft.Xaml.Behaviors.pdb",
+        "lib/net45/Microsoft.Xaml.Behaviors.xml",
+        "lib/net5.0-windows7.0/Design/Microsoft.Xaml.Behaviors.DesignTools.dll",
+        "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll",
+        "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.pdb",
+        "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.xml",
+        "lib/netcoreapp3.1/Design/Microsoft.Xaml.Behaviors.DesignTools.dll",
+        "lib/netcoreapp3.1/Microsoft.Xaml.Behaviors.dll",
+        "lib/netcoreapp3.1/Microsoft.Xaml.Behaviors.pdb",
+        "lib/netcoreapp3.1/Microsoft.Xaml.Behaviors.xml",
+        "microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+        "microsoft.xaml.behaviors.wpf.nuspec",
+        "tools/Install.ps1"
+      ]
+    },
+    "DocEditor.Model/1.0.0": {
+      "type": "project",
+      "path": "../DocEditor.Model/DocEditor.Model.csproj",
+      "msbuildProject": "../DocEditor.Model/DocEditor.Model.csproj"
+    },
+    "DocEditor.View/1.0.0": {
+      "type": "project",
+      "path": "../DocEditor.View/DocEditor.View.csproj",
+      "msbuildProject": "../DocEditor.View/DocEditor.View.csproj"
+    },
+    "DocEditor.ViewModel/1.0.0": {
+      "type": "project",
+      "path": "../DocEditor.ViewModel/DocEditor.ViewModel.csproj",
+      "msbuildProject": "../DocEditor.ViewModel/DocEditor.ViewModel.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0-windows7.0": [
+      "DocEditor.Model >= 1.0.0",
+      "DocEditor.View >= 1.0.0",
+      "DocEditor.ViewModel >= 1.0.0",
+      "Microsoft.Xaml.Behaviors.Wpf >= 1.1.39"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\fruzs\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+      "projectName": "DocEditor",
+      "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+      "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\fruzs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
+          "projectReferences": {
+            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+            },
+            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj"
+            },
+            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.View\\DocEditor.View.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.View\\DocEditor.View.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0-windows7.0": {
+        "targetAlias": "net5.0-windows",
+        "dependencies": {
+          "Microsoft.Xaml.Behaviors.Wpf": {
+            "target": "Package",
+            "version": "[1.1.39, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

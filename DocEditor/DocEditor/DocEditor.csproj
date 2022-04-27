@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\al_btn\backw.jpg" />
+    <None Remove="img\al_btn\center.jpg" />
+    <None Remove="img\al_btn\forw.jpg" />
+    <None Remove="img\al_btn\just.jpg" />
+    <None Remove="img\al_btn\left.jpg" />
+    <None Remove="img\al_btn\list.jpg" />
+    <None Remove="img\al_btn\right.jpg" />
+    <None Remove="img\arrow_w.jpg" />
+    <None Remove="img\dict.jpg" />
+    <None Remove="img\doc.jpg" />
+    <None Remove="img\fm\bold.jpg" />
+    <None Remove="img\fm\border.jpg" />
+    <None Remove="img\fm\del.jpg" />
+    <None Remove="img\fm\italic.jpg" />
+    <None Remove="img\fm\line.jpg" />
+    <None Remove="img\fm\more.jpg" />
+    <None Remove="img\fm\text_color.jpg" />
+    <None Remove="img\fm\underline.jpg" />
+    <None Remove="img\fm\x_over.jpg" />
+    <None Remove="img\fm\x_under.jpg" />
+    <None Remove="img\format.jpg" />
+    <None Remove="img\home.jpg" />
+    <None Remove="img\homew.jpg" />
+    <None Remove="img\insert.jpg" />
+    <None Remove="img\ins\image.jpg" />
+    <None Remove="img\ins\symbol.jpg" />
+    <None Remove="img\ins\table.jpg" />
+    <None Remove="img\margin\bottom.jpg" />
+    <None Remove="img\margin\left.jpg" />
+    <None Remove="img\margin\right.jpg" />
+    <None Remove="img\margin\top.jpg" />
+    <None Remove="img\spacing\sorkoz.jpg" />
+    <None Remove="img\spacing\terkoz_elotte.jpg" />
+    <None Remove="img\spacing\terkoz_utana.jpg" />
+    <None Remove="res\dicthelp.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DocEditor.Model\DocEditor.Model.csproj" />
+    <ProjectReference Include="..\DocEditor.ViewModel\DocEditor.ViewModel.csproj" />
+    <ProjectReference Include="..\DocEditor.View\DocEditor.View.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\al_btn\backw.jpg" />
+    <Resource Include="img\al_btn\center.jpg" />
+    <Resource Include="img\al_btn\forw.jpg" />
+    <Resource Include="img\al_btn\just.jpg" />
+    <Resource Include="img\al_btn\left.jpg" />
+    <Resource Include="img\al_btn\list.jpg" />
+    <Resource Include="img\al_btn\right.jpg" />
+    <Resource Include="img\arrow_w.jpg" />
+    <Resource Include="img\dict.jpg" />
+    <Resource Include="img\doc.jpg" />
+    <Resource Include="img\fm\bold.jpg" />
+    <Resource Include="img\fm\border.jpg" />
+    <Resource Include="img\fm\del.jpg" />
+    <Resource Include="img\fm\italic.jpg" />
+    <Resource Include="img\fm\line.jpg" />
+    <Resource Include="img\fm\more.jpg" />
+    <Resource Include="img\fm\text_color.jpg" />
+    <Resource Include="img\fm\underline.jpg" />
+    <Resource Include="img\fm\x_over.jpg" />
+    <Resource Include="img\fm\x_under.jpg" />
+    <Resource Include="img\format.jpg" />
+    <Resource Include="img\home.jpg" />
+    <Resource Include="img\homew.jpg" />
+    <Resource Include="img\insert.jpg" />
+    <Resource Include="img\ins\image.jpg" />
+    <Resource Include="img\ins\symbol.jpg" />
+    <Resource Include="img\ins\table.jpg" />
+    <Resource Include="img\margin\bottom.jpg" />
+    <Resource Include="img\margin\left.jpg" />
+    <Resource Include="img\margin\right.jpg" />
+    <Resource Include="img\margin\top.jpg" />
+    <Resource Include="img\spacing\sorkoz.jpg" />
+    <Resource Include="img\spacing\terkoz_elotte.jpg" />
+    <Resource Include="img\spacing\terkoz_utana.jpg" />
+    <Resource Include="res\dicthelp.pdf" />
+  </ItemGroup>
+
+</Project>

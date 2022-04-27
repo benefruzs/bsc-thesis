@@ -1,0 +1,81 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "DocEditor/1.0.0": {
+        "dependencies": {
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.View": "1.0.0",
+          "DocEditor.ViewModel": "1.0.0",
+          "Microsoft.Xaml.Behaviors.Wpf": "1.1.39"
+        },
+        "runtime": {
+          "DocEditor.dll": {}
+        }
+      },
+      "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
+        "runtime": {
+          "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.39.4716"
+          }
+        }
+      },
+      "DocEditor.Model/1.0.0": {
+        "runtime": {
+          "DocEditor.Model.dll": {}
+        }
+      },
+      "DocEditor.View/1.0.0": {
+        "dependencies": {
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.ViewModel": "1.0.0"
+        },
+        "runtime": {
+          "DocEditor.View.dll": {}
+        }
+      },
+      "DocEditor.ViewModel/1.0.0": {
+        "dependencies": {
+          "DocEditor.Model": "1.0.0"
+        },
+        "runtime": {
+          "DocEditor.ViewModel.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DocEditor/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8PZKqw9QOcu42xk8puY4P1+EXHL9YGOR9b7qhaYx5cILHul456H073tj99vyPcCt0W0781T9RwHqkx507ZyUpQ==",
+      "path": "microsoft.xaml.behaviors.wpf/1.1.39",
+      "hashPath": "microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+    },
+    "DocEditor.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocEditor.View/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocEditor.ViewModel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

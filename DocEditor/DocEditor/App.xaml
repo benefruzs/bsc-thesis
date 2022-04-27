@@ -1,0 +1,22 @@
+﻿<Application x:Class="DocEditor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DocEditor"
+             xmlns:viewModel="clr-namespace:DocEditor.ViewModel;assembly=DocEditor.ViewModel"
+             >
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResources/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="StyleResources/AllButtonStyle.xaml"/>
+                <ResourceDictionary Source="StyleResources/RadioButtonStyles.xaml"/>
+                <ResourceDictionary Source="StyleResources/MenuItemStyles.xaml"/>
+                <ResourceDictionary Source="StyleResources/WindowStyles.xaml"/>
+                <ResourceDictionary Source="StyleResources/HomeStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+
+</Application>
