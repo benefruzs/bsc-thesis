@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DocEditor"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="150">
+             d:DesignHeight="500" d:DesignWidth="200">
 
-    <Grid Background="#2e2f34" Width="150">
+    <Grid Background="#2e2f34" Width="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="40">
+            <Grid Background="#404146" Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -26,15 +26,15 @@
                     <ImageBrush x:Key="AddImgImg" ImageSource="/img/ins/image.jpg" Stretch="UniformToFill"/>
                 </Grid.Resources>
 
-                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddImgImg}"  Height="40" Width="40"/>
+                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddImgImg}"  Height="50" Width="50"/>
 
-                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="20"/>
+                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="30"/>
                 <!--képre kattintva felhoz a képek választása, képhez path beírni, enterrel beszúr -->
             </Grid>
         </Border>
 
         <Border Grid.Row="1" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="40">
+            <Grid Background="#404146" Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -45,16 +45,16 @@
                     <ImageBrush x:Key="AddTableImg" ImageSource="/img/ins/table.jpg" Stretch="UniformToFill"/>
                 </Grid.Resources>
 
-                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddTableImg}"  Height="40" Width="40"/>
+                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddTableImg}"  Height="50" Width="50"/>
 
-                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="20"/>
-                <TextBox Grid.Column="2" Style="{StaticResource TextBoxStyle}" Height="20"/>
+                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="30"/>
+                <TextBox Grid.Column="2" Style="{StaticResource TextBoxStyle}" Height="30"/>
                 <!-- táblázat dimensionjei -->
             </Grid>
         </Border>
 
         <Border Grid.Row="2" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="40">
+            <Grid Background="#404146" Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -64,8 +64,8 @@
                     <ImageBrush x:Key="AddSymbolImg" ImageSource="/img/ins/symbol.jpg" Stretch="UniformToFill"/>
                 </Grid.Resources>
 
-                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddSymbolImg}"  Height="40" Width="40"/>
-                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="20"/>
+                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddSymbolImg}"  Height="50" Width="50"/>
+                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="30"/>
 
                 <!-- képre kattintva felhoz a symbol ablak, enterrel beszúr, amit beírtunk -->
             </Grid>

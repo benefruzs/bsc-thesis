@@ -249,7 +249,7 @@ namespace DocEditor.Parser
         private void fromStwfToDict(Stwf st)
         {
             StwfFormatToDictFormat(st.Format);
-            _dict = new DictClass(st.Text, _format_array, 1);
+            _dict = new DictClass(st.SelectedText.SelectedString, _format_array, 1);
 
         }
 

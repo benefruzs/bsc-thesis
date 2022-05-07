@@ -18,6 +18,7 @@
     <None Remove="img\arrow_w.jpg" />
     <None Remove="img\dict.jpg" />
     <None Remove="img\doc.jpg" />
+    <None Remove="img\fm\add_style.jpg" />
     <None Remove="img\fm\bold.jpg" />
     <None Remove="img\fm\border.jpg" />
     <None Remove="img\fm\del.jpg" />
@@ -31,6 +32,8 @@
     <None Remove="img\format.jpg" />
     <None Remove="img\home.jpg" />
     <None Remove="img\homew.jpg" />
+    <None Remove="img\ico\icon.png" />
+    <None Remove="img\ico\icon0.png" />
     <None Remove="img\insert.jpg" />
     <None Remove="img\ins\image.jpg" />
     <None Remove="img\ins\symbol.jpg" />
@@ -66,6 +69,7 @@
     <Resource Include="img\arrow_w.jpg" />
     <Resource Include="img\dict.jpg" />
     <Resource Include="img\doc.jpg" />
+    <Resource Include="img\fm\add_style.jpg" />
     <Resource Include="img\fm\bold.jpg" />
     <Resource Include="img\fm\border.jpg" />
     <Resource Include="img\fm\del.jpg" />
@@ -79,6 +83,8 @@
     <Resource Include="img\format.jpg" />
     <Resource Include="img\home.jpg" />
     <Resource Include="img\homew.jpg" />
+    <Resource Include="img\ico\icon.png" />
+    <Resource Include="img\ico\icon0.png" />
     <Resource Include="img\insert.jpg" />
     <Resource Include="img\ins\image.jpg" />
     <Resource Include="img\ins\symbol.jpg" />

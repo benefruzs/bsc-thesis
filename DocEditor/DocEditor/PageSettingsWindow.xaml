@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Page Settings" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF">
+        Title="Oldal beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -85,8 +85,8 @@
         </Grid>
 
         <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="RESET" VerticalAlignment="Center" Width="50" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}"/>
-            <Button Content="OK" VerticalAlignment="Center" Width="50" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}"/>
+            <Button Content="MÉGSEM" VerticalAlignment="Center" Width="60" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}"/>
+            <Button Content="OK" VerticalAlignment="Center" Width="60" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}"/>
         </StackPanel>
     </Grid>
 </Window>

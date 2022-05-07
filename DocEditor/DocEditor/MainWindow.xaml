@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:DocEditor"
         xmlns:viewModel="clr-namespace:DocEditor.ViewModel;assembly=DocEditor.ViewModel"
         mc:Ignorable="d"
@@ -10,7 +11,8 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="CanResize"     
-        Title="DocEditor" FontFamily="Corbel" Height="450" Width="800"
+        Title="DocEditor" FontFamily="Corbel" Height="500" Width="800"
+        Icon="./img/ico/icon0.png"
         >
 
     <Window.Resources>
@@ -44,7 +46,7 @@
     </Window.Resources>
     
     <DockPanel Background="#FF414147" >
-        <Grid DockPanel.Dock="Left" Background="#232325" Width="50">
+        <Grid DockPanel.Dock="Left" Background="#232325" Width="60">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -95,7 +97,7 @@
                     Style="{StaticResource MenuButtonStyle}"
                     Command="{Binding OpenDictCommand}"/>
         </Grid>
-        <Grid DockPanel.Dock="Top" Background="#6d6e74" Height="23">
+        <Grid x:Name="TitleGrid" DockPanel.Dock="Top" Background="#6d6e74" Height="23" MouseLeftButtonDown="moveWindow">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -105,35 +107,34 @@
             </Grid.ColumnDefinitions>
 
             <Menu Grid.Column="0" Background="#6d6e75" VerticalAlignment="Center">
-                <MenuItem Header="_File" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="_New" Command="{Binding NewPlainDocument}"/>
-                    <MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
-                    <MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
-                    <MenuItem Header="_Save As" Command="{Binding SaveAsCommand}"/>
+                <MenuItem Header="_Fájl" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Új létrehozása" Command="{Binding NewPlainDocumentCommand}"/>
+                    <MenuItem Header="_Megnyitás" Command="{Binding OpenCommand}"/>
+                    <MenuItem Header="_Mentés" Command="{Binding SaveCommand}"/>
+                    <MenuItem Header="_Mentés másként" Command="{Binding SaveAsCommand}"/>
                     <Separator />
-                    <MenuItem Header="_Exit" Command="{Binding ExitAppCommand}"/>
+                    <MenuItem Header="_Kilépés" Command="{Binding ExitAppCommand}"/>
                 </MenuItem>
-                <MenuItem Header="_Edit" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="_Undo" />
-                    <MenuItem Header="_Redo" />
+                <MenuItem Header="_Módosítás" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Vissza" />
+                    <MenuItem Header="_Újra" />
                     <Separator />
-                    <MenuItem Header="_Cut" />
-                    <MenuItem Header="_Copy" />
-                    <MenuItem Header="_Paste" />
-                    <MenuItem Header="_Delete" />
+                    <MenuItem Header="_Kivágás" />
+                    <MenuItem Header="_Másolás" />
+                    <MenuItem Header="_Beillesztés" />
+                    <MenuItem Header="_Törlés" Command="{Binding DeleteSelectionCommand}"/>
                     <Separator />
-                    <MenuItem Header="_Select all" />
+                    <MenuItem Header="_Összes kijelölése" Command="{Binding SelectAllTextCommand}"/>
                 </MenuItem>
-                <MenuItem Header="_View" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="_Print" />
-                    <MenuItem Header="_View dictionary" />
+                <MenuItem Header="_Nézet" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Nyomtatás" />
+                    <MenuItem Header="_Szótár megnyitása" />
                     <Separator />
-                    <MenuItem Header="_Full screen" Command="{Binding MaximizeAppCommand}"/>
+                    <MenuItem Header="_Teljes képernyő" Command="{Binding MaximizeAppCommand}"/>
                 </MenuItem>
-                <MenuItem Header="_Help" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="_View help" Command="{Binding OpenHelpCmd}"/>
-                    <MenuItem Header="_Dictionary help" Command="{Binding OpenDictionaryHelpCmd}" />
-                    <MenuItem Header="_Get started" />
+                <MenuItem Header="_Súgó" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Felhasználói súgó" Command="{Binding OpenHelpCmd}"/>
+                    <MenuItem Header="_Szótár súgó" Command="{Binding OpenDictionaryHelpCmd}" />
                 </MenuItem>
             </Menu>
 
@@ -155,7 +156,7 @@
                     Command="{Binding ExitAppCommand}" />
         </Grid>
 
-        <Grid DockPanel.Dock="Right" Background="#2e2f34" Width="150">
+        <Grid x:Name="ToolGrid" DockPanel.Dock="Right" Background="#2e2f34" Width="200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -164,9 +165,15 @@
             <!--<local:FormatTextView/>-->
         </Grid>
 
-        <RichTextBox x:Name="DocPaper" FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}" Padding="{Binding PageMargins}" HorizontalContentAlignment="Center"  Foreground="{Binding FC}" IsInactiveSelectionHighlightEnabled="True"  Background="#FFFFFF" BorderThickness="0" DockPanel.Dock="Bottom" Margin="10 10 10 0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+        <RichTextBox x:Name="DocPaper" FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}" Padding="{Binding PageMargins}" HorizontalContentAlignment="Center"  Foreground="{Binding FC}" IsInactiveSelectionHighlightEnabled="True"  Background="#FFFFFF" BorderThickness="0" DockPanel.Dock="Bottom" Margin="10 10 10 0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SetSelectionCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <FlowDocument PagePadding="50">
                 <!-- paragraph binding -->
+                
             </FlowDocument>
         </RichTextBox>
 

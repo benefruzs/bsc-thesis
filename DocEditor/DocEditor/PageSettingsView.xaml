@@ -5,22 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DocEditor"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="150">
+             d:DesignHeight="500" d:DesignWidth="200">
 
-    <Grid Background="#2e2f34" Width="150">
+    <Grid Background="#2e2f34" Width="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderThickness="3" BorderBrush="#FFFFFF" Height="150" Margin="20">
+        <Border Grid.Row="0" BorderThickness="3" BorderBrush="#FFFFFF" Height="180" Width="140" Margin="30 20 30 20">
             <Border BorderThickness="3" BorderBrush="#FFFFFF" Margin="15">
             </Border>
         </Border>
 
         <Border Grid.Row="1" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="150">
+            <Grid Background="#404146" Height="210">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
@@ -34,7 +34,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid.Resources>
-                    <ImageBrush x:Key="AddTopImg" ImageSource="img/margin/top.jpg" Stretch="UniformToFill"/>
+                    <ImageBrush x:Key="AddTopImg" ImageSource="img/margin/top.jpg" Stretch="UniformToFill" />
                     <ImageBrush x:Key="AddBottomImg" ImageSource="img/margin/bottom.jpg" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddLeftImg" ImageSource="img/margin/left.jpg" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddRightImg" ImageSource="img/margin/right.jpg" Stretch="UniformToFill"/>
@@ -47,7 +47,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTopImg}"/>
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTopImg}" Height="40" Width="40" />
                     <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
 
 
@@ -62,7 +62,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBottomImg}"/>
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBottomImg}" Height="40" Width="40"/>
                     <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
 
 
@@ -77,7 +77,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddLeftImg}"/>
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddLeftImg}" Height="40" Width="40"/>
                     <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
 
                     <!-- BINDING Text default margin -->
@@ -91,7 +91,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddRightImg}"/>
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddRightImg}" Height="40" Width="40"/>
                     <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
 
                     <!-- BINDING Text default margin -->
@@ -99,7 +99,7 @@
 
                 <Separator Grid.Row="7" Grid.Column="1" Margin="5 0 5 0" />
 
-                <Button Grid.Row="8" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddMoreImg}" Command="{Binding MorePageSettingsCommand}"/>
+                <Button Grid.Row="8" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddMoreImg}" Command="{Binding MorePageSettingsCommand}" Height="40" Width="40"/>
             </Grid>
         </Border>
 

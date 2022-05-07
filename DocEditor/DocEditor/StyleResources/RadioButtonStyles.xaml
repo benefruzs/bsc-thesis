@@ -3,8 +3,8 @@
 
     <!-- menu with radio buttons on the left side of the mainwindow -->
     <Style x:Key="MenuButtonStyle" TargetType="RadioButton">
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="50"/>
         <Setter Property="Margin" Value="5"/>
 
         <Setter Property="Template">

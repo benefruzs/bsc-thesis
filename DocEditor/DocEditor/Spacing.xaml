@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Spacing" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF">
+        Title="Bekezdés beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> <!-- igazítás -->
@@ -74,8 +74,8 @@
         <Separator Grid.Row="8" Grid.ColumnSpan="4" Style="{StaticResource WSepStyle}"/>
         <RichTextBox Grid.Row="9" IsReadOnly="True" Grid.ColumnSpan="4" Margin="10" Height="50"/>
             <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="RESET" VerticalAlignment="Center" Width="50" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}"/>
-            <Button Content="OK" VerticalAlignment="Center" Width="50" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}"/>
+            <Button Content="MÉGSEM" VerticalAlignment="Center" Width="60" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}"/>
+            <Button Content="OK" VerticalAlignment="Center" Width="60" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}"/>
         </StackPanel>
     </Grid>
 </Window>

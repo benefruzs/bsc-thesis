@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Formatting" Height="450" Width="500" Background="#FFFFFF">
+        Title="Formázás beállítások" Height="450" Width="500" Background="#FFFFFF">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="100" />
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -34,9 +35,14 @@
                FontStyle="{Binding SelectedItem.Style, ElementName=typefaceSelector}"
                FontWeight="{Binding SelectedItem.Weight, ElementName=typefaceSelector}"
                Grid.ColumnSpan="3" Grid.Row="1"
-               Text="Sample" 
-               FontSize="{Binding SelectedItem.Source, ElementName=fontSizeSelector}"
+               Text="Minta szöveg" 
+               FontSize="36"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="MÉGSEM" VerticalAlignment="Center" Width="60" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}"/>
+            <Button Content="OK" VerticalAlignment="Center" Width="60" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}"/>
+        </StackPanel>
     </Grid>
 </Window>

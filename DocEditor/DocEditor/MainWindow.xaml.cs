@@ -25,7 +25,12 @@ namespace DocEditor
         {
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             this.InitializeComponent();
+
             //Style CustomWindowStyle = (Style)this.Resources["CustomWindowStyle"];
+        }
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }
