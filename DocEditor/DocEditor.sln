@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocEditor", "DocEditor\DocE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocEditor.Model", "DocEditor.Model\DocEditor.Model.csproj", "{77CDBB9B-0EA7-4645-AAFD-0F423670D69E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocEditor.View", "DocEditor.View\DocEditor.View.csproj", "{C41FAFCA-48DD-4D56-BFC8-61CE9181872E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocEditor.ViewModel", "DocEditor.ViewModel\DocEditor.ViewModel.csproj", "{FF7B7F68-B1A8-4978-9478-14B72D44C7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocEditor.Parser", "DocEditor.Parser\DocEditor.Parser.csproj", "{BF255FCF-1B32-48AB-99F7-1F8759EFFDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocEditor.Parser", "DocEditor.Parser\DocEditor.Parser.csproj", "{BF255FCF-1B32-48AB-99F7-1F8759EFFDA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocEditor.Test", "DocEditor.Test\DocEditor.Test.csproj", "{B025C287-7417-4A49-9BD6-99DFE91E6490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{77CDBB9B-0EA7-4645-AAFD-0F423670D69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77CDBB9B-0EA7-4645-AAFD-0F423670D69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77CDBB9B-0EA7-4645-AAFD-0F423670D69E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C41FAFCA-48DD-4D56-BFC8-61CE9181872E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C41FAFCA-48DD-4D56-BFC8-61CE9181872E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C41FAFCA-48DD-4D56-BFC8-61CE9181872E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C41FAFCA-48DD-4D56-BFC8-61CE9181872E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF7B7F68-B1A8-4978-9478-14B72D44C7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF7B7F68-B1A8-4978-9478-14B72D44C7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF7B7F68-B1A8-4978-9478-14B72D44C7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{BF255FCF-1B32-48AB-99F7-1F8759EFFDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF255FCF-1B32-48AB-99F7-1F8759EFFDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF255FCF-1B32-48AB-99F7-1F8759EFFDA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B025C287-7417-4A49-9BD6-99DFE91E6490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B025C287-7417-4A49-9BD6-99DFE91E6490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B025C287-7417-4A49-9BD6-99DFE91E6490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B025C287-7417-4A49-9BD6-99DFE91E6490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

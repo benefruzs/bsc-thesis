@@ -24,18 +24,17 @@
           "bin/placeholder/DocEditor.Model.dll": {}
         }
       },
-      "DocEditor.View/1.0.0": {
+      "DocEditor.Parser/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "DocEditor.Model": "1.0.0",
-          "DocEditor.ViewModel": "1.0.0"
+          "DocEditor.Model": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/DocEditor.View.dll": {}
+          "bin/placeholder/DocEditor.Parser.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DocEditor.View.dll": {}
+          "bin/placeholder/DocEditor.Parser.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -90,10 +89,10 @@
       "path": "../DocEditor.Model/DocEditor.Model.csproj",
       "msbuildProject": "../DocEditor.Model/DocEditor.Model.csproj"
     },
-    "DocEditor.View/1.0.0": {
+    "DocEditor.Parser/1.0.0": {
       "type": "project",
-      "path": "../DocEditor.View/DocEditor.View.csproj",
-      "msbuildProject": "../DocEditor.View/DocEditor.View.csproj"
+      "path": "../DocEditor.Parser/DocEditor.Parser.csproj",
+      "msbuildProject": "../DocEditor.Parser/DocEditor.Parser.csproj"
     },
     "DocEditor.ViewModel/1.0.0": {
       "type": "project",
@@ -104,7 +103,7 @@
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
       "DocEditor.Model >= 1.0.0",
-      "DocEditor.View >= 1.0.0",
+      "DocEditor.Parser >= 1.0.0",
       "DocEditor.ViewModel >= 1.0.0",
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.39"
     ]
@@ -144,11 +143,11 @@
             "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
               "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
             },
+            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
+            },
             "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
               "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj"
-            },
-            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.View\\DocEditor.View.csproj": {
-              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.View\\DocEditor.View.csproj"
             }
           }
         }
@@ -186,7 +185,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

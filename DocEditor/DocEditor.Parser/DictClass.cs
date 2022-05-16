@@ -46,6 +46,11 @@ namespace DocEditor.Parser
             _formatting = format;
             _frequency = freq;
         }
+
+        public DictClass()
+        {
+
+        }
         #endregion
 
         #region Public methods

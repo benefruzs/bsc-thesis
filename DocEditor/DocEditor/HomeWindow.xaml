@@ -9,7 +9,8 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="CanResize"
-        Title="HomeWindow" Height="450" Width="800">
+        Title="HomeWindow" Height="450" Width="800"
+        Icon="./img/ico/icon0.png">
     
     <Window.Resources>
         <Style x:Key="AppButtonStyle" TargetType="Button">
@@ -33,7 +34,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0" Background="#6d6e74" Height="23">
+        <Grid Grid.Row="0" Background="#6d6e74" Height="23" MouseLeftButtonDown="moveWindow">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -81,7 +82,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 
-                <Button Grid.Row="0" Content="Új üres" Style="{StaticResource LeftColBtnStyle}"/>
+                <Button Grid.Row="0" Content="Új üres" Style="{StaticResource LeftColBtnStyle}" Command="{Binding NewEmptyFileCommand}"/>
                 <Button Grid.Row="1" Content="Megnyitás" Style="{StaticResource LeftColBtnStyle}"/>
                 <Button Grid.Row="2" Content="Mentés" Style="{StaticResource LeftColBtnStyle}"/>
                 <Button Grid.Row="3" Content="Mentés másként" Style="{StaticResource LeftColBtnStyle}"/>

@@ -24,5 +24,9 @@ namespace DocEditor
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             InitializeComponent();
         }
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
