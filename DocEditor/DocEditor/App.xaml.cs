@@ -22,6 +22,7 @@ namespace DocEditor
     /// </summary>
     public partial class App : Application
     {
+        #region Private fields
         struct SelectionOffsets { internal int Start; internal int End; }
         private DocEditorModel _model;
         private ParserMain _parser;
@@ -38,7 +39,9 @@ namespace DocEditor
         private List<FlowDocument> DocPapers; //the current richtextbox
 
         private SelectionOffsets selectionOffsets;
+        #endregion
 
+        #region Application startup
         /// <summary>
         /// Instantiate the application
         /// </summary>
@@ -101,6 +104,8 @@ namespace DocEditor
             _ftViewModel.SetSuperScript += new EventHandler(Selection_SetSuperScript);
             _ftViewModel.SetSubScript += new EventHandler(Selection_SetSubScript);
 
+            _dictViewModel = new DictionaryViewModel(_model);
+            _dictViewModel.AddToDictionary += new EventHandler(AddToDictionary_EventHandler);
 
             _pageViewModel = new PageSettingsViewModel(_model);
             _pageViewModel.MorePageSettings += new EventHandler(openMorePageSettings);
@@ -115,9 +120,9 @@ namespace DocEditor
             };
             _home.ShowDialog();
         }
+        #endregion
 
-
-        #region ViewModel event handlers
+        #region ViewModel home window event handlers
         /// <summary>
         /// Home Window event handlers
         /// </summary>
@@ -174,6 +179,9 @@ namespace DocEditor
             
         }
 
+        #endregion
+
+        #region ViewModel main window event handlers
 
         /// <summary>
         /// Main Window event handlers
@@ -222,6 +230,9 @@ namespace DocEditor
             setFocus();
         }
 
+        #endregion
+
+        #region ViewModel page navigation event handlers
         /// <summary>
         /// Page managing event handlers
         /// </summary>
@@ -244,7 +255,9 @@ namespace DocEditor
         {
             throw new NotImplementedException();
         }
+        #endregion
 
+        #region Right user control event handlers
         /// <summary>
         /// Setting the the user control on the right
         /// </summary>
@@ -269,11 +282,14 @@ namespace DocEditor
 
         private void ViewModel_Dict(object sender, EventArgs e)
         {
-            _dictViewModel = new DictionaryViewModel(_model);
+            
             _viewModel.CurrentView = _dictViewModel;
             setFocus();
         }
 
+        #endregion
+
+        #region Dialog event handlers
         /// <summary>
         /// Event handler to open the color picker
         /// </summary>
@@ -349,6 +365,9 @@ namespace DocEditor
             _dictHelp.ShowDialog();
         }
 
+        #endregion
+
+        #region Menu event handlers
         /// <summary>
         /// Event handler to deleting the selected text
         /// </summary>
@@ -366,6 +385,7 @@ namespace DocEditor
             setFocus();
             _view.DocPaper.SelectAll();
         }
+
 
         private void ViewModel_NewPlainDocument(object sender, EventArgs e)
         {
@@ -433,7 +453,9 @@ namespace DocEditor
             _view.DocPaper.Selection.Text = string.Empty;
 
         }
+        #endregion
 
+        #region Text formatting event handlers
         /// <summary>
         /// Event handler for changing the font family
         /// </summary>
@@ -632,11 +654,6 @@ namespace DocEditor
             //onnan tudjuk, hogy adott dolog kijelölése történik, hogy vagy a start vagy az end változatlan
         }
 
-        private void getSelection()
-        {
-            selectionOffsets.Start = _model.select.StartPointer;
-            selectionOffsets.End = _model.select.EndPointer;
-        }
 
         /// <summary>
         /// Event handlers for formatting the selected text
@@ -799,7 +816,9 @@ namespace DocEditor
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.SelectionAndFormat.Formatting.Size);
             }
         }
+        #endregion
 
+        #region Pages event handlers
         private void updateRTBList(object sender, EventArgs e)
         {
             //ha a caretposition az rtb végén van, akkor a listának az utolsó eleme = a docpaperrel, és új lap hozzáad
@@ -815,6 +834,74 @@ namespace DocEditor
                 addPage();
             }
         }
+        #endregion
+
+        #region Parser event handlers
+        private void AutoFormatting_EventHandler(object sender, EventArgs e)
+        {
+            //event: hitting the space button
+            //1. get the word before the space
+            //2. check if it is in the dictionary
+            //2.a if isnt -> nothing happens
+            //2.b if there is -> add the most frequent formatting to the text
+        }
+
+        private void AddToDictionary_EventHandler(object sender, EventArgs e)
+        {
+            foreach (var f in _parser.Dict)
+            {
+                System.Diagnostics.Debug.WriteLine(f.Str);
+                System.Diagnostics.Debug.WriteLine(f.Frequency.ToString());
+            }
+            //the selected text to an stwf instance
+            if (_model.select.SelectedString != null)
+            {
+                //only one word without spaces can be added to the dictionary
+                _model.select = _parser.selectionTrim(_model.select);
+
+                //modify the text pointers for accessing the carachters on the rtb
+                getSelection();
+                TextPointer contentStart = _view.DocPaper.Document.ContentStart;
+                TextRange beforeText = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.Start-1), contentStart.GetPositionAtOffset(selectionOffsets.Start));
+                TextRange afterText = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.End), contentStart.GetPositionAtOffset(selectionOffsets.End + 1));
+                System.Diagnostics.Debug.WriteLine(beforeText.Text);
+                System.Diagnostics.Debug.WriteLine(afterText.Text);
+                _model.select = _parser.selectedTextValidation(_model.select, beforeText.Text, afterText.Text);
+                if(_model.select.SelectedString == null)
+                {
+                    MessageBox.Show("Szótárhoz való hozzáadáshoz jelöljön ki pontosan egy szót!", "Szótár hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    //iterate from start to end to get the formatting information
+                    getFormatting(contentStart.GetPositionAtOffset(selectionOffsets.Start), contentStart.GetPositionAtOffset(selectionOffsets.End));
+                    _parser.toDictionary(_model.SelectionAndFormat.SelectedText);
+                    foreach(var f in _parser.Dict)
+                    {
+                        System.Diagnostics.Debug.WriteLine(f.Str);
+                        System.Diagnostics.Debug.WriteLine(f.Frequency.ToString());
+                    }
+                    
+
+                    MessageBox.Show("Sikeresen hozzáadva a szótárhoz!", "Szótár", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                //only the selected text can be added to the dictionary error message window
+                MessageBox.Show("Szótárhoz hozzáadáshoz jelöljön ki szöveget!", "Szótár hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+            //calling the parser algorithms
+        }
+        #endregion
+
+        #region Private methods
+        private void getSelection()
+        {
+            selectionOffsets.Start = _model.select.StartPointer;
+            selectionOffsets.End = _model.select.EndPointer;
+        }
 
         /// <summary>
         /// Getting the formatting of the selected text from the richtextbox
@@ -828,17 +915,20 @@ namespace DocEditor
             TextPointer charSt = st;
             TextPointer charNd = st.GetNextInsertionPosition(LogicalDirection.Forward);
 
+            _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
+
             //initialize format array
-            _model.SelectionAndFormat.SelectedText.Format = new FormatModel[selectionOffsets.Start-selectionOffsets.End];
+            _model.SelectionAndFormat.SelectedText.Format = new FormatModel[selectionOffsets.End - selectionOffsets.Start];
 
             int textp = 0;
-            while (charSt != nd)
+            while (charSt != nd && charNd != null && charSt != null)
             {
                 
                 TextRange tr = new TextRange(charSt, charNd);
                 {
                     if (tr.Text != string.Empty)
                     {
+                        _model.SelectionAndFormat.SelectedText.Format[textp] = new FormatModel();
                         //add font family
                         object fam = tr.GetPropertyValue(TextElement.FontFamilyProperty);
                         _model.SelectionAndFormat.SelectedText.Format[textp].Family = fam.ToString();
@@ -853,7 +943,7 @@ namespace DocEditor
 
                         //add font size
                         object size = tr.GetPropertyValue(TextElement.FontSizeProperty);
-                        _model.SelectionAndFormat.SelectedText.Format[textp].Size = (int)size;
+                        _model.SelectionAndFormat.SelectedText.Format[textp].Size = Convert.ToInt32(size);
 
                         //add font charoffset
                         object offs = tr.GetPropertyValue(TextElement.FontWeightProperty);

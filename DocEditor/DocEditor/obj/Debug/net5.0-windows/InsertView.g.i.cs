@@ -54,7 +54,7 @@ namespace DocEditor {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/DocEditor;V1.0.0.0;component/insertview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DocEditor;component/insertview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\InsertView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

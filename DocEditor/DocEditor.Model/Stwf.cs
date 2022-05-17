@@ -31,6 +31,18 @@ namespace DocEditor.Model
 
         #region Constructors
 
+        public Stwf()
+        {
+            _selectedText = new Selection();
+            _textFormatting = null;
+        }
+
+        public Stwf(Selection sel, FormatModel[] fm)
+        {
+            _selectedText = sel;
+            _textFormatting = fm;
+        }
+
         #endregion
     }
 }

@@ -117,6 +117,9 @@ namespace DocEditor.Model
             }
         }
 
+        public Stwf selectForParser;
+        public List<Stwf> listForParser;
+
         #endregion
 
         #region Constructors
@@ -144,6 +147,9 @@ namespace DocEditor.Model
             ActualPageHeight = PageHeight - (_margin.Bottom + _margin.Top);
 
             createDefaultFontStyles();
+
+            selectForParser = new Stwf();
+            listForParser = new List<Stwf>();
         }
         #endregion
 

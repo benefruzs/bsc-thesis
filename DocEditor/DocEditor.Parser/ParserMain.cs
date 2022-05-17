@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using DocEditor.Model;
 
 namespace DocEditor.Parser
@@ -177,12 +178,60 @@ namespace DocEditor.Parser
 
             for (int i = 0; i < ft_arr.Length; i++)
             {
-                styleFreq[ft_arr[i].Style]++;
-                weightFreq[ft_arr[i].Weight]++;
-                familyFreq[ft_arr[i].Family]++;
-                chOffsetFreq[ft_arr[i].CharOffset]++;
-                sizeFreq[ft_arr[i].Size]++;
-                colorFreq[ft_arr[i].Color]++;
+                if (styleFreq.ContainsKey(ft_arr[i].Style))
+                {
+                    styleFreq[ft_arr[i].Style]++;
+                }
+                else
+                {
+                    styleFreq.Add(ft_arr[i].Style, 1);
+                }
+
+                if (weightFreq.ContainsKey(ft_arr[i].Weight))
+                {
+                    weightFreq[ft_arr[i].Weight]++;
+                }
+                else
+                {
+                    weightFreq.Add(ft_arr[i].Weight, 1);
+                }
+
+                if (familyFreq.ContainsKey(ft_arr[i].Family))
+                {
+                    familyFreq[ft_arr[i].Family]++;
+                }
+                else
+                {
+                    familyFreq.Add(ft_arr[i].Family, 1);
+                }
+
+                if (chOffsetFreq.ContainsKey(ft_arr[i].CharOffset))
+                {
+                    chOffsetFreq[ft_arr[i].CharOffset]++;
+                }
+                else
+                {
+                    chOffsetFreq.Add(ft_arr[i].CharOffset, 1);
+                }
+
+                if (sizeFreq.ContainsKey(ft_arr[i].Size))
+                {
+                    sizeFreq[ft_arr[i].Size]++;
+                }
+                else
+                {
+                    sizeFreq.Add(ft_arr[i].Size, 1);
+                }
+
+                if (colorFreq.ContainsKey(ft_arr[i].Color))
+                {
+                    colorFreq[ft_arr[i].Color]++;
+                }
+                else
+                {
+                    colorFreq.Add(ft_arr[i].Color, 1);
+                }
+                
             }
 
             mostFreqStyle = styleFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -369,6 +418,45 @@ namespace DocEditor.Parser
         #endregion
 
         #region Public methods
+        public Selection selectionTrim(Selection s)
+        {
+            //setting the text pointers
+            int st = s.SelectedString.Length - s.SelectedString.TrimStart(' ').Length;
+            s.StartPointer += st;
+            int nd = s.SelectedString.Length - s.SelectedString.TrimEnd(' ').Length;
+            s.EndPointer -= nd;
+
+            s.SelectedString.Trim();
+
+            return s;
+        }
+
+        /// <summary>
+        /// The validation of the selected text after the trimming
+        /// </summary>
+        /// <param name="s">The selected text with its pointers</param>
+        /// <returns></returns>
+        public Selection selectedTextValidation(Selection s, string strBefore, string strAfter)
+        {
+            //check if the whole word is selected
+            if((strBefore == " " || strBefore == "" || strBefore.Any(c => char.IsSymbol(c))) 
+                && (strAfter == " " || strAfter == "" || strAfter.Any(c => char.IsSymbol(c))))
+            {
+                //check if it doesnt contains whitespaces (only one word)
+                if (s.SelectedString.Any(c => char.IsWhiteSpace(c)) || s.SelectedString.Any(c => char.IsSymbol(c)))
+                {
+                    s.SelectedString = null;
+                }
+            }
+            else
+            {
+                s.SelectedString = null;
+            }
+
+            //if wrong, s.SelectedString = null
+            return s;
+        }
+
         /// <summary>
         /// Adding a new element to the dictionary
         /// </summary>
@@ -378,7 +466,7 @@ namespace DocEditor.Parser
             fromStwfToDict(str);
             //if the string, formatting and so already exists then update dictionary content
             //search + DictClass.Freq++
-            int ind = Dict.FindIndex(x => x.Str == _dict.Str && x.Formatting.Equals(_dict.Formatting));
+            int ind = Dict.FindIndex(x => String.Equals(x.Str, _dict.Str) && Enumerable.SequenceEqual(x.Formatting, _dict.Formatting));
             if ( ind != -1)
             {
                 Dict[ind].Frequency++;
@@ -463,7 +551,7 @@ namespace DocEditor.Parser
 
             _dict.Str = "test";
             //arr[n]: Style Weight CharOffset Family Size Color
-            _dict.Formatting = new string[5]{ "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,_,_,_,_,_"};
+            _dict.Formatting = new string[5]{ "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "n,_,_,_,_,_"};
             _dict.Frequency = 3;
             Dict.Add(_dict);
 
@@ -475,7 +563,7 @@ namespace DocEditor.Parser
             _dict.Str = "tset";
 
             //arr[n]: Style Weight CharOffset Family Size Color
-            _dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,_,_,_,_,_" };
+            _dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,n,_,_,_,_" };
             _dict.Frequency = 4;
             Dict.Add(_dict);
 

@@ -10,7 +10,6 @@
         "dependencies": {
           "DocEditor.Model": "1.0.0",
           "DocEditor.Parser": "1.0.0",
-          "DocEditor.View": "1.0.0",
           "DocEditor.ViewModel": "1.0.0",
           "Microsoft.Xaml.Behaviors.Wpf": "1.1.39"
         },
@@ -37,15 +36,6 @@
         },
         "runtime": {
           "DocEditor.Parser.dll": {}
-        }
-      },
-      "DocEditor.View/1.0.0": {
-        "dependencies": {
-          "DocEditor.Model": "1.0.0",
-          "DocEditor.ViewModel": "1.0.0"
-        },
-        "runtime": {
-          "DocEditor.View.dll": {}
         }
       },
       "DocEditor.ViewModel/1.0.0": {
@@ -77,11 +67,6 @@
       "sha512": ""
     },
     "DocEditor.Parser/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "DocEditor.View/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
