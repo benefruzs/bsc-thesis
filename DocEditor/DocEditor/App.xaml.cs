@@ -106,6 +106,7 @@ namespace DocEditor
 
             _dictViewModel = new DictionaryViewModel(_model);
             _dictViewModel.AddToDictionary += new EventHandler(AddToDictionary_EventHandler);
+            _dictViewModel.SetDictFileName += new EventHandler(SetJsonFileName);
 
             _pageViewModel = new PageSettingsViewModel(_model);
             _pageViewModel.MorePageSettings += new EventHandler(openMorePageSettings);
@@ -285,6 +286,22 @@ namespace DocEditor
             
             _viewModel.CurrentView = _dictViewModel;
             setFocus();
+
+            //create the dictionary file if it does not exist
+            if(_parser.DictFileName == null)
+            {
+                CreateFileDialog _dialog = new CreateFileDialog
+                {
+                    DataContext = _dictViewModel
+                };
+                _dialog.ShowDialog();
+            }
+        }
+
+        private void SetJsonFileName(object sender, EventArgs e)
+        {
+            _parser.DictFileName = _dictViewModel.FileName + ".json";
+            System.Diagnostics.Debug.WriteLine(_parser.DictFileName);
         }
 
         #endregion
@@ -638,6 +655,7 @@ namespace DocEditor
             selectionOffsets.Start = contentStart.GetOffsetToPosition(_view.DocPaper.Selection.Start);
             selectionOffsets.End = contentStart.GetOffsetToPosition(_view.DocPaper.Selection.End);
 
+
             if (_view.DocPaper.Selection.Text != null && (selectionOffsets.Start != selectionOffsets.End))
             {
                 _model.select.AddToSelected(_view.DocPaper.Selection.Text, selectionOffsets.Start, selectionOffsets.End);
@@ -881,8 +899,27 @@ namespace DocEditor
                         System.Diagnostics.Debug.WriteLine(f.Str);
                         System.Diagnostics.Debug.WriteLine(f.Frequency.ToString());
                     }
-                    
+                    for (int i = 0; i < selectionOffsets.End -selectionOffsets.Start - 1; i++)
+                    {
+                        TextRange ttext = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.Start + i), contentStart.GetPositionAtOffset(selectionOffsets.Start + i + 1));
+                        System.Diagnostics.Debug.WriteLine(ttext.Text);
+                    }
 
+
+                    //System.Diagnostics.Debug.WriteLine("1: " + new TextRange(contentStart.GetPositionAtOffset(1), contentStart.GetPositionAtOffset(2)).Text);
+                    //System.Diagnostics.Debug.WriteLine("2: " + new TextRange(contentStart.GetPositionAtOffset(2), contentStart.GetPositionAtOffset(3)).Text);
+                    //System.Diagnostics.Debug.WriteLine("3: " + new TextRange(contentStart.GetPositionAtOffset(3), contentStart.GetPositionAtOffset(4)).Text);
+                    //System.Diagnostics.Debug.WriteLine("4: " + new TextRange(contentStart.GetPositionAtOffset(4), contentStart.GetPositionAtOffset(5)).Text);
+                    //System.Diagnostics.Debug.WriteLine("5: " + new TextRange(contentStart.GetPositionAtOffset(5), contentStart.GetPositionAtOffset(6)).Text);
+                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(6), contentStart.GetPositionAtOffset(7)).Text);
+                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(7), contentStart.GetPositionAtOffset(8)).Text);
+                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(8), contentStart.GetPositionAtOffset(9)).Text);
+                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(9), contentStart.GetPositionAtOffset(10)).Text);
+                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(10), contentStart.GetPositionAtOffset(11)).Text.ToString());
+                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(11), contentStart.GetPositionAtOffset(12)).Text);
+
+
+                    //_parser.dictToJson();
                     MessageBox.Show("Sikeresen hozzáadva a szótárhoz!", "Szótár", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -918,7 +955,7 @@ namespace DocEditor
             _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
             //initialize format array
-            _model.SelectionAndFormat.SelectedText.Format = new FormatModel[selectionOffsets.End - selectionOffsets.Start];
+            _model.SelectionAndFormat.SelectedText.Format = new FormatModel[_model.SelectionAndFormat.SelectedText.SelectedText.SelectedString.Length];
 
             int textp = 0;
             while (charSt != nd && charNd != null && charSt != null)
@@ -926,7 +963,7 @@ namespace DocEditor
                 
                 TextRange tr = new TextRange(charSt, charNd);
                 {
-                    if (tr.Text != string.Empty)
+                    if (tr.Text != string.Empty && (tr.Text.Any(c => char.IsSymbol(c)) || tr.Text.Any(c => char.IsLetterOrDigit(c))))
                     {
                         _model.SelectionAndFormat.SelectedText.Format[textp] = new FormatModel();
                         //add font family
@@ -946,7 +983,7 @@ namespace DocEditor
                         _model.SelectionAndFormat.SelectedText.Format[textp].Size = Convert.ToInt32(size);
 
                         //add font charoffset
-                        object offs = tr.GetPropertyValue(TextElement.FontWeightProperty);
+                        object offs = tr.GetPropertyValue(Inline.BaselineAlignmentProperty);
                         switch (offs.ToString())
                         {
                             case "Subscript":

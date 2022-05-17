@@ -12,11 +12,28 @@ namespace DocEditor.ViewModel
         #region Private fields and Public properties
         private DocEditorModel _model;
 
-        public DelegateCommand AddToDictionaryCommand { get; private set;}
+        private string _fileName;
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                if(value != null)
+                {
+                    _fileName = value;
+                    OnPropertyChanged("FileName");
+                }
+            }
+        }
+
+        public DelegateCommand AddToDictionaryCommand { get; private set; }
+
+        public DelegateCommand SetDictFileNameCommand {get; private set;}
         #endregion
 
         #region Events
         public event EventHandler AddToDictionary;
+        public event EventHandler SetDictFileName;
         #endregion
 
         #region Constructors
@@ -25,6 +42,7 @@ namespace DocEditor.ViewModel
             _model = model;
 
             AddToDictionaryCommand = new DelegateCommand(param => OnAddToDict());
+            SetDictFileNameCommand = new DelegateCommand(param => OnSetFileName());
         }
         #endregion
 
@@ -33,6 +51,12 @@ namespace DocEditor.ViewModel
         {
             if (AddToDictionary != null)
                 AddToDictionary(this, EventArgs.Empty);
+        }
+
+        private void OnSetFileName()
+        {
+            if (SetDictFileName != null)
+                SetDictFileName(this, EventArgs.Empty);
         }
         #endregion
     }

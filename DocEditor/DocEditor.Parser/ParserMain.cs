@@ -35,6 +35,7 @@ namespace DocEditor.Parser
         private string mostFreqColor;
 
         public List<DictClass> Dict;
+        public string DictFileName;
         #endregion
 
         #region Constructors
@@ -365,7 +366,7 @@ namespace DocEditor.Parser
             int i = 0;
             foreach(string d in formatArray)
             {
-                if (d == "_")
+                if (String.Equals(d, "_"))
                 {
                     formatArray[i] = def_arr[i];
                 }
@@ -373,16 +374,16 @@ namespace DocEditor.Parser
             }
     
             //FormatModel(string family, int size, string style, string weight, string color){}
-            FormatModel res = new FormatModel(charToStyle(char.Parse(formatArray[0])), charToWeight(char.Parse(formatArray[1])), charToOffset(char.Parse(formatArray[2])), formatArray[3], int.Parse(formatArray[4]), formatArray[5]);
+            FormatModel res = new FormatModel(charToStyle(char.Parse(formatArray[0])), charToWeight(char.Parse(formatArray[1])), charToOffset(char.Parse(formatArray[3])), formatArray[2], int.Parse(formatArray[4]), formatArray[5]);
             return res;
         }
 
 
-        private FormatModel[] DictFormatToStwfFormat(string[] df)
+        private FormatModel[] DictFormatToStwfFormat(string[] df, int len)
         {
             //df[0] - default formatting, where there is a '_' should be the format from here
             //arr[n]: Style Weight CharOffset Family Size Color
-            FormatModel[] fm = null;
+            FormatModel[] fm = new FormatModel[len];
             
             for(int i=0; i<df.Length-1; i++)
             {
@@ -394,7 +395,7 @@ namespace DocEditor.Parser
 
         private FormatModel[] fromDictToStwf(DictClass dc)
         {
-            return DictFormatToStwfFormat(dc.Formatting);
+            return DictFormatToStwfFormat(dc.Formatting, dc.Str.Length);
         }
 
         private int Levenshtein(string str, string dictStr)
@@ -426,7 +427,7 @@ namespace DocEditor.Parser
             int nd = s.SelectedString.Length - s.SelectedString.TrimEnd(' ').Length;
             s.EndPointer -= nd;
 
-            s.SelectedString.Trim();
+            s.SelectedString = s.SelectedString.Trim(' ');
 
             return s;
         }
@@ -439,11 +440,11 @@ namespace DocEditor.Parser
         public Selection selectedTextValidation(Selection s, string strBefore, string strAfter)
         {
             //check if the whole word is selected
-            if((strBefore == " " || strBefore == "" || strBefore.Any(c => char.IsSymbol(c))) 
-                && (strAfter == " " || strAfter == "" || strAfter.Any(c => char.IsSymbol(c))))
+            if((strBefore == " " || strBefore == "" || strBefore.Any(c => char.IsSymbol(c)) || strBefore.Any(c => char.IsPunctuation(c)))
+                && (strAfter == " " || strAfter == "" || strAfter.Any(c => char.IsSymbol(c)) || strAfter.Any(c => char.IsPunctuation(c))))
             {
                 //check if it doesnt contains whitespaces (only one word)
-                if (s.SelectedString.Any(c => char.IsWhiteSpace(c)) || s.SelectedString.Any(c => char.IsSymbol(c)))
+                if (s.SelectedString.Any(c => char.IsWhiteSpace(c)) || s.SelectedString.Any(c => char.IsSymbol(c)) || s.SelectedString.Any(c => char.IsPunctuation(c)))
                 {
                     s.SelectedString = null;
                 }
@@ -546,26 +547,26 @@ namespace DocEditor.Parser
         /// <param name="fileName">The name of the json file</param>
         public void dictToJson(string fileName)
         {
-            _dict = new DictClass(null, null, 0);
-            Dict = new List<DictClass>();
+            //_dict = new DictClass(null, null, 0);
+            //Dict = new List<DictClass>();
 
-            _dict.Str = "test";
-            //arr[n]: Style Weight CharOffset Family Size Color
-            _dict.Formatting = new string[5]{ "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "n,_,_,_,_,_"};
-            _dict.Frequency = 3;
-            Dict.Add(_dict);
+            //_dict.Str = "test";
+            ////arr[n]: Style Weight CharOffset Family Size Color
+            //_dict.Formatting = new string[5]{ "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "n,_,_,_,_,_"};
+            //_dict.Frequency = 3;
+            //Dict.Add(_dict);
 
-            _dict.Str = "stet";
-            //arr[n]: Style Weight CharOffset Family Size Color
-            _dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,_,_,_,_,_" };
-            _dict.Frequency = 6;
-            Dict.Add(_dict);
-            _dict.Str = "tset";
+            //_dict.Str = "stet";
+            ////arr[n]: Style Weight CharOffset Family Size Color
+            //_dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,_,_,_,_,_" };
+            //_dict.Frequency = 6;
+            //Dict.Add(_dict);
+            //_dict.Str = "tset";
 
-            //arr[n]: Style Weight CharOffset Family Size Color
-            _dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,n,_,_,_,_" };
-            _dict.Frequency = 4;
-            Dict.Add(_dict);
+            ////arr[n]: Style Weight CharOffset Family Size Color
+            //_dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,n,_,_,_,_" };
+            //_dict.Frequency = 4;
+            //Dict.Add(_dict);
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonStr = JsonSerializer.Serialize(Dict, options);
@@ -584,12 +585,31 @@ namespace DocEditor.Parser
         {
             string jsonStr = File.ReadAllText(fileName);
             Dict = JsonSerializer.Deserialize<List<DictClass>>(jsonStr)!;
-            System.Diagnostics.Debug.WriteLine(Dict[0].Str);
-            System.Diagnostics.Debug.WriteLine(Dict[0].Frequency);
-            foreach(string s in Dict[0].Formatting)
+            //System.Diagnostics.Debug.WriteLine(Dict[0].Str);
+            //System.Diagnostics.Debug.WriteLine(Dict[0].Frequency);
+            //foreach(string s in Dict[0].Formatting)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(s);
+            //}
+            
+        }
+
+        public void dictToJson()
+        {
+            try
             {
-                System.Diagnostics.Debug.WriteLine(s);
+                dictToJson(DictFileName);
             }
+            catch(System.ArgumentNullException e)
+            {
+
+            }
+                            
+        }
+
+        public void jsonToDict()
+        {
+            jsonToDict(DictFileName);
             
         }
         #endregion

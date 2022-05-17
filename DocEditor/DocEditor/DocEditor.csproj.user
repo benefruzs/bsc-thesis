@@ -10,6 +10,9 @@
     <Compile Update="BorderSettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="CreateFileDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="DictionaryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="BorderSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CreateFileDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DictionaryView.xaml">
