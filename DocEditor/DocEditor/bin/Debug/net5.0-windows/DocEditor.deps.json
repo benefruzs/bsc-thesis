@@ -40,7 +40,8 @@
       },
       "DocEditor.ViewModel/1.0.0": {
         "dependencies": {
-          "DocEditor.Model": "1.0.0"
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.Parser": "1.0.0"
         },
         "runtime": {
           "DocEditor.ViewModel.dll": {}

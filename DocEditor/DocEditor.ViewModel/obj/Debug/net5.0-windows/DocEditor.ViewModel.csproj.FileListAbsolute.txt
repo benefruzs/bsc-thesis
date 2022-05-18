@@ -13,3 +13,5 @@ C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.ViewModel\obj\Debug\net5
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.ViewModel\obj\Debug\net5.0-windows\DocEditor.ViewModel.dll
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.ViewModel\obj\Debug\net5.0-windows\ref\DocEditor.ViewModel.dll
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.ViewModel\obj\Debug\net5.0-windows\DocEditor.ViewModel.pdb
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.ViewModel\bin\Debug\net5.0-windows\DocEditor.Parser.dll
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor.ViewModel\bin\Debug\net5.0-windows\DocEditor.Parser.pdb

@@ -509,6 +509,58 @@ namespace DocEditor.Test
         }
         #endregion
 
+        #region Remove elements from the dictionary
+        [TestMethod]
+        public void RemoveTest1()
+        {
+            _parser.Dict = generateDictWithMoreElements();
+            Selection testSel = new Selection();
+            testSel.SelectedString = "test";
+            testSel.StartPointer = 2;
+            testSel.EndPointer = 6;
+
+            FormatModel fm0 = new FormatModel();
+            FormatModel fm1 = new FormatModel();
+            FormatModel fm2 = new FormatModel();
+            FormatModel fm3 = new FormatModel();
+            FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
+            Stwf addToDict = new Stwf(testSel, fm);
+
+            _parser.toDictionary(addToDict);
+
+            Assert.AreEqual(4, _parser.Dict.Count);
+
+            _parser.removeElementFromDictionary(_parser.Dict[0]);
+
+            Assert.AreEqual(3, _parser.Dict.Count);
+        }
+
+        [TestMethod]
+        public void RemoveTest2()
+        {
+            _parser.Dict = generateDictWithMoreElements();
+            Selection testSel = new Selection();
+            testSel.SelectedString = "test";
+            testSel.StartPointer = 2;
+            testSel.EndPointer = 6;
+
+            FormatModel fm0 = new FormatModel();
+            FormatModel fm1 = new FormatModel();
+            FormatModel fm2 = new FormatModel();
+            FormatModel fm3 = new FormatModel();
+            FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
+            Stwf addToDict = new Stwf(testSel, fm);
+
+            _parser.toDictionary(addToDict);
+
+            Assert.AreEqual(4, _parser.Dict.Count);
+
+            _parser.removeElementFromDictionary(1);
+
+            Assert.AreEqual(3, _parser.Dict.Count);
+        }
+        #endregion
+
         #region Private methods
         private List<DictClass> generateDictWithOneElement()
         {

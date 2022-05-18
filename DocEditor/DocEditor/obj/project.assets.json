@@ -44,7 +44,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "DocEditor.Model": "1.0.0"
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.Parser": "1.0.0"
         },
         "compile": {
           "bin/placeholder/DocEditor.ViewModel.dll": {}

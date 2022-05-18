@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v5.0": {
       "DocEditor.ViewModel/1.0.0": {
         "dependencies": {
-          "DocEditor.Model": "1.0.0"
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.Parser": "1.0.0"
         },
         "runtime": {
           "DocEditor.ViewModel.dll": {}
@@ -17,6 +18,14 @@
       "DocEditor.Model/1.0.0": {
         "runtime": {
           "DocEditor.Model.dll": {}
+        }
+      },
+      "DocEditor.Parser/1.0.0": {
+        "dependencies": {
+          "DocEditor.Model": "1.0.0"
+        },
+        "runtime": {
+          "DocEditor.Parser.dll": {}
         }
       }
     }
@@ -28,6 +37,11 @@
       "sha512": ""
     },
     "DocEditor.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocEditor.Parser/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

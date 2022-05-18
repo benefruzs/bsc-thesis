@@ -11,6 +11,22 @@
         "runtime": {
           "bin/placeholder/DocEditor.Model.dll": {}
         }
+      },
+      "DocEditor.Parser/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DocEditor.Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DocEditor.Parser.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DocEditor.Parser.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       }
     }
   },
@@ -19,11 +35,17 @@
       "type": "project",
       "path": "../DocEditor.Model/DocEditor.Model.csproj",
       "msbuildProject": "../DocEditor.Model/DocEditor.Model.csproj"
+    },
+    "DocEditor.Parser/1.0.0": {
+      "type": "project",
+      "path": "../DocEditor.Parser/DocEditor.Parser.csproj",
+      "msbuildProject": "../DocEditor.Parser/DocEditor.Parser.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
-      "DocEditor.Model >= 1.0.0"
+      "DocEditor.Model >= 1.0.0",
+      "DocEditor.Parser >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -60,6 +82,9 @@
           "projectReferences": {
             "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
               "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+            },
+            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
             }
           }
         }

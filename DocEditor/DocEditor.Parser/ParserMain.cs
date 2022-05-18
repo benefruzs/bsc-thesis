@@ -501,6 +501,31 @@ namespace DocEditor.Parser
         }
 
         /// <summary>
+        /// Remove elements from the dictionary
+        /// </summary>
+        /// <param name="ind"></param>
+        public void removeElementFromDictionary(int ind)
+        {
+            if (Dict.Count > ind)
+            {
+                Dict.RemoveAt(ind);
+            }
+        }
+
+        public void removeElementFromDictionary(DictClass dc)
+        {
+            if (Dict.Contains(dc))
+            {
+                Dict.Remove(dc);
+            }
+        }
+
+        public FormatModel[] getFormatting(DictClass dc)
+        {
+            return fromDictToStwf(dc);
+        }
+
+        /// <summary>
         /// Gets all the possible dictionary elements which has different formattings to the same text
         /// </summary>
         /// <param name="str"></param>

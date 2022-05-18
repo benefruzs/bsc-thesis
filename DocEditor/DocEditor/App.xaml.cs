@@ -39,6 +39,9 @@ namespace DocEditor
         private List<FlowDocument> DocPapers; //the current richtextbox
 
         private SelectionOffsets selectionOffsets;
+
+        private CreateFileDialog _createJsonDialog;
+
         #endregion
 
         #region Application startup
@@ -104,9 +107,11 @@ namespace DocEditor
             _ftViewModel.SetSuperScript += new EventHandler(Selection_SetSuperScript);
             _ftViewModel.SetSubScript += new EventHandler(Selection_SetSubScript);
 
-            _dictViewModel = new DictionaryViewModel(_model);
+            _dictViewModel = new DictionaryViewModel(_model, _parser);
             _dictViewModel.AddToDictionary += new EventHandler(AddToDictionary_EventHandler);
             _dictViewModel.SetDictFileName += new EventHandler(SetJsonFileName);
+            _dictViewModel.SelectedDictElementChanged += new EventHandler(DictPreview);
+            _dictViewModel.RemoveEvent += new EventHandler(RemoveFromDictionary);
 
             _pageViewModel = new PageSettingsViewModel(_model);
             _pageViewModel.MorePageSettings += new EventHandler(openMorePageSettings);
@@ -285,23 +290,27 @@ namespace DocEditor
         {
             
             _viewModel.CurrentView = _dictViewModel;
+           
             setFocus();
 
             //create the dictionary file if it does not exist
             if(_parser.DictFileName == null)
             {
-                CreateFileDialog _dialog = new CreateFileDialog
+                _createJsonDialog = new CreateFileDialog
                 {
                     DataContext = _dictViewModel
                 };
-                _dialog.ShowDialog();
+                _createJsonDialog.ShowDialog();
             }
+
+           
         }
 
         private void SetJsonFileName(object sender, EventArgs e)
         {
             _parser.DictFileName = _dictViewModel.FileName + ".json";
             System.Diagnostics.Debug.WriteLine(_parser.DictFileName);
+            _createJsonDialog.Close();
         }
 
         #endregion
@@ -899,28 +908,22 @@ namespace DocEditor
                         System.Diagnostics.Debug.WriteLine(f.Str);
                         System.Diagnostics.Debug.WriteLine(f.Frequency.ToString());
                     }
-                    for (int i = 0; i < selectionOffsets.End -selectionOffsets.Start - 1; i++)
+                    for (int i = 0; i < selectionOffsets.End - selectionOffsets.Start - 1; i++)
                     {
                         TextRange ttext = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.Start + i), contentStart.GetPositionAtOffset(selectionOffsets.Start + i + 1));
                         System.Diagnostics.Debug.WriteLine(ttext.Text);
                     }
 
+                    _parser.dictToJson();
 
-                    //System.Diagnostics.Debug.WriteLine("1: " + new TextRange(contentStart.GetPositionAtOffset(1), contentStart.GetPositionAtOffset(2)).Text);
-                    //System.Diagnostics.Debug.WriteLine("2: " + new TextRange(contentStart.GetPositionAtOffset(2), contentStart.GetPositionAtOffset(3)).Text);
-                    //System.Diagnostics.Debug.WriteLine("3: " + new TextRange(contentStart.GetPositionAtOffset(3), contentStart.GetPositionAtOffset(4)).Text);
-                    //System.Diagnostics.Debug.WriteLine("4: " + new TextRange(contentStart.GetPositionAtOffset(4), contentStart.GetPositionAtOffset(5)).Text);
-                    //System.Diagnostics.Debug.WriteLine("5: " + new TextRange(contentStart.GetPositionAtOffset(5), contentStart.GetPositionAtOffset(6)).Text);
-                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(6), contentStart.GetPositionAtOffset(7)).Text);
-                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(7), contentStart.GetPositionAtOffset(8)).Text);
-                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(8), contentStart.GetPositionAtOffset(9)).Text);
-                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(9), contentStart.GetPositionAtOffset(10)).Text);
-                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(10), contentStart.GetPositionAtOffset(11)).Text.ToString());
-                    //System.Diagnostics.Debug.WriteLine("xx: " + new TextRange(contentStart.GetPositionAtOffset(11), contentStart.GetPositionAtOffset(12)).Text);
+                    //list update
+                    _dictViewModel.updateDictList();
+                    foreach (var f in _dictViewModel.DictionaryElements)
+                    {
+                        System.Diagnostics.Debug.WriteLine(f);
+                    }
 
-
-                    //_parser.dictToJson();
-                    MessageBox.Show("Sikeresen hozzáadva a szótárhoz!", "Szótár", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show("Sikeresen hozzáadva a szótárhoz!", "Szótár", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
@@ -928,9 +931,62 @@ namespace DocEditor
                 //only the selected text can be added to the dictionary error message window
                 MessageBox.Show("Szótárhoz hozzáadáshoz jelöljön ki szöveget!", "Szótár hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            setFocus();
 
             //calling the parser algorithms
         }
+        private void DictPreview(object sender, EventArgs e)
+        {
+            if (_dictViewModel.SelectedDictElement != null)
+            {
+                _dictViewModel.DictString = _dictViewModel.SelectedDictElement.Str;
+                Selection sel = new Selection();
+                Stwf st = new Stwf(sel, new FormatModel[_dictViewModel.DictString.Length]);
+
+                FormatModel[] fm = _parser.getFormatting(_dictViewModel.SelectedDictElement);
+
+                //fm[0..str.length] -> fm[i] kell az i-edik karakterre rárakni
+                //fm[i].style, fm[i].weight, fm[i].family, ...
+
+                //végig kell iterálni az rtb-ben levő szövegen
+                //elejétől az str.lengthig
+
+                //TextPointer contentStart = _dictView.PreviewRtb.Document.ContentStart;
+                //TextPointer contentEnd = _dictView.PreviewRtb.Document.ContentEnd;
+                //TextRange tr = new TextRange(_dictView.PreviewRtb.Document.ContentStart, _dictView.PreviewRtb.Document.ContentEnd);//_dictView.PreviewRtb.Document.ContentStart.GetNextInsertionPosition(LogicalDirection.Forward));
+
+                //_view.ToolGrid.ContCtrl
+
+                //System.Diagnostics.Debug.WriteLine(tr.Text);
+
+                //tr.ApplyPropertyValue(TextElement.FontFamilyProperty, value: fm[0].Family);
+                //tr.ApplyPropertyValue(TextElement.FontStyleProperty, value: fm[0].Style);
+                //tr.ApplyPropertyValue(TextElement.ForegroundProperty, value: fm[0].Color);
+                _dictViewModel.DisplayText(fm);
+
+            }
+            else
+            {
+                _dictViewModel.DictString = "";
+            }
+            setFocus();
+        }
+
+        private void RemoveFromDictionary(object sender, EventArgs e)
+        {
+            _parser.removeElementFromDictionary(_dictViewModel.SelectedDictElement);
+            _dictViewModel.DictString = "";
+
+            //list update
+            _dictViewModel.updateDictList();
+
+            //update json
+            _parser.dictToJson();
+
+            setFocus();
+        }
+
+
         #endregion
 
         #region Private methods
@@ -998,8 +1054,8 @@ namespace DocEditor
                         }
                         
                         //add color
-                        //object clr = tr.GetPropertyValue(Color);
-                        _model.SelectionAndFormat.SelectedText.Format[textp].Color = "Black";
+                        object clr = tr.GetPropertyValue(TextElement.ForegroundProperty);
+                        _model.SelectionAndFormat.SelectedText.Format[textp].Color = clr.ToString();
 
                         charSt = charNd;
 
@@ -1016,6 +1072,7 @@ namespace DocEditor
                 textp++;
             }
         }
+
 
         private void setStyle()
         {

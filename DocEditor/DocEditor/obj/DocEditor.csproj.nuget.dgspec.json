@@ -157,6 +157,9 @@
             "projectReferences": {
               "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
                 "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+              },
+              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
               }
             }
           }
