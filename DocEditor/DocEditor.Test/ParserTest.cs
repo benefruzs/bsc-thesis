@@ -570,6 +570,29 @@ namespace DocEditor.Test
             Assert.AreEqual(_parser.Levenshtein("test", "test"), 0);
             Assert.AreEqual(_parser.Levenshtein("sitting", "kitten"), 3);
         }
+
+        [TestMethod]
+        public void ContainsElementTrueTest()
+        {
+            _parser.Dict = GenerateDictWithMoreElements();
+
+            Assert.IsTrue(_parser.ContainsElement("test"));
+            Assert.IsTrue(_parser.ContainsElement("Test"));
+            Assert.IsTrue(_parser.ContainsElement("TEST"));
+            Assert.IsTrue(_parser.ContainsElement("stet"));
+            Assert.IsTrue(_parser.ContainsElement("tset"));
+        }
+
+        [TestMethod]
+        public void ContainsElementFalseTest()
+        {
+            _parser.Dict = GenerateDictWithMoreElements();
+
+            Assert.IsFalse(_parser.ContainsElement("tttt"));
+            Assert.IsFalse(_parser.ContainsElement("Ttttt"));
+            Assert.IsFalse(_parser.ContainsElement("abcdef"));
+            Assert.IsFalse(_parser.ContainsElement("t"));
+        }
         #endregion
 
         #region Private methods
