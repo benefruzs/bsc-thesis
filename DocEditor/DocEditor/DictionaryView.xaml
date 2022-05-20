@@ -72,6 +72,7 @@
                         <FlowDocument>
                             <Paragraph TextAlignment="Center">
                                 <Run Text="{Binding RunText}" BaselineAlignment="{Binding BLineAlign}"/>
+                                
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>

@@ -18,9 +18,9 @@ namespace DocEditor.ViewModel
 
         private string _sFontSize;
         public string SFontSize
-        { 
-            get { return _sFontSize; } 
-            set 
+        {
+            get { return _sFontSize; }
+            set
             {
                 if (value != _sFontSize)
                 {
@@ -28,7 +28,7 @@ namespace DocEditor.ViewModel
                     _sFontSize = value;
                     OnPropertyChanged("SFontSize");
                 }
-            } 
+            }
         }
 
         private string _sFontFamily;
@@ -46,7 +46,33 @@ namespace DocEditor.ViewModel
             }
         }
 
-        public List<string> FontStyles { get; private set; }
+        private string _selectedStyle;
+        public string SelectedStyle
+        {
+            get { return _selectedStyle; }
+            set
+            {
+                if (value != _selectedStyle)
+                {
+                    _selectedStyle = value;
+                    OnPropertyChanged("SelectedStyle");
+                }
+            }
+        }
+
+        private List<string> _fontStyles;
+        public List<string> FontStyles
+        {
+            get { return _fontStyles; }
+            set
+            {
+                if(value != _fontStyles)
+                {
+                    _fontStyles = value;
+                    OnPropertyChanged("FontStyles");
+                }
+            }
+        }
 
         private string _sTextColor;
         public string STextColor
@@ -85,6 +111,10 @@ namespace DocEditor.ViewModel
         public DelegateCommand JustifyAlignCommand { get; private set; }
         public DelegateCommand RightAlignCommand { get; private set; }
 
+        public DelegateCommand StyleChangedCommand {get; private set;}
+        public DelegateCommand AddNewStyleCommand { get; private set; }
+        public DelegateCommand DeleteFormattingCommand { get; private set; }
+
 
         public event EventHandler OpenColorPicker;
         public event EventHandler OpenBorder;
@@ -103,6 +133,10 @@ namespace DocEditor.ViewModel
         public event EventHandler CenterAlign;
         public event EventHandler JustifyAlign;
         public event EventHandler RightAlign;
+
+        public event EventHandler StyleChanged;
+        public event EventHandler NewStyleAdded;
+        public event EventHandler DeleteFormatting;
         #endregion
 
         #region Constructors
@@ -128,6 +162,10 @@ namespace DocEditor.ViewModel
             JustifyAlignCommand = new DelegateCommand(param => OnSetJustifyAlign());
             RightAlignCommand = new DelegateCommand(param => OnSetRightAlign());
 
+            StyleChangedCommand = new DelegateCommand(param => OnStyleSelect());
+            AddNewStyleCommand = new DelegateCommand(param => OnNewStyle());
+            DeleteFormattingCommand = new DelegateCommand(param => OnDeleteFormatting());
+
             FontSizes = new List<double>();
             FontStyles = new List<string>();
             //FormatModel x = _model.FormatText;
@@ -136,100 +174,113 @@ namespace DocEditor.ViewModel
             _sTextColor = _model.FormatText.Color;
 
             FontSizes = _model.FontSizes;
-            FontStyles = _model.FontStyles.Keys.ToList<string>();
+            UpdateStyleList();
             Console.WriteLine();
+        }
+        #endregion
+
+        #region Public methods
+        public void UpdateStyleList()
+        {
+            System.Diagnostics.Debug.WriteLine(_model.SelectionAndFormat);
+            _fontStyles = new List<string>();
+            foreach (var f in _model.FontStyles)
+            {
+                _fontStyles.Add(f.Key);
+            }
+
+            //_fontStyles = _model.FontStyles.Keys.ToList<string>();
+            OnPropertyChanged("FontStyles");
+
         }
         #endregion
 
         #region Event methods
         private void OnSetBold()
         {
-            if (SetBold != null)
-                SetBold(this, EventArgs.Empty);
+            SetBold?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSetItalic()
         {
-            if (SetItalic != null)
-                SetItalic(this, EventArgs.Empty);
+            SetItalic?.Invoke(this, EventArgs.Empty);
         }
         private void OnSetUnderLine()
         {
-            if (SetUnderLine != null)
-                SetUnderLine(this, EventArgs.Empty);
+            SetUnderLine?.Invoke(this, EventArgs.Empty);
         }
         private void OnSetStrikeThrough()
         {
-            if (SetStrikeThrough != null)
-                SetStrikeThrough(this, EventArgs.Empty);
+            SetStrikeThrough?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSetSuperScript()
         {
-            if (SetSuperScript != null)
-                SetSuperScript(this, EventArgs.Empty);
+            SetSuperScript?.Invoke(this, EventArgs.Empty);
         }
         private void OnSetSubScript()
         {
-            if (SetSubScript != null)
-                SetSubScript(this, EventArgs.Empty);
+            SetSubScript?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSetLeftAlign()
         {
-            if (LeftAlign != null)
-                LeftAlign(this, EventArgs.Empty);
+            LeftAlign?.Invoke(this, EventArgs.Empty);
         }
         private void OnSetCenterAlign()
         {
-            if (CenterAlign != null)
-                CenterAlign(this, EventArgs.Empty);
+            CenterAlign?.Invoke(this, EventArgs.Empty);
         }
         private void OnSetJustifyAlign()
         {
-            if (JustifyAlign != null)
-                JustifyAlign(this, EventArgs.Empty);
+            JustifyAlign?.Invoke(this, EventArgs.Empty);
         }
         private void OnSetRightAlign()
         {
-            if (RightAlign != null)
-                RightAlign(this, EventArgs.Empty);
+            RightAlign?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnColorPicker()
         {
-            if (OpenColorPicker != null)
-                OpenColorPicker(this, EventArgs.Empty);
+            OpenColorPicker?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnOpenBorder()
         {
-            if (OpenBorder != null)
-                OpenBorder(this, EventArgs.Empty);
+            OpenBorder?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnMoreFormatting()
         {
-            if (AddMoreFormatting != null)
-                AddMoreFormatting(this, EventArgs.Empty);
+            AddMoreFormatting?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnMoreSpacing()
         {
-            if (AddMoreSpacing != null)
-                AddMoreSpacing(this, EventArgs.Empty);
+            AddMoreSpacing?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnFontFamilyChanged()
         {
-            if (FontFamilyChanged != null)
-                FontFamilyChanged(this, EventArgs.Empty);
+            FontFamilyChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnFontSizeChanged()
         {
-            if (FontSizeChanged != null)
-                FontSizeChanged(this, EventArgs.Empty);
+            FontSizeChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnStyleSelect()
+        {
+            StyleChanged?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnNewStyle()
+        {
+            NewStyleAdded?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnDeleteFormatting()
+        {
+            DeleteFormatting?.Invoke(this, EventArgs.Empty);
         }
         #endregion
     }

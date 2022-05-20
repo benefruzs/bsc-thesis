@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DocEditor.Model
 {
@@ -102,13 +103,13 @@ namespace DocEditor.Model
         public Dictionary<string, FormatModel> FontStyles
         {
             get { return _fontStyles; }
-            private set { _fontStyles = value; }
+            set { _fontStyles = value; }
         }
 
         /// <summary>
         /// Empty file name or empty file path
         /// </summary>
-        public bool isEmpty
+        public bool IsEmpty
         {
             get
             {
@@ -117,8 +118,8 @@ namespace DocEditor.Model
             }
         }
 
-        public Stwf selectForParser;
-        public List<Stwf> listForParser;
+        public Stwf SelectForParser;
+        public List<Stwf> ListForErrorCorrect;
 
         #endregion
 
@@ -141,19 +142,33 @@ namespace DocEditor.Model
 
             _fileName = "Untitled";
 
-            PageWidth = 500;
+            PageWidth = 595;
             PageHeight = PageWidth/7 * 10;
 
             ActualPageHeight = PageHeight - (_margin.Bottom + _margin.Top);
 
-            createDefaultFontStyles();
+            CreateDefaultFontStyles();
 
-            selectForParser = new Stwf();
-            listForParser = new List<Stwf>();
+            //selectForParser = new Stwf();
+            ListForErrorCorrect = new List<Stwf>();
         }
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Create the default formatting list
+        /// </summary>
+        private void CreateDefaultFontStyles()
+        {
+            _fontStyles = new Dictionary<string, FormatModel>();
+            FormatModel Style1 = new FormatModel("Arial", 12, "Normal", "Normal", "Black");
+            _fontStyles.Add("Alap", Style1);
+            FormatModel Style2 = new FormatModel("Arial", 32, "Normal", "Bold", "Black");
+            _fontStyles.Add("Címek", Style2);
+            FormatModel Style3 = new FormatModel("Arial", 18, "Normal", "Bold", "Skyblue");
+            _fontStyles.Add("Alcímek", Style3);
+        }
 
         #endregion
 
@@ -161,7 +176,7 @@ namespace DocEditor.Model
         /// <summary>
         /// Setting the default foratting for the document startup
         /// </summary>
-        public void setDefaultFormatting()
+        public void SetDefaultFormatting()
         {
             _formatText.SetDefaultFormatting();
             _align = Alignment.Center;
@@ -180,20 +195,116 @@ namespace DocEditor.Model
             return null;
         }
 
-        public void createDefaultFontStyles()
+        /// <summary>
+        /// Add new element to the formatting style list
+        /// </summary>
+        /// <param name="fm">The new formatting</param>
+        public void AddNewFormatStyle(FormatModel fm)
         {
-            _fontStyles = new Dictionary<string, FormatModel>();
-            FormatModel Style1 = new FormatModel("Arial", 12, "Normal", "Normal", "Black");
-            _fontStyles.Add("Alap", Style1);
-            FormatModel Style2 = new FormatModel("Arial", 32, "Normal", "Bold", "Black");
-            _fontStyles.Add("Címek", Style2);
-            FormatModel Style3 = new FormatModel("Arial", 18, "Normal", "Bold", "Skyblue");
-            _fontStyles.Add("Alcímek", Style3);
+            string styleName = "Stílus" + (_fontStyles.Count - 3).ToString();
+            _fontStyles.Add(styleName, fm);
         }
 
-        public void newSelectForFormatting(Selection sel, Alignment al, FormatModel[] fm)
+        public void NewSelectForFormatting(Selection sel, Alignment al, FormatModel[] fm)
         {
             SelectionAndFormat = new SelectionAndFormat(sel, al, fm);
+        }
+
+        /// <summary>
+        /// Get the most frequent formatting styles for a word's character's formatting
+        /// </summary>
+        public void GetFormatting()
+        {
+            if (SelectionAndFormat != null) {
+                int len = SelectionAndFormat.SelectedText.Format.Length;
+                var styleFreq = new Dictionary<string, int>(len);
+                var weightFreq = new Dictionary<string, int>(len);
+                var familyFreq = new Dictionary<string, int>(len);
+                var chOffsetFreq = new Dictionary<int, int>(len);
+                var sizeFreq = new Dictionary<int, int>(len);
+                var colorFreq = new Dictionary<string, int>();
+
+                for (int i = 0; i < len; i++)
+                {
+                    if (styleFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Style))
+                    {
+                        styleFreq[SelectionAndFormat.SelectedText.Format[i].Style]++;
+                    }
+                    else
+                    {
+                        styleFreq.Add(SelectionAndFormat.SelectedText.Format[i].Style, 1);
+                    }
+
+                    if (weightFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Weight))
+                    {
+                        weightFreq[SelectionAndFormat.SelectedText.Format[i].Weight]++;
+                    }
+                    else
+                    {
+                        weightFreq.Add(SelectionAndFormat.SelectedText.Format[i].Weight, 1);
+                    }
+
+                    if (familyFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Family))
+                    {
+                        familyFreq[SelectionAndFormat.SelectedText.Format[i].Family]++;
+                    }
+                    else
+                    {
+                        familyFreq.Add(SelectionAndFormat.SelectedText.Format[i].Family, 1);
+                    }
+
+                    if (chOffsetFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].CharOffset))
+                    {
+                        chOffsetFreq[SelectionAndFormat.SelectedText.Format[i].CharOffset]++;
+                    }
+                    else
+                    {
+                        chOffsetFreq.Add(SelectionAndFormat.SelectedText.Format[i].CharOffset, 1);
+                    }
+
+                    if (sizeFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Size))
+                    {
+                        sizeFreq[SelectionAndFormat.SelectedText.Format[i].Size]++;
+                    }
+                    else
+                    {
+                        sizeFreq.Add(SelectionAndFormat.SelectedText.Format[i].Size, 1);
+                    }
+
+                    if (colorFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Color))
+                    {
+                        colorFreq[SelectionAndFormat.SelectedText.Format[i].Color]++;
+                    }
+                    else
+                    {
+                        colorFreq.Add(SelectionAndFormat.SelectedText.Format[i].Color, 1);
+                    }
+                }
+
+                SelectionAndFormat.Formatting.Style = styleFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                SelectionAndFormat.Formatting.Weight = weightFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                SelectionAndFormat.Formatting.Family = familyFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                SelectionAndFormat.Formatting.CharOffset = chOffsetFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                SelectionAndFormat.Formatting.Size = sizeFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                SelectionAndFormat.Formatting.Color = colorFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            }
+
+        }
+
+        /// <summary>
+        /// Method to reverse a string
+        /// </summary>
+        /// <param name="word">The string</param>
+        /// <returns></returns>
+        public string ReverseWord(string word)
+        {
+            char[] strToReverse = word.ToCharArray();
+            word = "";
+            for(int i=strToReverse.Length-1; i >=0; i--)
+            {
+                word += strToReverse[i];
+            }
+            return word;
         }
         #endregion
     }

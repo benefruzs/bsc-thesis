@@ -15,12 +15,6 @@ namespace DocEditor.Model
         /// <summary>
         /// The selected text
         /// </summary>
-        /*private Selection _selectedText;
-        public Selection SelectedText 
-        { 
-            get { return _selectedText; }
-            set { if (_selectedText != value) { _selectedText = value; } }
-        }*/
 
         private Stwf _selectedText;
         public Stwf SelectedText
@@ -64,26 +58,33 @@ namespace DocEditor.Model
             _align = al;
             _formatting = new FormatModel();
         }
+
+        public SelectionAndFormat(Selection select)
+        {
+            _selectedText = new Stwf(select, null);
+            _formatting = new FormatModel();
+            _align = Alignment.Left;
+        }
         #endregion
 
         #region Public methods
         /// <summary>
         /// Method for deleting all the formatting
         /// </summary>
-        public void DeleteAllFormatting(FormatModel form)
+        public void DeleteAllFormatting()
         {
-            _formatting = form;
+            _formatting.SetDefaultFormatting();
         }
 
         /// <summary>
         /// Method for setting the fontweight to bold
         /// </summary>
-        public void setBold()
+        public void SetBold()
         {
             _formatting.Weight = "Bold";
         }
 
-        public void setWeight(string weight)
+        public void SetWeight(string weight)
         {
             _formatting.Weight = weight;
         }
@@ -91,30 +92,30 @@ namespace DocEditor.Model
         /// <summary>
         /// Style changing methods
         /// </summary>
-        public void setItalic()
+        public void SetItalic()
         {
             _formatting.Style = "Italic";
         }
 
-        public void setOblique()
+        public void SetOblique()
         {
             _formatting.Style = "Oblique";
         }
 
         /// <summary>
-        /// Setting the charachter offset
+        /// Setting the charachter offSet
         /// </summary>
-        public void setSubscript()
+        public void SetSubscript()
         {
             _formatting.CharOffset = -2;
         }
 
-        public void setSuperscript()
+        public void SetSuperscript()
         {
             _formatting.CharOffset = 2;
         }
 
-        public void deleteSubSuperscript()
+        public void DeleteSubSuperscript()
         {
             _formatting.CharOffset = 1;
         }
@@ -122,7 +123,7 @@ namespace DocEditor.Model
         /// <summary>
         /// Delete the added fontstyle
         /// </summary>
-        public void deleteStyle()
+        public void DeleteStyle()
         {
             _formatting.Style = "Normal";
         }
@@ -130,7 +131,7 @@ namespace DocEditor.Model
         /// <summary>
         /// Delete the added fontweight
         /// </summary>
-        public void deleteWeight()
+        public void DeleteWeight()
         {
             _formatting.Weight = "Normal";
         }
@@ -139,7 +140,7 @@ namespace DocEditor.Model
         /// Change the fontsize
         /// </summary>
         /// <param name="si">new fontsize</param>
-        public void changeSize(int si)
+        public void ChangeSize(int si)
         {
             _formatting.Size = si;
         }
@@ -148,7 +149,7 @@ namespace DocEditor.Model
         /// Change the font color
         /// </summary>
         /// <param name="col">new color</param>
-        public void changeColor(string col)
+        public void ChangeColor(string col)
         {
             _formatting.Color = "#" + col;
         }
@@ -157,7 +158,7 @@ namespace DocEditor.Model
         /// Change the font family
         /// </summary>
         /// <param name="fam">new font family</param>
-        public void changeFont(string fam)
+        public void ChangeFont(string fam)
         {
             _formatting.Family = fam;
         }
@@ -165,7 +166,7 @@ namespace DocEditor.Model
         /// <summary>
         /// Setting the alignment for the selected string to left alignment
         /// </summary>
-        public void setLeftAlignment()
+        public void SetLeftAlignment()
         {
             _align = Alignment.Left;
         }
@@ -173,7 +174,7 @@ namespace DocEditor.Model
         /// <summary>
         /// Setting the alignment for the selected string to center alignment
         /// </summary>
-        public void setCenterAlignment()
+        public void SetCenterAlignment()
         {
             _align = Alignment.Center;
         }
@@ -181,7 +182,7 @@ namespace DocEditor.Model
         /// <summary>
         /// Setting the alignment for the selected string to Justify alignment
         /// </summary>
-        public void setJustifyAlignment()
+        public void SetJustifyAlignment()
         {
             _align = Alignment.Justify;
         }
@@ -189,9 +190,25 @@ namespace DocEditor.Model
         /// <summary>
         /// Setting the alignment for the selected string to right alignment
         /// </summary>
-        public void setRightAlignment()
+        public void SetRightAlignment()
         {
             _align = Alignment.Right;
+        }
+
+        public void SetSelectedString(string str)
+        {
+            _selectedText.SelectedText.SelectedString = str;
+            _selectedText.SelectedText.EndPointer = _selectedText.SelectedText.StartPointer + str.Length;
+        }
+
+        public string GetSelectedText()
+        {
+            return _selectedText.SelectedText.SelectedString;
+        }
+
+        public Selection GetSelection()
+        {
+            return _selectedText.SelectedText;
         }
         #endregion
     }

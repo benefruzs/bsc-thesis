@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using DocEditor.Model;
 
 namespace DocEditor.ViewModel
@@ -20,17 +21,17 @@ namespace DocEditor.ViewModel
         /// The current view for the right side control
         /// </summary>
         private ViewModelBase _currentView;
-        public ViewModelBase CurrentView 
-        { 
-            get { return _currentView; } 
-            set 
-            { 
+        public ViewModelBase CurrentView
+        {
+            get { return _currentView; }
+            set
+            {
                 if (value != _currentView)
                 {
                     _currentView = value;
                     OnPropertyChanged(nameof(CurrentView));
-                } 
-            }    
+                }
+            }
         }
 
         //FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}"
@@ -41,11 +42,11 @@ namespace DocEditor.ViewModel
         public string FC { get; set; }
         public Thickness PageMargins { get; set; }
         public string DefAlignment { get; set; }
-        public int PageHeight { 
-            get { return _model.PageHeight; } 
+        public int PageHeight {
+            get { return _model.PageHeight; }
             set { _model.PageHeight = value; OnPropertyChanged(); } }
-        public int PageWidth { 
-            get { return _model.PageWidth; } 
+        public int PageWidth {
+            get { return _model.PageWidth; }
             set { _model.PageWidth = value; OnPropertyChanged(); } }
 
         public string DocName { get; set; }
@@ -80,6 +81,8 @@ namespace DocEditor.ViewModel
         public DelegateCommand MaximizeHomeCommand { get; private set; }
         public DelegateCommand NewEmptyFileCommand { get; private set; }
 
+
+
         /// <summary>
         /// Right side control pages commands
         /// </summary>
@@ -95,8 +98,10 @@ namespace DocEditor.ViewModel
         public DelegateCommand DeleteSelectionCommand { get; private set; }
         public DelegateCommand SelectAllTextCommand { get; private set; }
         public DelegateCommand NewPlainDocumentCommand { get; private set; }
+        public DelegateCommand OpenDictionaryFileCommand { get; private set; }
 
         public DelegateCommand SetSelectionCommand { get; private set; }
+        public DelegateCommand AutoFormattingCommand {get; private set;}
         public DelegateCommand UpdateRTBCommand { get; private set; }
         public DelegateCommand GotoFirstPageCommand { get; private set; }
         public DelegateCommand GotoLastPageCommand { get; private set; }
@@ -126,13 +131,17 @@ namespace DocEditor.ViewModel
         public event EventHandler DeleteSelection;
         public event EventHandler SelectAllText;
         public event EventHandler NewPlainDocument;
+        public event EventHandler OpenDictionaryFile;
 
         public event EventHandler SelectChanged;
+        public event EventHandler AutoFormat;
+
         public event EventHandler UpdateRTB;
         public event EventHandler GotoFirstPage;
         public event EventHandler GotoLastPage;
         public event EventHandler GotoNextPage;
         public event EventHandler GotoPrevPage;
+
         #endregion
 
         #region Constructors
@@ -163,8 +172,11 @@ namespace DocEditor.ViewModel
             DeleteSelectionCommand = new DelegateCommand(param => OnDeleteSelection());
             SelectAllTextCommand = new DelegateCommand(param => OnSelectAllText());
             NewPlainDocumentCommand = new DelegateCommand(param => OnNewPlainDocument());
+            OpenDictionaryFileCommand = new DelegateCommand(param => OnOpenDictionaryFile());
 
             SetSelectionCommand = new DelegateCommand(param => OnSelectionChanged());
+            AutoFormattingCommand = new DelegateCommand(param => OnKeyUp());
+
             UpdateRTBCommand = new DelegateCommand(param => OnTextChanged());
             GotoFirstPageCommand = new DelegateCommand(param => OnGotoFirst());
             GotoLastPageCommand = new DelegateCommand(param => OnGotoLast());
@@ -180,15 +192,15 @@ namespace DocEditor.ViewModel
             setPageNumbers(1, 1);
 
             DocName = _model.FileName;
-            OnPropertyChanged("DocName");
+            OnPropertyChanged(nameof(DocName));
 
             setDefaultFormatRtb();
 
             //7:10
-            PageWidth = 500;
-            PageHeight = (PageWidth/7)*10;
-            OnPropertyChanged("PageWidth");
-            OnPropertyChanged("PageHeight");
+            PageWidth = _model.PageWidth;
+            PageHeight = PageWidth / 7 * 10;
+            OnPropertyChanged(nameof(PageWidth));
+            OnPropertyChanged(nameof(PageHeight));
 
         }
         #endregion
@@ -197,18 +209,18 @@ namespace DocEditor.ViewModel
         /// <summary>
         /// Sets the default formatting for the current document
         /// </summary>
-        public void setFormattingRTB()
+        public void SetFormattingRTB()
         {
             FF = _model.FormatText.Family;
             SIZE = _model.FormatText.Size;
             FS = _model.FormatText.Style;
             FW = _model.FormatText.Weight;
             FC = _model.FormatText.Color;
-            OnPropertyChanged("FF");
-            OnPropertyChanged("SIZE");
-            OnPropertyChanged("FS");
-            OnPropertyChanged("FW");
-            OnPropertyChanged("FC");
+            OnPropertyChanged(nameof(FF));
+            OnPropertyChanged(nameof(SIZE));
+            OnPropertyChanged(nameof(FS));
+            OnPropertyChanged(nameof(FW));
+            OnPropertyChanged(nameof(FC));
         }
 
         /// <summary>
@@ -217,15 +229,15 @@ namespace DocEditor.ViewModel
         public void setMarginsRTB()
         {
             PageMargins = new Thickness(_model.Margin.Left, _model.Margin.Top, _model.Margin.Right, _model.Margin.Bottom);
-            OnPropertyChanged("PageMargins");
+            OnPropertyChanged(nameof(PageMargins));
         }
 
         public void setPageNumbers(int all, int current)
         {
             CurrentPageNumber = current;
             AllPageNumbers = all;
-            OnPropertyChanged("CurrentPageNumber");
-            OnPropertyChanged("AllPageNumbers");
+            OnPropertyChanged(nameof(CurrentPageNumber));
+            OnPropertyChanged(nameof(AllPageNumbers));
         }
 
         //public void addFirstPage()
@@ -284,13 +296,13 @@ namespace DocEditor.ViewModel
         /// </summary>
         private void setDefaultFormatRtb()
         {
-            _model.setDefaultFormatting();
-            setFormattingRTB();
+            _model.SetDefaultFormatting();
+            SetFormattingRTB();
 
             setMarginsRTB();
 
             DefAlignment = _model.Align.ToString();
-            OnPropertyChanged("DefAlignment");
+            OnPropertyChanged(nameof(DefAlignment));
         }
        
         #endregion
@@ -299,125 +311,113 @@ namespace DocEditor.ViewModel
         #region Event methods
         private void OnSelectionChanged()
         {
-            if (SelectChanged != null)
-                SelectChanged(this, EventArgs.Empty);
+            SelectChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
+        private void OnKeyUp()
+        {
+            AutoFormat?.Invoke(this, EventArgs.Empty);
+        }
+
         private void OnTextChanged()
         {
-            if (UpdateRTB != null)
-                UpdateRTB(this, EventArgs.Empty);
+            UpdateRTB?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnGotoFirst()
         {
-            if (GotoFirstPage != null)
-                GotoFirstPage(this, EventArgs.Empty);
+            GotoFirstPage?.Invoke(this, EventArgs.Empty);
         }
         private void OnGotoLast()
         {
-            if (GotoLastPage != null)
-                GotoLastPage(this, EventArgs.Empty);
+            GotoLastPage?.Invoke(this, EventArgs.Empty);
         }
         private void OnGotoNext()
         {
-            if (GotoNextPage != null)
-                GotoNextPage(this, EventArgs.Empty);
+            GotoNextPage?.Invoke(this, EventArgs.Empty);
         }
         private void OnGotoPrev()
         {
-            if (GotoPrevPage != null)
-                GotoPrevPage(this, EventArgs.Empty);
+            GotoPrevPage?.Invoke(this, EventArgs.Empty);
         }
         private void OnFormatText()
         {
-            if (OpenFormatText != null)
-                OpenFormatText(this, EventArgs.Empty);
+            OpenFormatText?.Invoke(this, EventArgs.Empty);
         }
         private void OnDict()
         {
-            if (OpenDict != null)
-                OpenDict(this, EventArgs.Empty);
+            OpenDict?.Invoke(this, EventArgs.Empty);
         }
         private void OnEditPage()
         {
-            if (OpenEditPage != null)
-                OpenEditPage(this, EventArgs.Empty);
+            OpenEditPage?.Invoke(this, EventArgs.Empty);
         }
         private void OnInsert()
         {
-            if (OpenInsert != null)
-                OpenInsert(this, EventArgs.Empty);
+            OpenInsert?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnOpenDictionaryHelp()
         {
-            if (OpenDictHelp != null)
-                OpenDictHelp(this, EventArgs.Empty);
+            OpenDictHelp?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnDeleteSelection()
         {
-            if (DeleteSelection != null)
-                DeleteSelection(this, EventArgs.Empty);
+            DeleteSelection?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSelectAllText()
         {
-            if (SelectAllText != null)
-                SelectAllText(this, EventArgs.Empty);
+            SelectAllText?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnNewPlainDocument()
         {
-            if (NewPlainDocument != null)
-                NewPlainDocument(this, EventArgs.Empty);
+            NewPlainDocument?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnOpenDictionaryFile()
+        {
+            OpenDictionaryFile?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnOpenHome()
         {
-            if (OpenHome != null)
-                OpenHome(this, EventArgs.Empty);
+            OpenHome?.Invoke(this, EventArgs.Empty);
         }
         private void OnCloseHome()
         {
-            if (CloseHome != null)
-                CloseHome(this, EventArgs.Empty);
+            CloseHome?.Invoke(this, EventArgs.Empty);
         }
         private void OnMinimizeHome()
         {
-            if (MinHome != null)
-                MinHome(this, EventArgs.Empty);
+            MinHome?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnMaximizeHome()
         {
-            if (MaxHome != null)
-                MaxHome(this, EventArgs.Empty);
+            MaxHome?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnNewEmptyFile()
         {
-            if (NewEmptyFile != null)
-                NewEmptyFile(this, EventArgs.Empty);
+            NewEmptyFile?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnMinimize()
         {
-            if (MinApp != null)
-                MinApp(this, EventArgs.Empty);
+            MinApp?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnMaximize()
         {
-            if (MaxApp != null)
-                MaxApp(this, EventArgs.Empty);
+            MaxApp?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnExit()
         {
-            if (ExitApp != null)
-                ExitApp(this, EventArgs.Empty);
+            ExitApp?.Invoke(this, EventArgs.Empty);
         }
         #endregion
     }

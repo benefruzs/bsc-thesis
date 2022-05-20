@@ -16,6 +16,9 @@
     <Compile Update="DictionaryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ErrorCorrectDialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="FontListWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +52,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DictionaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ErrorCorrectDialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="FontListWindow.xaml">

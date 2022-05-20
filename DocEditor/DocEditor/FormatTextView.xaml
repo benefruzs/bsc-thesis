@@ -20,12 +20,12 @@
         <ComboBox x:Name="StyleCmb" Grid.Row="0"
                               Margin="10"
                               IsEditable="False" 
-                              SelectedItem="{Binding SStyles}" 
+                              SelectedItem="{Binding SelectedStyle}" 
                               ItemsSource="{Binding FontStyles}"
                               Style="{StaticResource ComboBoxStyle}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding StyleChangedCmd}"/>
+                    <i:InvokeCommandAction Command="{Binding StyleChangedCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
@@ -154,8 +154,8 @@
 
                 <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBorder/img}" Command="{Binding OpenBorderCommand}"/>
                     <!-- Borderhez dropdown menu kell -->
-                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddDel/img}"/>
-                <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddStyle/img}"/>
+                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddDel/img}" Command="{Binding DeleteFormattingCommand}"/>
+                <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddStyle/img}" Command="{Binding AddNewStyleCommand}"/>
             </Grid>
         </Border>
 

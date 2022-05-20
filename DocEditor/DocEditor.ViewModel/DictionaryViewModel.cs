@@ -24,7 +24,7 @@ namespace DocEditor.ViewModel
                 if(value != null)
                 {
                     _fileName = value;
-                    OnPropertyChanged("FileName");
+                    OnPropertyChanged(nameof(FileName));
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace DocEditor.ViewModel
             {
                 if (value != _dictElements){
                     _dictElements = value;
-                    OnPropertyChanged("DictionaryElements");
+                    OnPropertyChanged(nameof(DictionaryElements));
                 }
             }
         }
@@ -50,9 +50,8 @@ namespace DocEditor.ViewModel
             {
                 if (value != _selectedDictElement)
                 {
-                    //_model.FormatText.Family = value;
                     _selectedDictElement = value;
-                    OnPropertyChanged("SelectedDictElement");
+                    OnPropertyChanged(nameof(SelectedDictElement));
                 }
             }
         }
@@ -66,7 +65,7 @@ namespace DocEditor.ViewModel
                 if (value != null)
                 {
                     _dictString = value;
-                    OnPropertyChanged("DictString");
+                    OnPropertyChanged(nameof(DictString));
                 }
             }
         }
@@ -111,7 +110,7 @@ namespace DocEditor.ViewModel
         public void addDictElements(DictClass dc)
         {
             _dictElements.Add(dc);
-            OnPropertyChanged("DictionaryElements");
+            OnPropertyChanged(nameof(DictionaryElements));
         }
 
         public void updateDictList()
@@ -124,7 +123,7 @@ namespace DocEditor.ViewModel
                 {
                     _dictElements.Add(f);
                 }
-                OnPropertyChanged("DictionaryElements");
+                OnPropertyChanged(nameof(DictionaryElements));
             }
         }
 
@@ -134,7 +133,6 @@ namespace DocEditor.ViewModel
             if (_selectedDictElement != null)
             {
                 int len = _selectedDictElement.Str.Length;
-                //FormatModel[] fm = _parser.getFormatting(_selectedDictElement);
                 string bLAlignment = "Center";
                 double top = 10;
 
@@ -172,31 +170,32 @@ namespace DocEditor.ViewModel
             }
         }
 
+        public void deletePreview()
+        {
+            DictElements.Clear();
+        }
+
         #endregion
 
         #region Event methods
         private void OnAddToDict()
         {
-            if (AddToDictionary != null)
-                AddToDictionary(this, EventArgs.Empty);
+            AddToDictionary?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSetFileName()
         {
-            if (SetDictFileName != null)
-                SetDictFileName(this, EventArgs.Empty);
+            SetDictFileName?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSetSelectDictElement()
         {
-            if (SelectedDictElementChanged != null)
-                SelectedDictElementChanged(this, EventArgs.Empty);
+            SelectedDictElementChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnRemove()
         {
-            if (RemoveEvent != null)
-                RemoveEvent(this, EventArgs.Empty);
+            RemoveEvent?.Invoke(this, EventArgs.Empty);
         }
         #endregion
     }

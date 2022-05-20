@@ -17,8 +17,269 @@ namespace DocEditor.Test
         public void Initialize()
         {
             _model = new DocEditorModel();
+            _model.select = new Selection(1, 5, "test selection");
+            _model.SelectionAndFormat = new SelectionAndFormat(_model.select);
+        }
+        #endregion
+
+        #region SelectionAndFormat tests
+        [TestMethod]
+        public void InitializeTest1()
+        {
+            SelectionAndFormat saf = new SelectionAndFormat(_model.select);
+            FormatModel fm = new FormatModel();
+
+            Assert.AreEqual(saf.SelectedText.SelectedText.SelectedString, _model.select.SelectedString);
+            Assert.IsNull(saf.SelectedText.Format);
+            Assert.AreEqual(saf.Align, Alignment.Left);
+            Assert.AreEqual(saf.Formatting.Family, fm.Family);
+            Assert.AreEqual(saf.Formatting.Size, fm.Size);
+            Assert.AreEqual(saf.Formatting.Style, fm.Style);
+            Assert.AreEqual(saf.Formatting.Weight, fm.Weight);
+            Assert.AreEqual(saf.Formatting.Color, fm.Color);
+            Assert.AreEqual(saf.Formatting.CharOffset, fm.CharOffset);
         }
 
+        [TestMethod]
+        public void DeleteAllFormattingTest()
+        {
+            FormatModel fm = new FormatModel();
+            fm.SetDefaultFormatting();
+
+            _model.SelectionAndFormat.DeleteAllFormatting();
+
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Style, fm.Style);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, fm.Weight);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Family, fm.Family);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Size, fm.Size);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Color, fm.Color);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.CharOffset, fm.CharOffset);
+        }
+
+        [TestMethod]
+        public void SetBoldTest()
+        {
+            _model.SelectionAndFormat.SetBold();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, "Bold");
+        }
+
+        [TestMethod]
+        public void SetWeightTest()
+        {
+            _model.SelectionAndFormat.SetWeight("Heavy");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, "Heavy");
+
+            _model.SelectionAndFormat.SetWeight("Light");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, "Light");
+
+            _model.SelectionAndFormat.SetWeight("ultraBlack");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, "ultraBlack");
+        }
+
+        [TestMethod]
+        public void SetItalicTest()
+        {
+            _model.SelectionAndFormat.SetItalic();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Style, "Italic");
+        }
+
+        [TestMethod]
+        public void SetObliqueTest()
+        {
+            _model.SelectionAndFormat.SetOblique();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Style, "Oblique");
+        }
+
+        [TestMethod]
+        public void SetSubscriptTest()
+        {
+            _model.SelectionAndFormat.SetSuperscript();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.CharOffset, 2);
+        }
+
+        [TestMethod]
+        public void SetSuperscriptTest()
+        {
+            _model.SelectionAndFormat.SetSubscript();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.CharOffset, -2);
+        }
+
+        [TestMethod]
+        public void DeleteSubSuperscriptTest()
+        {
+            _model.SelectionAndFormat.DeleteSubSuperscript();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.CharOffset, 1);
+        }
+
+        [TestMethod]
+        public void DeleteWeightTest()
+        {
+            _model.SelectionAndFormat.DeleteWeight();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, "Normal");
+        }
+
+        [TestMethod]
+        public void DeleteStyleTest()
+        {
+            _model.SelectionAndFormat.DeleteStyle();
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Style, "Normal");
+        }
+
+        [TestMethod]
+        public void ChangeSizeTest()
+        {
+            _model.SelectionAndFormat.ChangeSize(14);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Size, 14);
+
+            _model.SelectionAndFormat.ChangeSize(48);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Size, 48);
+        }
+
+        [TestMethod]
+        public void ChangeFamilyTest()
+        {
+            _model.SelectionAndFormat.ChangeFont("Helvetica");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Family, "Helvetica");
+
+            _model.SelectionAndFormat.ChangeFont("Courier new");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Family, "Courier new");
+
+        }
+
+        [TestMethod]
+        public void ChangeColorTest()
+        {
+            _model.SelectionAndFormat.ChangeColor("050304");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Color, "#050304");
+
+            _model.SelectionAndFormat.ChangeColor("d30e71");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Color, "#d30e71");
+
+            _model.SelectionAndFormat.ChangeColor("FFFFFF");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Color, "#FFFFFF");
+        }
+
+        [TestMethod]
+        public void SetLeftAlignmentTest()
+        {
+            _model.SelectionAndFormat.SetLeftAlignment();
+            Assert.AreEqual(_model.SelectionAndFormat.Align, Alignment.Left);
+        }
+
+        [TestMethod]
+        public void SetRightAlignmentTest()
+        {
+            _model.SelectionAndFormat.SetRightAlignment();
+            Assert.AreEqual(_model.SelectionAndFormat.Align, Alignment.Right);
+        }
+
+        [TestMethod]
+        public void SetCenterAlignmentTest()
+        {
+            _model.SelectionAndFormat.SetCenterAlignment();
+            Assert.AreEqual(_model.SelectionAndFormat.Align, Alignment.Center);
+        }
+
+        [TestMethod]
+        public void SetJustifyAlignmentTest()
+        {
+            _model.SelectionAndFormat.SetJustifyAlignment();
+            Assert.AreEqual(_model.SelectionAndFormat.Align, Alignment.Justify);
+        }
+
+        [TestMethod]
+        public void ChangeTextTest()
+        {
+            Selection temp = _model.SelectionAndFormat.GetSelection();
+
+            _model.SelectionAndFormat.SetSelectedString("changed");
+
+            Assert.AreEqual(_model.SelectionAndFormat.GetSelectedText(), "changed");
+            Assert.AreEqual(_model.SelectionAndFormat.SelectedText.SelectedText.StartPointer, temp.StartPointer);
+            Assert.AreEqual(_model.SelectionAndFormat.SelectedText.SelectedText.EndPointer, temp.StartPointer + 7);
+        }
         #endregion
+
+        #region Main model tests
+        [TestMethod]
+        public void ReverseWordTest()
+        {
+            Assert.AreEqual(_model.ReverseWord("abcd"), "dcba");
+            Assert.AreEqual(_model.ReverseWord("test string"), "gnirts tset");
+            Assert.AreEqual(_model.ReverseWord("Test Camel case String"), "gnirtS esac lemaC tseT");
+            Assert.AreEqual(_model.ReverseWord("word1with2numbers3"), "3srebmun2htiw1drow");
+        }
+
+        //string family, int size, string style, string weight, string color
+        [TestMethod]
+        public void GetFormattingTest()
+        {
+            _model.SelectionAndFormat.SelectedText.Format = new FormatModel[5];
+
+            _model.SelectionAndFormat.SelectedText.Format[0] = new FormatModel("Arial", 12, "Italic", "Bold", "#000000");
+            _model.SelectionAndFormat.SelectedText.Format[1] = new FormatModel("Arial", 14, "Italic", "Bold", "#050304");
+            _model.SelectionAndFormat.SelectedText.Format[2] = new FormatModel("Arial", 13, "Italic", "Normal", "#000000");
+            _model.SelectionAndFormat.SelectedText.Format[3] = new FormatModel("Couries new", 16, "Italic", "Normal", "#050304");
+            _model.SelectionAndFormat.SelectedText.Format[4] = new FormatModel("Arial", 12, "Italic", "Normal", "#000000");
+
+            _model.GetFormatting();
+
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Color, "#000000");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Family, "Arial");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Size, 12);
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Style, "Italic");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.Weight, "Normal");
+            Assert.AreEqual(_model.SelectionAndFormat.Formatting.CharOffset, 1);
+        }
+
+        [TestMethod]
+        public void AddNewFormatStyleTest()
+        {
+            Dictionary<string, FormatModel> before = new Dictionary<string, FormatModel>();
+            foreach(string key in _model.FontStyles.Keys)
+            {
+                before.Add(key, _model.FontStyles[key]);
+            }
+
+            FormatModel fm = new FormatModel();
+            fm.SetDefaultFormatting();
+
+            _model.AddNewFormatStyle(fm);
+
+            Assert.AreEqual(_model.FontStyles.Count, before.Count + 1);
+            Assert.AreEqual(_model.FontStyles["Stílus0"].Family, fm.Family);
+            Assert.AreEqual(_model.FontStyles["Stílus0"].Style, fm.Style);
+            Assert.AreEqual(_model.FontStyles["Stílus0"].Weight, fm.Weight);
+            Assert.AreEqual(_model.FontStyles["Stílus0"].Size, fm.Size);
+            Assert.AreEqual(_model.FontStyles["Stílus0"].Color, fm.Color);
+            Assert.AreEqual(_model.FontStyles["Stílus0"].CharOffset, fm.CharOffset);
+        }
+
+        [TestMethod]
+        public void SetDefaultFormattingTest()
+        {
+            _model.SetDefaultFormatting();
+            FormatModel fm = new FormatModel();
+            fm.SetDefaultFormatting();
+            MarginModel mm = new MarginModel();
+            mm.setDefaultMargin();
+
+            Assert.AreEqual(_model.FormatText.Style, fm.Style);
+            Assert.AreEqual(_model.FormatText.Weight, fm.Weight);
+            Assert.AreEqual(_model.FormatText.Family, fm.Family);
+            Assert.AreEqual(_model.FormatText.Size, fm.Size);
+            Assert.AreEqual(_model.FormatText.Color, fm.Color);
+            Assert.AreEqual(_model.FormatText.CharOffset, fm.CharOffset);
+
+            Assert.AreEqual(_model.Align, Alignment.Center);
+
+            Assert.AreEqual(_model.Margin.Right, mm.Right);
+            Assert.AreEqual(_model.Margin.Left, mm.Left);
+            Assert.AreEqual(_model.Margin.Bottom, mm.Bottom);
+            Assert.AreEqual(_model.Margin.Top, mm.Top);
+        }
+        #endregion
+
+
     }
 }

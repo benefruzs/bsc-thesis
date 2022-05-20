@@ -11,7 +11,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="CanResize"     
-        Title="DocEditor" FontFamily="Corbel" Height="500" Width="800"
+        Title="DocEditor" FontFamily="Corbel" Height="600" Width="895"
         Icon="./img/ico/icon0.png"
         >
 
@@ -115,6 +115,12 @@
                     <Separator />
                     <MenuItem Header="_Kilépés" Command="{Binding ExitAppCommand}"/>
                 </MenuItem>
+                <MenuItem Header="_Szótár" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Szótár betöltése" Command="{Binding OpenDictionaryFileCommand}"/>
+                    <MenuItem Header="_Szótár mentése" Command="{Binding SaveDictionaryFileCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenCurrentDictFileCommand}"/>
+                </MenuItem>
                 <MenuItem Header="_Módosítás" Style="{StaticResource MenuItemStyle}">
                     <MenuItem Header="_Vissza" />
                     <MenuItem Header="_Újra" />
@@ -128,7 +134,7 @@
                 </MenuItem>
                 <MenuItem Header="_Nézet" Style="{StaticResource MenuItemStyle}">
                     <MenuItem Header="_Nyomtatás" />
-                    <MenuItem Header="_Szótár megnyitása" />
+                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenCurrentDictFileCommand}"/>
                     <Separator />
                     <MenuItem Header="_Teljes képernyő" Command="{Binding MaximizeAppCommand}"/>
                 </MenuItem>
@@ -180,7 +186,13 @@
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding UpdateRTBCommand}"/>
                         </i:EventTrigger>
+                        <!--<i:EventTrigger EventName="KeyUp">
+                            <i:InvokeCommandAction Command="{Binding AutoFormattingCommand}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>-->
                     </i:Interaction.Triggers>
+                    <RichTextBox.InputBindings>
+                        <KeyBinding Key="Space" Command="{Binding AutoFormattingCommand}"/>
+                    </RichTextBox.InputBindings>
                     <FlowDocument PagePadding="50">
                         <!--paragraph binding-->
                     </FlowDocument>

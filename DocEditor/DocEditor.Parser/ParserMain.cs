@@ -52,7 +52,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="style">Font style</param>
         /// <returns></returns>
-        private char styleToChar(string style) 
+        private char StyleToChar(string style) 
         {
             switch (style)
             {
@@ -72,7 +72,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="weight">Font weight</param>
         /// <returns></returns>
-        private char weightToChar(string weight)    //TODO
+        private char WeightToChar(string weight)    //TODO
         {
             switch (weight)
             {
@@ -236,11 +236,11 @@ namespace DocEditor.Parser
             }
 
             mostFreqStyle = styleFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-            _format_array[0] += styleToChar(mostFreqStyle);
+            _format_array[0] += StyleToChar(mostFreqStyle);
             _format_array[0] += ',';
 
             mostFreqWeight = weightFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-            _format_array[0] += weightToChar(mostFreqWeight);
+            _format_array[0] += WeightToChar(mostFreqWeight);
             _format_array[0] += ',';
 
             mostFreqFamily = familyFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -270,7 +270,7 @@ namespace DocEditor.Parser
             string res = null;
             if(!Equals(ft.Style, mostFreqStyle))
             {
-                res += styleToChar(ft.Style);
+                res += StyleToChar(ft.Style);
                 res += ',';
             }
             else
@@ -280,7 +280,7 @@ namespace DocEditor.Parser
 
             if (!Equals(ft.Weight, mostFreqWeight))
             {
-                res += weightToChar(ft.Weight);
+                res += WeightToChar(ft.Weight);
                 res += ',';
             }
             else
@@ -398,11 +398,6 @@ namespace DocEditor.Parser
             return DictFormatToStwfFormat(dc.Formatting, dc.Str.Length);
         }
 
-        private int Levenshtein(string str, string dictStr)
-        {
-
-            return 0;
-        }
 
         private int[] LevenshteinDistanceForAll(string str)
         {
@@ -419,6 +414,44 @@ namespace DocEditor.Parser
         #endregion
 
         #region Public methods
+        /// <summary>
+        /// Get the Levenshtein distance for two given strings
+        /// </summary>
+        /// <param name="str">string 1</param>
+        /// <param name="dictStr">string 2</param>
+        /// <returns></returns>
+        public int Levenshtein(string str, string dictStr)
+        {
+            //edit distance for str and dictStr
+            int n = str.Length;
+            int m = dictStr.Length;
+            int[,] levTable = new int[n + 1, m + 1];
+            for (int i = 0; i < n + 1; i++)
+            {
+                levTable[i, 0] = i;
+            }
+            for (int i = 1; i < m + 1; i++)
+            {
+                levTable[0, i] = i;
+            }
+
+            for (int i = 1; i < n + 1; i++)
+            {
+                for (int j = 1; j < m + 1; j++)
+                {
+                    levTable[i, j] = str[i - 1] == dictStr[j - 1]
+                        ? levTable[i - 1, j - 1]
+                        : Math.Min(levTable[i - 1, j - 1], Math.Min(levTable[i - 1, j], levTable[i, j - 1])) + 1;
+                }
+            }
+            return levTable[str.Length, dictStr.Length];
+        }
+
+        /// <summary>
+        /// Trims the whitespaces from the end and the beginning of the selected string
+        /// </summary>
+        /// <param name="s">The selection from the document</param>
+        /// <returns>The trimmed selection</returns>
         public Selection selectionTrim(Selection s)
         {
             //setting the text pointers
@@ -486,18 +519,78 @@ namespace DocEditor.Parser
         /// <returns>The formatting applied to the text</returns>
         public Stwf fromDictionary(Stwf str)
         {
-            //same string with the maximum frequency
-            int maxFreq = Dict.Where(x => x.Str == str.SelectedText.SelectedString).Max(x => x.Frequency);
-            int ind = Dict.FindIndex(x => x.Str == str.SelectedText.SelectedString && x.Frequency == maxFreq);
+            if (ContainsElement(str.SelectedText.SelectedString))
+            {
+                //same string with the maximum frequency
+                int maxFreq = Dict.Where(x => x.Str == str.SelectedText.SelectedString).Max(x => x.Frequency);
+                int ind = Dict.FindIndex(x => x.Str == str.SelectedText.SelectedString && x.Frequency == maxFreq);
 
-            //Dict[ind] is the element form the dictionary which we need to add to the text
-            //Dict[ind].formatting -> stwf formatting
-            str.Format = fromDictToStwf(Dict[ind]);
+                //Dict[ind] is the element form the dictionary which we need to add to the text
+                //Dict[ind].formatting -> stwf formatting
+                str.Format = fromDictToStwf(Dict[ind]);
 
-            Dict[ind].Frequency++;
+                Dict[ind].Frequency++;
+            }
 
             //the text and the textpointers stay the same
             return str;
+        }
+
+        /// <summary>
+        /// Get the first max 3 element with maximum edit distance 2
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public List<DictClass> GetEditDistance(Stwf str)
+        {
+            List<DictClass> res = new List<DictClass>();
+            Dictionary<DictClass, int> levDict = new Dictionary<DictClass, int>();
+            int[] tempArr = LevenshteinDistanceForAll(str.SelectedText.SelectedString);
+
+            int ind = 0;
+            foreach(var d in Dict)
+            {
+                if (ind < tempArr.Length)
+                {
+                    levDict.Add(d, tempArr[ind]);
+                    ind++;
+                }
+            }
+
+            IOrderedEnumerable<KeyValuePair<DictClass, int>> ordered = levDict.OrderBy(x => x.Value);
+
+            ind = 0;
+            foreach(var o in ordered)
+            {
+                if (o.Value <= 2)
+                {
+                    res.Add(o.Key);
+                    ind++;
+                    if (ind == 3)
+                    {
+                        return res;
+                    }
+                }
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Check if the dictionary already contains the string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public bool ContainsElement(string str)
+        {
+            int ind = Dict.FindIndex(x => String.Equals(x.Str.ToLower(), str.ToLower()));
+            if(ind != -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -520,27 +613,24 @@ namespace DocEditor.Parser
             }
         }
 
-        public FormatModel[] getFormatting(DictClass dc)
+        /// <summary>
+        /// Get the formatting from the dictionary by an element
+        /// </summary>
+        /// <param name="dc">The dictionary element for the formatting</param>
+        /// <returns></returns>
+        public FormatModel[] GetFormatting(DictClass dc)
         {
             return fromDictToStwf(dc);
         }
 
         /// <summary>
-        /// Gets all the possible dictionary elements which has different formattings to the same text
+        /// Sets the corrected text and position offsets
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns>all possible formatting to the current text</returns>
-        public List<Stwf> getAllPossibleFormatting(Stwf str)
+        public Selection GetPossibleFormatting(DictClass dc, Stwf st)
         {
-            List<Stwf> res = new List<Stwf>();
-            List<DictClass> fromDict = Dict.FindAll(x => x.Str == str.SelectedText.SelectedString);
-            int i = 0;
-            foreach(var r in fromDict)
-            {
-                res[i].Format = fromDictToStwf(r);
-                i++;
-            }
-            return res;
+            st.SelectedText.SelectedString = dc.Str;
+            st.SelectedText.EndPointer = st.SelectedText.StartPointer + dc.Str.Length;
+            return new Selection(st.SelectedText.StartPointer, st.SelectedText.EndPointer, st.SelectedText.SelectedString);
         }
 
         /// <summary>
@@ -556,7 +646,7 @@ namespace DocEditor.Parser
             foreach (var r in Dict)
             {
                 //if the Levenshtein distance is less than 3, the item shoud be added to the result list
-                if(distances[i] > 3)
+                if(distances[i] < 2)
                 {
                     str.Format = fromDictToStwf(Dict[i]);
                     res.Add(str);
@@ -565,6 +655,10 @@ namespace DocEditor.Parser
             }
             return res;
         }
+
+        #endregion
+
+        #region Json methods
 
         /// <summary>
         /// Method to write the dictionary list to a json file
@@ -616,6 +710,8 @@ namespace DocEditor.Parser
             //{
             //    System.Diagnostics.Debug.WriteLine(s);
             //}
+
+            DictFileName = fileName;
             
         }
 

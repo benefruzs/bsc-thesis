@@ -378,7 +378,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void toDictTest1()
         {
-            _parser.Dict = generateDictWithOneElement();
+            _parser.Dict = GenerateDictWithOneElement();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -401,7 +401,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void toDictTest2()
         {
-            _parser.Dict = generateDictWithMoreElements();
+            _parser.Dict = GenerateDictWithMoreElements();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -424,7 +424,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void toDictTest3()
         {
-            _parser.Dict = generateDictWithOneElement();
+            _parser.Dict = GenerateDictWithOneElement();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -452,7 +452,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void toDictTest4()
         {
-            _parser.Dict = generateDictWithMoreElements();
+            _parser.Dict = GenerateDictWithMoreElements();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -482,7 +482,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void fromDictTest1()
         {
-            _parser.Dict = generateDictWithOneElement();
+            _parser.Dict = GenerateDictWithOneElement();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -513,7 +513,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void RemoveTest1()
         {
-            _parser.Dict = generateDictWithMoreElements();
+            _parser.Dict = GenerateDictWithMoreElements();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -538,7 +538,7 @@ namespace DocEditor.Test
         [TestMethod]
         public void RemoveTest2()
         {
-            _parser.Dict = generateDictWithMoreElements();
+            _parser.Dict = GenerateDictWithMoreElements();
             Selection testSel = new Selection();
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
@@ -561,8 +561,19 @@ namespace DocEditor.Test
         }
         #endregion
 
+        #region Levenshtein tests
+        [TestMethod]
+        public void LevenshteinDistTest()
+        {
+            Assert.AreEqual(_parser.Levenshtein("str", "stt"), 1);
+            Assert.AreEqual(_parser.Levenshtein("abc", "aaa"), 2);
+            Assert.AreEqual(_parser.Levenshtein("test", "test"), 0);
+            Assert.AreEqual(_parser.Levenshtein("sitting", "kitten"), 3);
+        }
+        #endregion
+
         #region Private methods
-        private List<DictClass> generateDictWithOneElement()
+        private static List<DictClass> GenerateDictWithOneElement()
         {
             DictClass dictElement = new DictClass(null, null, 0);
             List<DictClass> dictList = new List<DictClass>();
@@ -576,7 +587,7 @@ namespace DocEditor.Test
             return dictList;
         }
 
-        private List<DictClass> generateDictWithMoreElements()
+        private static List<DictClass> GenerateDictWithMoreElements()
         {
             DictClass dictElement = new DictClass(null, null, 0);
             List<DictClass> dictList = new List<DictClass>();

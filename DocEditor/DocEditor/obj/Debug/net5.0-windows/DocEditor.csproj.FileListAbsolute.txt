@@ -58,3 +58,5 @@ C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\bin\Debug\net5.0-windows
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\bin\Debug\net5.0-windows\DocEditor.Parser.pdb
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\CreateFileDialog.g.cs
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\CreateFileDialog.baml
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\ErrorCorrectDialogWindow.g.cs
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\ErrorCorrectDialogWindow.baml

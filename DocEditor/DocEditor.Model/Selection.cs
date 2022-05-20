@@ -59,6 +59,13 @@ namespace DocEditor.Model
             _startPointer = _endPointer = -1;
             _selectedString = null;
         }
+
+        public Selection(int st, int nd, string txt)
+        {
+            _startPointer = st;
+            _endPointer = nd;
+            _selectedString = txt;
+        }
         #endregion
 
         #region Public methods
@@ -69,7 +76,7 @@ namespace DocEditor.Model
         /// <param name="newStart">the new start pointer</param>
         public void AddToFront_Selected(string add, int newStart)
         {
-            _selectedString.Insert(0, add);
+            _selectedString = _selectedString.Insert(0, add);
             _startPointer = newStart;
         }
 
@@ -97,11 +104,11 @@ namespace DocEditor.Model
             //adding more selected string
             if (newStart != _startPointer)
             {
-                updateSelected(add, newStart, newEnd);
+                UpdateSelected(add, newStart, newEnd);
             }
             else
             {
-                updateSelected(add, newStart, newEnd);
+                UpdateSelected(add, newStart, newEnd);
             }
         }
 
@@ -122,7 +129,7 @@ namespace DocEditor.Model
         /// <param name="add">the selected text</param>
         /// <param name="newStart">new start pointer</param>
         /// <param name="newEnd">new end pointer</param>
-        private void updateSelected(string add, int newStart, int newEnd)
+        private void UpdateSelected(string add, int newStart, int newEnd)
         {
             _selectedString = add;
             _startPointer = newStart;

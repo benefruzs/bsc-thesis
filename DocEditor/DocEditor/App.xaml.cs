@@ -13,7 +13,7 @@ using System.Windows.Media;
 using DocEditor.Model;
 using DocEditor.ViewModel;
 using DocEditor.Parser;
-
+using Microsoft.Win32;
 
 namespace DocEditor
 {
@@ -41,6 +41,8 @@ namespace DocEditor
         private SelectionOffsets selectionOffsets;
 
         private CreateFileDialog _createJsonDialog;
+        private ErrorCorrectViewModel _ecViewModel;
+        private ErrorCorrectDialogWindow _ecDialog;
 
         #endregion
 
@@ -61,8 +63,8 @@ namespace DocEditor
             _model = new DocEditorModel();
 
             _parser = new ParserMain();
-            _parser.dictToJson("test.json");
-            _parser.jsonToDict("test.json");
+            //_parser.dictToJson("test.json");
+            //_parser.jsonToDict("test.json");
 
             _viewModel = new MainViewModel(_model);
             _viewModel.ExitApp += new EventHandler(ViewModel_Exit);
@@ -84,9 +86,12 @@ namespace DocEditor
             _viewModel.DeleteSelection += new EventHandler(ViewModel_DeleteSelection);
             _viewModel.SelectAllText += new EventHandler(ViewModel_SelectAllText);
             _viewModel.NewPlainDocument += new EventHandler(ViewModel_NewPlainDocument);
+            _viewModel.OpenDictionaryFile += new EventHandler(OpenNewDictFile);
 
             _viewModel.SelectChanged += new EventHandler(setSelection);
-            _viewModel.UpdateRTB += new EventHandler(updateRTBList);
+            _viewModel.AutoFormat += new EventHandler(AutoFormatting_EventHandler);
+
+            _viewModel.UpdateRTB += new EventHandler(updateRTBList); //TODO
             _viewModel.GotoFirstPage += new EventHandler(Doc_GotoFirst);
             _viewModel.GotoLastPage += new EventHandler(Doc_GotoLast);
             _viewModel.GotoNextPage += new EventHandler(Doc_GotoNext);
@@ -106,6 +111,9 @@ namespace DocEditor
             _ftViewModel.SetStrikeThrough += new EventHandler(Selection_SetStrikeThrough);
             _ftViewModel.SetSuperScript += new EventHandler(Selection_SetSuperScript);
             _ftViewModel.SetSubScript += new EventHandler(Selection_SetSubScript);
+            _ftViewModel.StyleChanged += new EventHandler(Selection_AddFormatStyle);
+            _ftViewModel.NewStyleAdded += new EventHandler(AddNewStyle);
+            _ftViewModel.DeleteFormatting += new EventHandler(DeleteFormatting);
 
             _dictViewModel = new DictionaryViewModel(_model, _parser);
             _dictViewModel.AddToDictionary += new EventHandler(AddToDictionary_EventHandler);
@@ -116,6 +124,15 @@ namespace DocEditor
             _pageViewModel = new PageSettingsViewModel(_model);
             _pageViewModel.MorePageSettings += new EventHandler(openMorePageSettings);
 
+            _ecViewModel = new ErrorCorrectViewModel(_model, _parser);
+            _ecViewModel.NoThanksEvent += new EventHandler(EcViewModel_NoThanks);
+            _ecViewModel.OkayEvent += new EventHandler(EcViewModel_Okay);
+            _ecViewModel.SelectedPossibleDictElementChanged += new EventHandler(EcViewModel_SelectChanged);
+            _ecDialog = new ErrorCorrectDialogWindow
+            {
+                DataContext = _ecViewModel
+            };
+
             //EventBinding.Bind(_view.DocPaper, nameof(_view.DocPaper.SelectionChanged), setSelection);
 
             DocPapers = new List<FlowDocument>();
@@ -125,6 +142,84 @@ namespace DocEditor
                 DataContext = _viewModel
             };
             _home.ShowDialog();
+        }
+
+        private void EcViewModel_SelectChanged(object sender, EventArgs e)
+        {
+            if (_ecViewModel.SelectedPossibleDictElement != null)
+            {
+                _ecViewModel.DictString = _ecViewModel.SelectedPossibleDictElement.Str;
+                Selection sel = new Selection();
+                Stwf st = new Stwf(sel, new FormatModel[_ecViewModel.DictString.Length]);
+
+                FormatModel[] fm = _parser.GetFormatting(_ecViewModel.SelectedPossibleDictElement);
+                _ecViewModel.DisplayText(fm);
+            }
+        }
+
+        private void EcViewModel_Okay(object sender, EventArgs e)
+        {
+            TextRange tr = new TextRange(_view.DocPaper.Document.ContentStart.GetPositionAtOffset(_model.SelectForParser.SelectedText.StartPointer), _view.DocPaper.Document.ContentStart.GetPositionAtOffset(_model.SelectForParser.SelectedText.EndPointer));
+            tr.Text = "";
+
+            TextPointer tp = _view.DocPaper.Document.ContentStart.GetPositionAtOffset(_model.SelectForParser.SelectedText.StartPointer);
+            _view.DocPaper.CaretPosition = tp;
+
+            FormatModel[] fm = _parser.GetFormatting(_ecViewModel.SelectedPossibleDictElement);
+            //ahogyan izé, úgy rárak ez is meg a szöveg csere
+
+            Selection newSel = _parser.GetPossibleFormatting(_ecViewModel.SelectedPossibleDictElement, _model.SelectForParser);
+            _model.SelectForParser = new Stwf(newSel, fm);
+
+            _view.DocPaper.CaretPosition.InsertTextInRun(_model.SelectForParser.SelectedText.SelectedString);
+       
+            tp = _view.DocPaper.Document.ContentStart.GetPositionAtOffset(_model.SelectForParser.SelectedText.EndPointer);    
+            _view.DocPaper.CaretPosition = tp.GetNextInsertionPosition(LogicalDirection.Forward);
+
+            setFormatting(_model.SelectForParser);
+            _ecDialog.Close();
+        }
+
+        private void EcViewModel_NoThanks(object sender, EventArgs e)
+        {
+            _ecDialog.Close();
+        }
+
+        private void DeleteFormatting(object sender, EventArgs e)
+        {
+            SetFocus();
+            _model.SelectionAndFormat.DeleteAllFormatting();
+            SetStyle(_model.SelectionAndFormat.Formatting);
+            _view.DocPaper.Selection.ApplyPropertyValue(Inline.TextDecorationsProperty, value: "");
+            _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
+        }
+
+        private void Selection_AddFormatStyle(object sender, EventArgs e)
+        {
+            SetFocus();
+            _model.SelectionAndFormat = new SelectionAndFormat(new Selection(selectionOffsets.Start, selectionOffsets.End, _view.DocPaper.Selection.Text), _model.Align, null);
+            FormatModel fm = new FormatModel();
+            _model.FontStyles.TryGetValue(_ftViewModel.SelectedStyle, out fm);
+            SetStyle(fm);
+        }
+
+        private void AddNewStyle(object sender, EventArgs e)
+        {
+            SetFocus();
+            //get the formatting infos from the selected item
+            //ami a legtöbb karakterre vonatkozik
+            FormatModel[] fm = new FormatModel[_view.DocPaper.Selection.Text.Length];
+            Stwf st = new Stwf(new Selection(selectionOffsets.Start, selectionOffsets.End, _view.DocPaper.Selection.Text), fm);
+
+            TextPointer contentStart = _view.DocPaper.Document.ContentStart;
+
+            getFormatting(contentStart.GetPositionAtOffset(selectionOffsets.Start), contentStart.GetPositionAtOffset(selectionOffsets.End));
+            //model selectionandformat done
+
+            _model.GetFormatting();
+
+            _model.AddNewFormatStyle(_model.SelectionAndFormat.Formatting);
+            _ftViewModel.UpdateStyleList();
         }
         #endregion
 
@@ -181,7 +276,7 @@ namespace DocEditor
             _home.Close();
             //TODO
             //új üres file megnyitása itt a viewban
-            newEmpty();
+            NewEmpty();
             
         }
 
@@ -233,7 +328,7 @@ namespace DocEditor
                 _view.WindowState = WindowState.Normal;
                 _view.ToolGrid.Width = 200;
             }
-            setFocus();
+            SetFocus();
         }
 
         #endregion
@@ -270,28 +365,27 @@ namespace DocEditor
         private void ViewModel_FormatText(object sender, EventArgs e)
         {
             _viewModel.CurrentView = _ftViewModel;
-            setFocus();
+            SetFocus();
         }
 
         private void ViewModel_EditPage(object sender, EventArgs e)
         {
             _viewModel.CurrentView = _pageViewModel;
-            setFocus();
+            SetFocus();
         }
 
         private void ViewModel_Insert(object sender, EventArgs e)
         {
             _insViewModel = new InsertViewModel(_model);
             _viewModel.CurrentView = _insViewModel;
-            setFocus();
+            SetFocus();
         }
 
         private void ViewModel_Dict(object sender, EventArgs e)
         {
             
-            _viewModel.CurrentView = _dictViewModel;
-           
-            setFocus();
+            _viewModel.CurrentView = _dictViewModel;     
+            SetFocus();
 
             //create the dictionary file if it does not exist
             if(_parser.DictFileName == null)
@@ -301,9 +395,7 @@ namespace DocEditor
                     DataContext = _dictViewModel
                 };
                 _createJsonDialog.ShowDialog();
-            }
-
-           
+            }         
         }
 
         private void SetJsonFileName(object sender, EventArgs e)
@@ -335,11 +427,11 @@ namespace DocEditor
                 {
                     _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
                 }
-                _model.SelectionAndFormat.changeColor(_ftViewModel.STextColor);
+                _model.SelectionAndFormat.ChangeColor(_ftViewModel.STextColor);
                 Console.WriteLine();
-                setSelectionColor();
+                SetSelectionColor();
             }
-            setFocus();
+            SetFocus();
         }
 
         /// <summary>
@@ -399,7 +491,7 @@ namespace DocEditor
         /// </summary>
         private void ViewModel_DeleteSelection(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             _view.DocPaper.Selection.Text = "";
         }
 
@@ -408,16 +500,31 @@ namespace DocEditor
         /// </summary>
         private void ViewModel_SelectAllText(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             _view.DocPaper.SelectAll();
         }
 
 
         private void ViewModel_NewPlainDocument(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             _model = new DocEditorModel();
-            newEmpty();
+            _parser = new ParserMain();
+            NewEmpty();
+        }
+
+        private void OpenNewDictFile(object sender, EventArgs e)
+        {
+            //json fájlbetöltős dialog ablak
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Json fájlok (*.json)|*.json";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                //parser json to dict
+                _parser.jsonToDict(openFileDialog.FileName);
+            }
+            _dictViewModel.updateDictList();
+
         }
 
 
@@ -426,7 +533,7 @@ namespace DocEditor
         /// </summary>
         private void ViewModel_Copy(object sender, ExecutedRoutedEventArgs e)
         {
-            setFocus();
+            SetFocus();
             using (var stream = new MemoryStream())
             {
                 _view.DocPaper.Selection.Save(stream, DataFormats.Rtf);
@@ -441,7 +548,7 @@ namespace DocEditor
         /// </summary>
         private void ViewModel_Paste(object sender, ExecutedRoutedEventArgs e)
         {
-            setFocus();
+            SetFocus();
             using (var stream = new MemoryStream())
             {
                 // Save RichTextBox content to RTF stream.
@@ -473,7 +580,7 @@ namespace DocEditor
         /// </summary>
         private void ViewModel_Cut(object sender, ExecutedRoutedEventArgs e)
         {
-            setFocus();
+            SetFocus();
             this.ViewModel_Copy(sender, e);
 
             _view.DocPaper.Selection.Text = string.Empty;
@@ -487,19 +594,19 @@ namespace DocEditor
         /// </summary>
         private void Change_FontFamily(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             //fontsizecmb leküldi a modellbe, és az alapján állítjuk be itt 
             //FontFamilyCmb.SelectedItem
             //if (_view.FontFamilyCmb.SelectedItem != null)
             if (_model.SelectionAndFormat != null && _ftViewModel.SFontFamily != null)
             {
-                _model.SelectionAndFormat.changeFont(_ftViewModel.SFontFamily);
+                _model.SelectionAndFormat.ChangeFont(_ftViewModel.SFontFamily);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, value: _model.SelectionAndFormat.Formatting.Family);
             }
             else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
-                _model.SelectionAndFormat.changeFont(_ftViewModel.SFontFamily);
+                _model.SelectionAndFormat.ChangeFont(_ftViewModel.SFontFamily);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, value: _model.SelectionAndFormat.Formatting.Family);
             }
             else
@@ -513,19 +620,19 @@ namespace DocEditor
             /// </summary>
             private void Change_FontSize(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             //fontsizecmb leküldi a modellbe, és az alapján állítjuk be itt 
             //FontSizeCmb.Text
             //_view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, _model.FormatText.Size);
             if (_model.SelectionAndFormat != null)
             {
-                _model.SelectionAndFormat.changeSize(Int32.Parse(_ftViewModel.SFontSize));
+                _model.SelectionAndFormat.ChangeSize(Int32.Parse(_ftViewModel.SFontSize));
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, (double)_model.SelectionAndFormat.Formatting.Size);
             }
             else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
-                _model.SelectionAndFormat.changeSize(Int32.Parse(_ftViewModel.SFontSize));
+                _model.SelectionAndFormat.ChangeSize(Int32.Parse(_ftViewModel.SFontSize));
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, (double)_model.SelectionAndFormat.Formatting.Size);
             }
             else
@@ -550,17 +657,17 @@ namespace DocEditor
         /// <param name="e"></param>
         private void SetLeftAlignment(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Align != Alignment.Left)
             {
-                _model.SelectionAndFormat.setLeftAlignment();
+                _model.SelectionAndFormat.SetLeftAlignment();
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Left);
             }
             else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setLeftAlignment();
+                _model.SelectionAndFormat.SetLeftAlignment();
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Left);
             }
             else
@@ -576,17 +683,17 @@ namespace DocEditor
         /// <param name="e"></param>
         private void SetCenterAlignment(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Align != Alignment.Center)
             {
-                _model.SelectionAndFormat.setCenterAlignment();
+                _model.SelectionAndFormat.SetCenterAlignment();
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center);
             }
             else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setCenterAlignment();
+                _model.SelectionAndFormat.SetCenterAlignment();
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center);
             }
             else
@@ -602,10 +709,10 @@ namespace DocEditor
         /// <param name="e"></param>
         private void SetRightAlignment(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Align != Alignment.Right)
             {
-                _model.SelectionAndFormat.setRightAlignment();
+                _model.SelectionAndFormat.SetRightAlignment();
                 //Paragraph par = ;
                 //_view.DocPaper.Selection.Start.Paragraph.TextAlignment = TextAlignment.Right;
 
@@ -616,7 +723,7 @@ namespace DocEditor
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setRightAlignment();
+                _model.SelectionAndFormat.SetRightAlignment();
                 //aragraph par = _view.DocPaper.Selection.Start.Paragraph;
                 //_view.DocPaper.Selection.Start.Paragraph.TextAlignment = TextAlignment.Right;
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, value: TextAlignment.Right);
@@ -634,17 +741,17 @@ namespace DocEditor
         /// <param name="e"></param>
         private void SetJustifyAlignment(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Align != Alignment.Justify)
             {
-                _model.SelectionAndFormat.setJustifyAlignment();
+                _model.SelectionAndFormat.SetJustifyAlignment();
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, value: TextAlignment.Justify);
             }
             else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setJustifyAlignment();
+                _model.SelectionAndFormat.SetJustifyAlignment();
                 _view.DocPaper.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, value: TextAlignment.Justify);
             }
             else
@@ -658,7 +765,7 @@ namespace DocEditor
         /// </summary>
         private void setSelection(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             TextPointer contentStart = _view.DocPaper.Document.ContentStart;
 
             selectionOffsets.Start = contentStart.GetOffsetToPosition(_view.DocPaper.Selection.Start);
@@ -687,11 +794,11 @@ namespace DocEditor
         /// </summary>>
         private void Selection_SetBold(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.Weight != "Bold")
             {
                 //setting the format bold
-                _model.SelectionAndFormat.setBold();
+                _model.SelectionAndFormat.SetBold();
 
                 //settting the actual selected text bold on the richtextbox
                 //_viewModel.setSelectedWeight();
@@ -702,7 +809,7 @@ namespace DocEditor
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
                 //setting the format bold
-                _model.SelectionAndFormat.setBold();
+                _model.SelectionAndFormat.SetBold();
 
                 //settting the actual selected text bold on the richtextbox
                 //_viewModel.setSelectedWeight();
@@ -713,7 +820,7 @@ namespace DocEditor
                 //a további formázást kell átállítani defaultként a modellben
                 if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.Weight == "Bold")
                 {
-                    _model.SelectionAndFormat.deleteWeight();
+                    _model.SelectionAndFormat.DeleteWeight();
                     _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, value: _model.SelectionAndFormat.Formatting.Weight);
                 }
                 else
@@ -730,10 +837,10 @@ namespace DocEditor
 
         private void Selection_SetItalic(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.Style != "Italic")
             {
-                _model.SelectionAndFormat.setItalic();
+                _model.SelectionAndFormat.SetItalic();
 
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: _model.SelectionAndFormat.Formatting.Style);
             }
@@ -741,13 +848,13 @@ namespace DocEditor
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setItalic();
+                _model.SelectionAndFormat.SetItalic();
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: _model.SelectionAndFormat.Formatting.Style);
             }
             else
             {
                 //a további formázást kell átállítani defaultként a modellben
-                _model.SelectionAndFormat.deleteStyle();
+                _model.SelectionAndFormat.DeleteStyle();
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: _model.SelectionAndFormat.Formatting.Style);
 
             }
@@ -755,7 +862,7 @@ namespace DocEditor
 
         private void Selection_SetUnderline(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_view.DocPaper.Selection.GetPropertyValue(Inline.TextDecorationsProperty) != TextDecorations.Underline)
             {
                 //setting the actual selected text underlined on the richtextbox
@@ -769,7 +876,7 @@ namespace DocEditor
 
         private void Selection_SetStrikeThrough(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_view.DocPaper.Selection.GetPropertyValue(Inline.TextDecorationsProperty) != TextDecorations.Strikethrough)
             {
                 //setting the actual selected text strike through on the richtextbox
@@ -783,10 +890,10 @@ namespace DocEditor
 
         private void Selection_SetSuperScript(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.CharOffset != 2)
             {
-                _model.SelectionAndFormat.setSuperscript();
+                _model.SelectionAndFormat.SetSuperscript();
 
                 double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
@@ -797,7 +904,7 @@ namespace DocEditor
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setSuperscript();
+                _model.SelectionAndFormat.SetSuperscript();
 
                 double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
@@ -807,7 +914,7 @@ namespace DocEditor
             else
             {
                 //a további formázást kell átállítani defaultként a modellben
-                _model.SelectionAndFormat.deleteSubSuperscript();
+                _model.SelectionAndFormat.DeleteSubSuperscript();
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.SelectionAndFormat.Formatting.Size);
             }
@@ -815,10 +922,10 @@ namespace DocEditor
 
         private void Selection_SetSubScript(object sender, EventArgs e)
         {
-            setFocus();
+            SetFocus();
             if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.CharOffset != -2)
             {
-                _model.SelectionAndFormat.setSubscript();
+                _model.SelectionAndFormat.SetSubscript();
 
                 double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
@@ -829,7 +936,7 @@ namespace DocEditor
             {
                 _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _model.SelectionAndFormat.setSubscript();
+                _model.SelectionAndFormat.SetSubscript();
 
                 double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
@@ -838,7 +945,7 @@ namespace DocEditor
             else
             {
                 //a további formázást kell átállítani defaultként a modellben
-                _model.SelectionAndFormat.deleteSubSuperscript();
+                _model.SelectionAndFormat.DeleteSubSuperscript();
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.SelectionAndFormat.Formatting.Size);
             }
@@ -858,7 +965,7 @@ namespace DocEditor
                 //set the last element of the list to the current page from the view
                 DocPapers[DocPapers.Count - 1] = _view.DocPaper.Document;
                 //open a new page
-                addPage();
+                AddPage();
             }
         }
         #endregion
@@ -871,6 +978,53 @@ namespace DocEditor
             //2. check if it is in the dictionary
             //2.a if isnt -> nothing happens
             //2.b if there is -> add the most frequent formatting to the text
+
+            //if the key is space
+           // if (e.Key == Key.Space) {
+                SetFocus();
+                string wordToFormat = "";
+                TextPointer contentStart = _view.DocPaper.Document.ContentStart;
+            _view.DocPaper.CaretPosition.InsertTextInRun(" ");
+            _view.DocPaper.CaretPosition = _view.DocPaper.CaretPosition.GetNextInsertionPosition(LogicalDirection.Forward);
+
+           TextPointer ptr = _view.DocPaper.CaretPosition.GetNextInsertionPosition(LogicalDirection.Backward);
+
+                if (new TextRange(_view.DocPaper.CaretPosition, ptr).Text == " ")
+                {
+                    selectionOffsets.End = contentStart.GetOffsetToPosition(ptr);
+
+                    //read the word to the next whitespace
+                while (ptr != contentStart && ptr != null && ptr.GetNextInsertionPosition(LogicalDirection.Backward) != null)
+                    {
+                        TextRange tr = new TextRange(ptr.GetNextInsertionPosition(LogicalDirection.Backward), ptr);
+                        if (tr.Text == " ")
+                        {
+                            break;
+                        }
+                        wordToFormat += tr.Text;
+                        ptr = ptr.GetNextInsertionPosition(LogicalDirection.Backward);
+                    }
+
+                    selectionOffsets.Start = contentStart.GetOffsetToPosition(ptr);
+
+                _model.SelectForParser = new Stwf(new Selection(selectionOffsets.Start, selectionOffsets.End, _model.ReverseWord(wordToFormat)), new FormatModel[wordToFormat.Length]);
+                if (_parser.ContainsElement(_model.ReverseWord(wordToFormat)))
+                    {
+                    _model.SelectForParser = _parser.fromDictionary(_model.SelectForParser);
+                        //str add style
+                        setFormatting(_model.SelectForParser);
+                    }
+                    else if(wordToFormat.Length > 3)
+                {
+                    List<DictClass> lst = _parser.GetEditDistance(_model.SelectForParser);
+                    _ecViewModel.updateDictList(lst);
+                    if (lst != null)
+                    {
+                        _ecDialog.ShowDialog();
+                    }
+                }
+                }
+
         }
 
         private void AddToDictionary_EventHandler(object sender, EventArgs e)
@@ -931,7 +1085,7 @@ namespace DocEditor
                 //only the selected text can be added to the dictionary error message window
                 MessageBox.Show("Szótárhoz hozzáadáshoz jelöljön ki szöveget!", "Szótár hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            setFocus();
+            SetFocus();
 
             //calling the parser algorithms
         }
@@ -943,25 +1097,8 @@ namespace DocEditor
                 Selection sel = new Selection();
                 Stwf st = new Stwf(sel, new FormatModel[_dictViewModel.DictString.Length]);
 
-                FormatModel[] fm = _parser.getFormatting(_dictViewModel.SelectedDictElement);
+                FormatModel[] fm = _parser.GetFormatting(_dictViewModel.SelectedDictElement);
 
-                //fm[0..str.length] -> fm[i] kell az i-edik karakterre rárakni
-                //fm[i].style, fm[i].weight, fm[i].family, ...
-
-                //végig kell iterálni az rtb-ben levő szövegen
-                //elejétől az str.lengthig
-
-                //TextPointer contentStart = _dictView.PreviewRtb.Document.ContentStart;
-                //TextPointer contentEnd = _dictView.PreviewRtb.Document.ContentEnd;
-                //TextRange tr = new TextRange(_dictView.PreviewRtb.Document.ContentStart, _dictView.PreviewRtb.Document.ContentEnd);//_dictView.PreviewRtb.Document.ContentStart.GetNextInsertionPosition(LogicalDirection.Forward));
-
-                //_view.ToolGrid.ContCtrl
-
-                //System.Diagnostics.Debug.WriteLine(tr.Text);
-
-                //tr.ApplyPropertyValue(TextElement.FontFamilyProperty, value: fm[0].Family);
-                //tr.ApplyPropertyValue(TextElement.FontStyleProperty, value: fm[0].Style);
-                //tr.ApplyPropertyValue(TextElement.ForegroundProperty, value: fm[0].Color);
                 _dictViewModel.DisplayText(fm);
 
             }
@@ -969,7 +1106,7 @@ namespace DocEditor
             {
                 _dictViewModel.DictString = "";
             }
-            setFocus();
+            SetFocus();
         }
 
         private void RemoveFromDictionary(object sender, EventArgs e)
@@ -979,11 +1116,12 @@ namespace DocEditor
 
             //list update
             _dictViewModel.updateDictList();
+            _dictViewModel.deletePreview();
 
             //update json
             _parser.dictToJson();
 
-            setFocus();
+            SetFocus();
         }
 
 
@@ -1014,7 +1152,7 @@ namespace DocEditor
             _model.SelectionAndFormat.SelectedText.Format = new FormatModel[_model.SelectionAndFormat.SelectedText.SelectedText.SelectedString.Length];
 
             int textp = 0;
-            while (charSt != nd && charNd != null && charSt != null)
+            while (charSt != nd && charNd != null && charSt != null && textp < _model.SelectionAndFormat.SelectedText.SelectedText.SelectedString.Length)
             {
                 
                 TextRange tr = new TextRange(charSt, charNd);
@@ -1073,17 +1211,73 @@ namespace DocEditor
             }
         }
 
-
-        private void setStyle()
+        private void setFormatting(Stwf str)
         {
-            //kiválaszt egyet a style dictionaryból, aminek a key-nél megegyezik a név, annak a formázását kell alkalmazni rá
-            //setstyle művelet, ami paraméterként kapja a dolgokat a formázáshoz
+            //fm[0..str.length] -> fm[i] kell az i-edik karakterre rárakni
+            //fm[i].style, fm[i].weight, fm[i].family, ...
+
+            //iterate though the rtb from st to nd
+            TextPointer contentStart = _view.DocPaper.Document.ContentStart;
+            TextPointer st = contentStart.GetPositionAtOffset(str.SelectedText.StartPointer);
+            TextPointer nd = contentStart.GetPositionAtOffset(str.SelectedText.EndPointer);
+
+            TextPointer ptr = st;
+
+            int fi = 0;
+            while (ptr != nd && ptr != null && ptr.GetNextInsertionPosition(LogicalDirection.Forward) != null && fi < str.SelectedText.SelectedString.Length)
+            {
+                TextRange tr = new TextRange(ptr, ptr.GetNextInsertionPosition(LogicalDirection.Forward));
+
+                //Style
+                tr.ApplyPropertyValue(TextElement.FontStyleProperty, value: str.Format[fi].Style);
+
+                //Weight
+                tr.ApplyPropertyValue(TextElement.FontWeightProperty, value: str.Format[fi].Weight);
+
+                //Family
+                tr.ApplyPropertyValue(TextElement.FontFamilyProperty, value: str.Format[fi].Family);
+
+                //Size
+                tr.ApplyPropertyValue(TextElement.FontSizeProperty, (double)str.Format[fi].Size);
+
+                //BaseLineAlignment
+                // Character offset: -2 subscript, 2 superscript, 1 normal
+                switch (str.Format[fi].CharOffset)
+                {
+                    case 1:
+                        tr.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
+                        break;
+                    case -2:
+                        tr.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
+                        break;
+                    case 2:
+                        tr.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
+                        break;
+                }
+               
+                //Color
+                tr.ApplyPropertyValue(TextElement.ForegroundProperty, value: str.Format[fi].Color);
+
+                ptr = ptr.GetNextInsertionPosition(LogicalDirection.Forward);
+                fi++;
+            }
         }
 
 
-        private void newEmpty()
+        private void SetStyle(FormatModel fm)
         {
-            _model = new DocEditorModel();
+            //kiválaszt egyet a style dictionaryból, aminek a key-nél megegyezik a név, annak a formázását kell alkalmazni rá
+            //setstyle művelet, ami paraméterként kapja a dolgokat a formázáshoz
+            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, value: fm.Family);
+            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: fm.Style);
+            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, value: fm.Weight);
+            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, (double)fm.Size);
+            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, value: fm.Color);
+        }
+
+
+        private void NewEmpty()
+        {
             DocPapers = new List<FlowDocument>();
 
             //_viewModel = new MainViewModel(_model);
@@ -1094,7 +1288,7 @@ namespace DocEditor
             _viewModel.setPageNumbers(1, 1);
         }
 
-        private void addPage()
+        private void AddPage()
         {
             _view.DocPaper.Document.Blocks.Clear();
             //add new empty page
@@ -1103,12 +1297,12 @@ namespace DocEditor
             _viewModel.setPageNumbers(_viewModel.AllPageNumbers + 1, _viewModel.CurrentPageNumber + 1);
         }
 
-        private void setFocus()
+        private void SetFocus()
         {
             _view.DocPaper.Focus();
         }
 
-        private void setSelectionColor()
+        private void SetSelectionColor()
         {
             _view.DocPaper.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, _model.SelectionAndFormat.Formatting.Color);
         }
