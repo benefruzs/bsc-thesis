@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Oldal beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF">
+        Title="Oldal beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF"  Icon="./img/ico/icon0.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -31,7 +31,7 @@
         <Label Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource WLabelStyle}">Margó beállítása</Label>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="4" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center" >
             <Label  Style="{StaticResource WLabelStyle2}">Felső</Label>
-            <TextBox x:Name="top" x:FieldModifier="private" Width="70" Text="0" TextChanged="top_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}"/>
+            <TextBox x:Name="top" Width="70" IsReadOnly="True" TextChanged="top_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}" Text="0"/>
             <Button x:Name="cmdUptop" x:FieldModifier="private" Content="▲" Click="cmdUptop_Click" Style="{StaticResource WBtnStyle}"/>
             <Button x:Name="cmdDowntop" x:FieldModifier="private" Content="▼" Click="cmdDowntop_Click" Style="{StaticResource WBtnStyle}"/>
         </StackPanel>
@@ -44,26 +44,26 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" x:Name="left" x:FieldModifier="private" Text="0" TextChanged="left_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}"/>
+            <TextBox Grid.Column="0" x:Name="left" IsReadOnly="True"  TextChanged="left_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}" Text="0"/>
             <Button Grid.Column="1" x:Name="cmdUpleft" x:FieldModifier="private" Content="▲" Click="cmdUpleft_Click" Style="{StaticResource WBtnStyle}"/>
             <Button Grid.Column="2" x:Name="cmdDownleft" x:FieldModifier="private" Content="▼" Click="cmdDownleft_Click" Style="{StaticResource WBtnStyle}"/>
         </Grid>
 
-        <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource WLabelStyle2}">Jobb</Label>
+        <Label Grid.Row="2" Grid.Column="2"  Style="{StaticResource WLabelStyle2}">Jobb</Label>
         <Grid Grid.Row="2" Grid.Column="3" Margin="10 0 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" x:Name="right" x:FieldModifier="private" Text="0" TextChanged="right_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}"/>
+            <TextBox Grid.Column="0" x:Name="right" IsReadOnly="True" TextChanged="right_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}" Text="0"/>
             <Button Grid.Column="1" x:Name="cmdUpright" x:FieldModifier="private" Content="▲" Click="cmdUpright_Click" Style="{StaticResource WBtnStyle}"/>
             <Button Grid.Column="2" x:Name="cmdDownright" x:FieldModifier="private" Content="▼" Click="cmdDownright_Click" Style="{StaticResource WBtnStyle}"/>
         </Grid>
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center" >
             <Label  Style="{StaticResource WLabelStyle2}">Alsó</Label>
-            <TextBox x:Name="bottom" x:FieldModifier="private" Width="70" Text="0" TextChanged="bottom_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}"/>
+            <TextBox x:Name="bottom" IsReadOnly="True" Width="70" TextChanged="bottom_TextChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2" Style="{StaticResource WTextBoxStyle}" Text="0"/>
             <Button x:Name="cmdUpbottom" x:FieldModifier="private" Content="▲" Click="cmdUpbottom_Click" Style="{StaticResource WBtnStyle}"/>
             <Button x:Name="cmdDownbottom" x:FieldModifier="private" Content="▼" Click="cmdDownbottom_Click" Style="{StaticResource WBtnStyle}"/>
         </StackPanel>
@@ -78,15 +78,15 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Nagyon keskeny (0.5)" Style="{StaticResource WListButtonStlye}"/>
-            <Button Grid.Row="1" Content="Keskeny (1.5)" Style="{StaticResource WListButtonStlye}"/>
-            <Button Grid.Row="2" Content="Normál (2.5)" Style="{StaticResource WListButtonStlye}"/>
-            <Button Grid.Row="3" Content="Vastag (3.5)" Style="{StaticResource WListButtonStlye}"/>
+            <Button Grid.Row="0" Content="Nagyon keskeny (0.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set05MarginCommand}"/>
+            <Button Grid.Row="1" Content="Keskeny (1.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set15MarginCommand}"/>
+            <Button Grid.Row="2" Content="Normál (2.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set25MarginCommand}"/>
+                <Button Grid.Row="3" Content="Vastag (3.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set35MarginCommand}"/>
         </Grid>
 
         <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="MÉGSEM" VerticalAlignment="Center" Width="60" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}"/>
-            <Button Content="OK" VerticalAlignment="Center" Width="60" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}"/>
+            <Button Content="MÉGSEM" VerticalAlignment="Center" Width="60" Height="20" Margin="10 5 20 5" Style="{StaticResource WBtnStyleOR}" Command="{Binding ClosePageSettingsCommand}"/>
+            <Button Content="OK" VerticalAlignment="Center" Width="60" Height="20" Margin="20 5 10 5" Style="{StaticResource WBtnStyleOR}" Command="{Binding OkPageSettingsCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

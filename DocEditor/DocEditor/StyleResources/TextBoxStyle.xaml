@@ -6,7 +6,11 @@
         <Setter Property="IsReadOnly" Value="False"/>
         <Setter Property="IsEnabled" Value="True"/>
         <Setter Property="Background" Value="#FF414147"/>
-        <Setter Property="Template">
+        <Setter Property="BorderBrush" Value="#FFFFFF"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <!--<Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border Background="{TemplateBinding Background}" CornerRadius="3" BorderThickness="1" Padding="2" BorderBrush="#FFFFFF">
@@ -24,7 +28,7 @@
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
 
     <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">

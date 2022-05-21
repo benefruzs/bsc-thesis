@@ -26,7 +26,7 @@ namespace DocEditor.ViewModel
                 {
                     //_model.FormatText.Size = value;
                     _sFontSize = value;
-                    OnPropertyChanged("SFontSize");
+                    OnPropertyChanged(nameof(SFontSize));
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace DocEditor.ViewModel
                 {
                     //_model.FormatText.Family = value;
                     _sFontFamily = value;
-                    OnPropertyChanged("SFontFamily");
+                    OnPropertyChanged(nameof(SFontFamily));
                 }
             }
         }
@@ -55,7 +55,7 @@ namespace DocEditor.ViewModel
                 if (value != _selectedStyle)
                 {
                     _selectedStyle = value;
-                    OnPropertyChanged("SelectedStyle");
+                    OnPropertyChanged(nameof(SelectedStyle));
                 }
             }
         }
@@ -66,10 +66,10 @@ namespace DocEditor.ViewModel
             get { return _fontStyles; }
             set
             {
-                if(value != _fontStyles)
+                if (value != _fontStyles)
                 {
                     _fontStyles = value;
-                    OnPropertyChanged("FontStyles");
+                    OnPropertyChanged(nameof(FontStyles));
                 }
             }
         }
@@ -83,7 +83,21 @@ namespace DocEditor.ViewModel
                 if (value != _sTextColor)
                 {
                     _sTextColor = value;
-                    OnPropertyChanged("STextColor");
+                    OnPropertyChanged(nameof(STextColor));
+                }
+            }
+        }
+
+        private double _lineHeightProp;
+        public double LineHeightProp
+        {
+            get { return _lineHeightProp; }
+            set
+            {
+                if (value != _lineHeightProp)
+                {
+                    _lineHeightProp = value;
+                    OnPropertyChanged(nameof(LineHeightProp));
                 }
             }
         }
@@ -111,9 +125,12 @@ namespace DocEditor.ViewModel
         public DelegateCommand JustifyAlignCommand { get; private set; }
         public DelegateCommand RightAlignCommand { get; private set; }
 
-        public DelegateCommand StyleChangedCommand {get; private set;}
+        public DelegateCommand StyleChangedCommand { get; private set; }
         public DelegateCommand AddNewStyleCommand { get; private set; }
         public DelegateCommand DeleteFormattingCommand { get; private set; }
+
+        public DelegateCommand AddLineHeightCommand { get; private set; }
+        public DelegateCommand LessLineHeightCommand { get; private set; }
 
 
         public event EventHandler OpenColorPicker;
@@ -137,6 +154,8 @@ namespace DocEditor.ViewModel
         public event EventHandler StyleChanged;
         public event EventHandler NewStyleAdded;
         public event EventHandler DeleteFormatting;
+        public event EventHandler AddLineHeight;
+        public event EventHandler LessLineHeight;
         #endregion
 
         #region Constructors
@@ -165,6 +184,8 @@ namespace DocEditor.ViewModel
             StyleChangedCommand = new DelegateCommand(param => OnStyleSelect());
             AddNewStyleCommand = new DelegateCommand(param => OnNewStyle());
             DeleteFormattingCommand = new DelegateCommand(param => OnDeleteFormatting());
+            AddLineHeightCommand = new DelegateCommand(param => OnAddLineHeight());
+            LessLineHeightCommand = new DelegateCommand(param => OnLessLineHeight());
 
             FontSizes = new List<double>();
             FontStyles = new List<string>();
@@ -172,6 +193,7 @@ namespace DocEditor.ViewModel
             _sFontSize = _model.FormatText.Size.ToString();
             _sFontFamily = _model.FormatText.Family;
             _sTextColor = _model.FormatText.Color;
+            _lineHeightProp = _model.LineHeight;
 
             FontSizes = _model.FontSizes;
             UpdateStyleList();
@@ -192,6 +214,18 @@ namespace DocEditor.ViewModel
             //_fontStyles = _model.FontStyles.Keys.ToList<string>();
             OnPropertyChanged("FontStyles");
 
+        }
+
+        public void IncreaseLineHeight()
+        {
+            _lineHeightProp = _model.LineHeightIncr();
+            OnPropertyChanged(nameof(LineHeightProp));
+        }
+
+        public void DecreaseLineHeight()
+        {
+            _lineHeightProp = _model.LineHeightDecr();
+            OnPropertyChanged(nameof(LineHeightProp));
         }
         #endregion
 
@@ -281,6 +315,15 @@ namespace DocEditor.ViewModel
         private void OnDeleteFormatting()
         {
             DeleteFormatting?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnAddLineHeight()
+        {
+            AddLineHeight?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnLessLineHeight()
+        {
+            LessLineHeight?.Invoke(this, EventArgs.Empty);
         }
         #endregion
     }

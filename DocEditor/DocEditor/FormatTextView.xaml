@@ -177,13 +177,14 @@
 
                 <Grid.Resources>
                     <ImageBrush x:Key="AddS/img" ImageSource="/img/spacing/sorkoz.jpg" Stretch="UniformToFill"/>
+                    <ImageBrush x:Key="AddSd/img" ImageSource="/img/spacing/sorkoz-d.png" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddTe/img" ImageSource="/img/spacing/terkoz_elotte.jpg" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddTu/img" ImageSource="/img/spacing/terkoz_utana.jpg" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddMore/img" ImageSource="/img/fm/more.jpg" Stretch="UniformToFill"/>
                 </Grid.Resources>
 
-                <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddS/img}"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddS/img}" Command="{Binding AddLineHeightCommand}"/>
+                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddSd/img}" Command="{Binding LessLineHeightCommand}"/>
                 <!-- BINDING Text default sorköz -->
 
                 <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 0 5 0" />

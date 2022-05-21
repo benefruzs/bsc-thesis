@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DocEditor"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Erre gondolt?" Height="350" Width="200">
+        Title="Erre gondolt?" Height="350" Width="200"  Icon="./img/ico/icon0.png">
     <Grid Background="#2e2f34">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

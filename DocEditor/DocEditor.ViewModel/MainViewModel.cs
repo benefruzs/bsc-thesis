@@ -100,9 +100,17 @@ namespace DocEditor.ViewModel
         public DelegateCommand NewPlainDocumentCommand { get; private set; }
         public DelegateCommand OpenDictionaryFileCommand { get; private set; }
 
+        /// <summary>
+        /// Commands for the RichTextBox
+        /// </summary>
         public DelegateCommand SetSelectionCommand { get; private set; }
         public DelegateCommand AutoFormattingCommand {get; private set;}
         public DelegateCommand UpdateRTBCommand { get; private set; }
+        public DelegateCommand NewParagraphCommand { get; private set; }
+
+        /// <summary>
+        /// Page navigation commands
+        /// </summary>
         public DelegateCommand GotoFirstPageCommand { get; private set; }
         public DelegateCommand GotoLastPageCommand { get; private set; }
         public DelegateCommand GotoNextPageCommand { get; private set; }
@@ -135,6 +143,7 @@ namespace DocEditor.ViewModel
 
         public event EventHandler SelectChanged;
         public event EventHandler AutoFormat;
+        public event EventHandler NewParagraph;
 
         public event EventHandler UpdateRTB;
         public event EventHandler GotoFirstPage;
@@ -176,6 +185,7 @@ namespace DocEditor.ViewModel
 
             SetSelectionCommand = new DelegateCommand(param => OnSelectionChanged());
             AutoFormattingCommand = new DelegateCommand(param => OnKeyUp());
+            NewParagraphCommand = new DelegateCommand(param => OnNewParagraph());
 
             UpdateRTBCommand = new DelegateCommand(param => OnTextChanged());
             GotoFirstPageCommand = new DelegateCommand(param => OnGotoFirst());
@@ -226,11 +236,12 @@ namespace DocEditor.ViewModel
         /// <summary>
         /// Sets the margins for the current document
         /// </summary>
-        public void setMarginsRTB()
+        public void SetMarginsRTB()
         {
             PageMargins = new Thickness(_model.Margin.Left, _model.Margin.Top, _model.Margin.Right, _model.Margin.Bottom);
             OnPropertyChanged(nameof(PageMargins));
         }
+
 
         public void setPageNumbers(int all, int current)
         {
@@ -299,7 +310,7 @@ namespace DocEditor.ViewModel
             _model.SetDefaultFormatting();
             SetFormattingRTB();
 
-            setMarginsRTB();
+            SetMarginsRTB();
 
             DefAlignment = _model.Align.ToString();
             OnPropertyChanged(nameof(DefAlignment));
@@ -317,6 +328,11 @@ namespace DocEditor.ViewModel
         private void OnKeyUp()
         {
             AutoFormat?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnNewParagraph()
+        {
+            NewParagraph?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnTextChanged()

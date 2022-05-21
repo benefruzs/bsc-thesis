@@ -49,6 +49,8 @@ namespace DocEditor.Model
         public int PageWidth;
         public double ActualPageHeight;
 
+        public double LineHeight;
+
         /// <summary>
         /// The currently selected text
         /// </summary>
@@ -151,6 +153,8 @@ namespace DocEditor.Model
 
             //selectForParser = new Stwf();
             ListForErrorCorrect = new List<Stwf>();
+
+            LineHeight = 10;
         }
         #endregion
 
@@ -306,6 +310,108 @@ namespace DocEditor.Model
             }
             return word;
         }
+
+        public double LineHeightIncr()
+        {
+            if(LineHeight < 49)
+            {
+                LineHeight += 2;
+            }
+            return LineHeight;
+        }
+
+        public double LineHeightDecr()
+        {
+            if (LineHeight > 7)
+            {
+                LineHeight -= 2;
+            }
+            return LineHeight;
+        }
+
+        public double SetTopMargin(double mrgn)
+        {
+            if (mrgn * 20 < 101)
+            {
+                _margin.Top = mrgn * 20;
+            }
+            else
+            {
+                _margin.Top = 100;
+            }
+            return _margin.Top;
+        }
+        public double SetBottomMargin(double mrgn)
+        {
+            if(mrgn * 20 < 101)
+            {
+                _margin.Bottom = mrgn * 20;
+            }
+            else
+            {
+                _margin.Bottom = 100;
+            }
+            return _margin.Bottom;
+        }
+        public double SetLeftMargin(double mrgn)
+        {
+            if (mrgn * 20 < 101)
+            {
+                _margin.Left = mrgn * 20;
+            }
+            else
+            {
+                _margin.Left = 100;
+            }
+            return _margin.Left;
+        }
+        public double SetRightMargin(double mrgn)
+        {
+            if (mrgn * 20 < 101)
+            {
+                _margin.Right = mrgn * 20;
+            }
+            else
+            {
+                _margin.Right = 100;
+            }
+            return _margin.Right;
+        }
+        public double GetBottomMargin()
+        {
+            return _margin.Bottom / 20;
+        }
+        public double GetTopMargin()
+        {
+            return _margin.Top / 20;
+        }
+        public double GetLeftMargin()
+        {
+            return _margin.Left / 20;
+        }
+        public double GetRightMargin()
+        {
+            return _margin.Right / 20;
+        }
+
+        public void SetAllMargins(double mrgn)
+        {
+            if(mrgn * 20 < 101)
+            {
+                _margin.Right = mrgn * 20;
+                _margin.Left = mrgn * 20;
+                _margin.Top = mrgn * 20;
+                _margin.Bottom = mrgn * 20;
+            }
+            else
+            {
+                _margin.Right = 100;
+                _margin.Left = 100;
+                _margin.Top = 100;
+                _margin.Bottom = 100;
+            }
+        }
+
         #endregion
     }
 }

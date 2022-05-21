@@ -119,7 +119,7 @@
                     <MenuItem Header="_Szótár betöltése" Command="{Binding OpenDictionaryFileCommand}"/>
                     <MenuItem Header="_Szótár mentése" Command="{Binding SaveDictionaryFileCommand}"/>
                     <Separator />
-                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenCurrentDictFileCommand}"/>
+                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenDictCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Módosítás" Style="{StaticResource MenuItemStyle}">
                     <MenuItem Header="_Vissza" />
@@ -134,9 +134,7 @@
                 </MenuItem>
                 <MenuItem Header="_Nézet" Style="{StaticResource MenuItemStyle}">
                     <MenuItem Header="_Nyomtatás" />
-                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenCurrentDictFileCommand}"/>
-                    <Separator />
-                    <MenuItem Header="_Teljes képernyő" Command="{Binding MaximizeAppCommand}"/>
+                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenDictCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Súgó" Style="{StaticResource MenuItemStyle}">
                     <MenuItem Header="_Felhasználói súgó" Command="{Binding OpenHelpCmd}"/>
@@ -192,9 +190,11 @@
                     </i:Interaction.Triggers>
                     <RichTextBox.InputBindings>
                         <KeyBinding Key="Space" Command="{Binding AutoFormattingCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding NewParagraphCommand}"/>
                     </RichTextBox.InputBindings>
-                    <FlowDocument PagePadding="50">
+                    <FlowDocument PagePadding="50" LineHeight="{Binding LineHeightProp}">
                         <!--paragraph binding-->
+                        
                     </FlowDocument>
                 </RichTextBox>
             </ScrollViewer>

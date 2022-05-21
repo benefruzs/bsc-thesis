@@ -47,8 +47,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTopImg}" Height="40" Width="40" />
-                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTopImg}" Height="40" Width="40" Command="{Binding SetTopMarginCommand}"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding TopMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
                     <!-- BINDING Text default margin -->
@@ -62,8 +62,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBottomImg}" Height="40" Width="40"/>
-                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBottomImg}" Height="40" Width="40" Command="{Binding SetBottomMarginCommand}"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding BottomMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
                     <!-- BINDING Text default margin -->
@@ -77,8 +77,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddLeftImg}" Height="40" Width="40"/>
-                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddLeftImg}" Height="40" Width="40" Command="{Binding SetLeftMarginCommand}"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding LeftMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- BINDING Text default margin -->
                 </Grid>
@@ -91,8 +91,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddRightImg}" Height="40" Width="40"/>
-                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                    <Button Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddRightImg}" Height="40" Width="40" Command="{Binding SetRightMarginCommand}"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding RightMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- BINDING Text default margin -->
                 </Grid>

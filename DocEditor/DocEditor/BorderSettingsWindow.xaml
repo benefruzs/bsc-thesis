@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Szegély beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF">
+        Title="Szegély beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF"  Icon="./img/ico/icon0.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

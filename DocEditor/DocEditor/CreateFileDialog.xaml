@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Szótár létrehozása" Height="150" Width="200">
+        Title="Szótár létrehozása" Height="150" Width="400"  Icon="./img/ico/icon0.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

@@ -42,6 +42,7 @@
     <None Remove="img\margin\left.jpg" />
     <None Remove="img\margin\right.jpg" />
     <None Remove="img\margin\top.jpg" />
+    <None Remove="img\spacing\sorkoz-d.png" />
     <None Remove="img\spacing\sorkoz.jpg" />
     <None Remove="img\spacing\terkoz_elotte.jpg" />
     <None Remove="img\spacing\terkoz_utana.jpg" />
@@ -93,6 +94,7 @@
     <Resource Include="img\margin\left.jpg" />
     <Resource Include="img\margin\right.jpg" />
     <Resource Include="img\margin\top.jpg" />
+    <Resource Include="img\spacing\sorkoz-d.png" />
     <Resource Include="img\spacing\sorkoz.jpg" />
     <Resource Include="img\spacing\terkoz_elotte.jpg" />
     <Resource Include="img\spacing\terkoz_utana.jpg" />
