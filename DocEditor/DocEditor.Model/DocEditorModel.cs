@@ -9,7 +9,7 @@ namespace DocEditor.Model
     /// Enum type for paragraph alignment
     /// </summary>
     public enum Alignment { Left, Right, Center, Justify }
-    public class DocEditorModel : ObservableObject
+    public class DocEditorModel
     {
         #region Private fields and Public properties
         /// <summary>
@@ -65,7 +65,7 @@ namespace DocEditor.Model
         public string Text
         {
             get { return _text; }
-            set { OnPropertyChanged(ref _text, value); }
+            set { _text = value; }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace DocEditor.Model
         public string FilePath
         {
             get { return _filePath; }
-            set { OnPropertyChanged(ref _filePath, value); }
+            set { _filePath = value; }
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace DocEditor.Model
         public string FileName
         {
             get { return _fileName; }
-            set { OnPropertyChanged(ref _fileName, value); }
+            set { _fileName = value; }
         }
 
         /// <summary>
@@ -333,7 +333,14 @@ namespace DocEditor.Model
         {
             if (mrgn * 20 < 101)
             {
-                _margin.Top = mrgn * 20;
+                if (mrgn < 0)
+                {
+                    _margin.Top = 0;
+                }
+                else
+                {
+                    _margin.Top = mrgn * 20;
+                }
             }
             else
             {
@@ -345,7 +352,14 @@ namespace DocEditor.Model
         {
             if(mrgn * 20 < 101)
             {
-                _margin.Bottom = mrgn * 20;
+                if (mrgn < 0)
+                {
+                    _margin.Bottom = 0;
+                }
+                else
+                {
+                    _margin.Bottom = mrgn * 20;
+                }
             }
             else
             {
@@ -357,7 +371,14 @@ namespace DocEditor.Model
         {
             if (mrgn * 20 < 101)
             {
-                _margin.Left = mrgn * 20;
+                if (mrgn < 0)
+                {
+                    _margin.Left = 0;
+                }
+                else
+                {
+                    _margin.Left = mrgn * 20;
+                }
             }
             else
             {
@@ -369,7 +390,14 @@ namespace DocEditor.Model
         {
             if (mrgn * 20 < 101)
             {
-                _margin.Right = mrgn * 20;
+                if (mrgn < 0)
+                {
+                    _margin.Right = 0;
+                }
+                else
+                {
+                    _margin.Right = mrgn * 20;
+                }
             }
             else
             {
@@ -398,10 +426,20 @@ namespace DocEditor.Model
         {
             if(mrgn * 20 < 101)
             {
-                _margin.Right = mrgn * 20;
-                _margin.Left = mrgn * 20;
-                _margin.Top = mrgn * 20;
-                _margin.Bottom = mrgn * 20;
+                if (mrgn < 0)
+                {
+                    _margin.Right = 0;
+                    _margin.Left = 0;
+                    _margin.Top = 0;
+                    _margin.Bottom = 0;
+                }
+                else
+                {
+                    _margin.Right = mrgn * 20;
+                    _margin.Left = mrgn * 20;
+                    _margin.Top = mrgn * 20;
+                    _margin.Bottom = mrgn * 20;
+                }
             }
             else
             {

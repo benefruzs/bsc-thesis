@@ -34,6 +34,20 @@ namespace DocEditor.ViewModel
             }
         }
 
+        private double _lineHeightProp;
+        public double LineHeightProp
+        {
+            get { return _model.LineHeight; }
+            set
+            {
+                if (value != _model.LineHeight)
+                {
+                    _model.LineHeight = value;
+                    OnPropertyChanged(nameof(LineHeightProp));
+                }
+            }
+        }
+
         //FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}"
         public string FF { get; set; }
         public int SIZE { get; set; }
@@ -211,6 +225,8 @@ namespace DocEditor.ViewModel
             PageHeight = PageWidth / 7 * 10;
             OnPropertyChanged(nameof(PageWidth));
             OnPropertyChanged(nameof(PageHeight));
+
+            
 
         }
         #endregion

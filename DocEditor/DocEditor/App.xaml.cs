@@ -224,6 +224,7 @@ namespace DocEditor
             SetFocus();
             _model.SetRightMargin(_pageViewModel.RightMargin);
             _viewModel.SetMarginsRTB();
+            _pageViewModel.UpdateMargins();
         }
 
         private void ChangeLeftMargin(object sender, EventArgs e)
@@ -231,6 +232,7 @@ namespace DocEditor
             SetFocus();
             _model.SetLeftMargin(_pageViewModel.LeftMargin);
             _viewModel.SetMarginsRTB();
+            _pageViewModel.UpdateMargins();
         }
 
         private void ChangeTopMargin(object sender, EventArgs e)
@@ -238,6 +240,7 @@ namespace DocEditor
             SetFocus();
             _model.SetTopMargin(_pageViewModel.TopMargin);
             _viewModel.SetMarginsRTB();
+            _pageViewModel.UpdateMargins();
         }
 
         private void ChangeBottomMargin(object sender, EventArgs e)
@@ -245,6 +248,7 @@ namespace DocEditor
             SetFocus();
             _model.SetBottomMargin(_pageViewModel.BottomMargin);
             _viewModel.SetMarginsRTB();
+            _pageViewModel.UpdateMargins();
         }
 
         private void ViewModel_LessLineHeight(object sender, EventArgs e)
@@ -423,21 +427,25 @@ namespace DocEditor
         /// </summary>
         private void Doc_GotoPrev(object sender, EventArgs e)
         {
+            SetFocus();
             throw new NotImplementedException();
         }
 
         private void Doc_GotoNext(object sender, EventArgs e)
         {
+            SetFocus();
             throw new NotImplementedException();
         }
 
         private void Doc_GotoLast(object sender, EventArgs e)
         {
+            SetFocus();
             throw new NotImplementedException();
         }
 
         private void Doc_GotoFirst(object sender, EventArgs e)
         {
+            SetFocus();
             throw new NotImplementedException();
         }
         #endregion
@@ -1237,8 +1245,15 @@ namespace DocEditor
                 getSelection();
                 TextPointer contentStart = _view.DocPaper.Document.ContentStart;
                 TextRange beforeText = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.Start - 1), contentStart.GetPositionAtOffset(selectionOffsets.Start));
-                TextRange afterText = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.End), contentStart.GetPositionAtOffset(selectionOffsets.End + 1));
-
+                TextRange afterText = new TextRange(contentStart, contentStart);
+                try
+                {
+                    afterText = new TextRange(contentStart.GetPositionAtOffset(selectionOffsets.End), contentStart.GetPositionAtOffset(selectionOffsets.End + 1));
+                }
+                catch (ArgumentNullException)
+                {
+                    
+                }
                 _model.select = _parser.selectedTextValidation(_model.select, beforeText.Text, afterText.Text);
                 if (_model.select.SelectedString == null)
                 {

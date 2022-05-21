@@ -17,7 +17,6 @@ namespace DocEditor.Model
         public string Style
         {
             get { return _fontStyle; }
-            //set { OnPropertyChanged(ref _fontStyle, value); }
             set
             {
                 if (_fontStyle != value) { _fontStyle = value; OnFormatChanged(); }
@@ -138,9 +137,9 @@ namespace DocEditor.Model
         {
             _size = 14;
             _fontWeight = "Normal";
-            _fontFamily = "Courier new";
+            _fontFamily = "Arial";
             _fontStyle = "Normal";
-            _color = "Red";
+            _color = "#000000";
             _charOffset = 1;
         }
         #endregion

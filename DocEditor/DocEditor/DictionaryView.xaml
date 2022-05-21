@@ -49,36 +49,38 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>-->
-        
-        <ItemsControl Background="#FFFFFF" Margin="10" Grid.Row="1" ItemsSource="{Binding DictElements}" Width="Auto" Height="50">
-            <ItemsControl.Resources>
-                <Style x:Key="rtbStyle" TargetType="RichTextBox">
-                    <Setter Property="IsReadOnly" Value="True"/>
-                    <Setter Property="Background" Value="#FFFFFF"/>
-                    <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Padding" Value="0 10 0 10"/>
-                    <Setter Property="Width" Value="25"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                </Style>
-            </ItemsControl.Resources>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel FlowDirection="LeftToRight" ItemHeight="50" ItemWidth="Auto" HorizontalAlignment="Center"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <RichTextBox FontSize="{Binding DefaultSize}" FontFamily="{Binding DefaultFamily}" FontStyle="{Binding DefaultStyle}" FontWeight="{Binding DefaultWeight}" Foreground="{Binding DefaultColor}" Style="{StaticResource rtbStyle}">
-                        <FlowDocument>
-                            <Paragraph TextAlignment="Center">
-                                <Run Text="{Binding RunText}" BaselineAlignment="{Binding BLineAlign}"/>
-                                
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+
+        <ScrollViewer Grid.Row="1" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10">
+            <ItemsControl Background="#FFFFFF" Margin="10" Grid.Row="1" ItemsSource="{Binding DictElements}" Width="Auto" Height="50">
+                <ItemsControl.Resources>
+                    <Style x:Key="rtbStyle" TargetType="RichTextBox">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="Background" Value="#FFFFFF"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="Padding" Value="0 10 0 10"/>
+                        <Setter Property="Width" Value="25"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel FlowDirection="LeftToRight" ItemHeight="50" ItemWidth="Auto" HorizontalAlignment="Center" ScrollViewer.CanContentScroll="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RichTextBox FontSize="{Binding DefaultSize}" FontFamily="{Binding DefaultFamily}" FontStyle="{Binding DefaultStyle}" FontWeight="{Binding DefaultWeight}" Foreground="{Binding DefaultColor}" Style="{StaticResource rtbStyle}">
+                            <FlowDocument>
+                                <Paragraph TextAlignment="Center">
+                                    <Run Text="{Binding RunText}" BaselineAlignment="{Binding BLineAlign}"/>
+
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
 
         <Grid Grid.Row="2" Background="#2e2f34" Height="40" Margin="20 0 20 0">
             
