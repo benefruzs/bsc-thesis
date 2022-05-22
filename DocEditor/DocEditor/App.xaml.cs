@@ -1347,7 +1347,7 @@ namespace DocEditor
 
             //initialize format array
             _model.SelectionAndFormat.SelectedText.Format = new FormatModel[_model.SelectionAndFormat.SelectedText.SelectedText.SelectedString.Length];
-
+            
             int textp = 0;
             while (charSt != nd && charNd != null && charSt != null && textp < _model.SelectionAndFormat.SelectedText.SelectedText.SelectedString.Length)
             {

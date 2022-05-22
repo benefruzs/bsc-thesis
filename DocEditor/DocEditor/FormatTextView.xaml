@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <ComboBox x:Name="StyleCmb" Grid.Row="0"
-                              Margin="10"
+                              Margin="10 20 10 10"
                               IsEditable="False" 
                               SelectedItem="{Binding SelectedStyle}" 
                               ItemsSource="{Binding FontStyles}"
@@ -30,7 +30,7 @@
             </i:Interaction.Triggers>
         </ComboBox>
 
-        <Border Grid.Row="1" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
+        <Border Grid.Row="1" Margin="10 20 10 20" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
             <Grid Background="#404146" Height="70">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -52,6 +52,9 @@
                     <ImageBrush x:Key="AddForw/img" ImageSource="/img/al_btn/forw.jpg" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddBackw/img" ImageSource="/img/al_btn/backw.jpg" Stretch="UniformToFill"/>
                     <ImageBrush x:Key="AddList/img" ImageSource="/img/al_btn/list.jpg" Stretch="UniformToFill"/>
+                    <ImageBrush x:Key="AddS/img" ImageSource="/img/spacing/sorkoz.jpg" Stretch="UniformToFill"/>
+                    <ImageBrush x:Key="AddSd/img" ImageSource="/img/spacing/sorkoz-d.png" Stretch="UniformToFill"/>
+
                 </Grid.Resources>
 
                 <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddLeft/img}" Command="{Binding LeftAlignCommand}"/>
@@ -64,14 +67,15 @@
                 <Separator Grid.Row="1" Grid.Column="2" />
                 <Separator Grid.Row="1" Grid.Column="3" Margin="0 0 5 0"/>
 
-                <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddList/img}"/>
+                <!--<Button Grid.Row="2" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddList/img}"/>-->
 
-                <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddForw/img}"/>
-                <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBackw/img}"/>
+                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddS/img}" Command="{Binding AddLineHeightCommand}"/>
+                <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddSd/img}" Command="{Binding LessLineHeightCommand}"/>
+
             </Grid>
         </Border>
 
-        <Border Grid.Row="2" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
+        <Border Grid.Row="2" Margin="10 20 10 20" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
             <Grid Background="#404146" Height="140">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -145,65 +149,17 @@
 
                 <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="5 0 5 0" />
 
-                <Button Grid.Row="4" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTextCol/img}" Command="{Binding OpenColorPickerCommand}"/>
-                <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddXOver/img}" Command="{Binding SetSuperScriptCommand}"/>
-                <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddXUnder/img}" Command="{Binding SetSubScriptCommand}"/>
-                <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddMore/img}" Command="{Binding AddMoreFormattingCommand}"/>
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTextCol/img}" Command="{Binding OpenColorPickerCommand}"/>
+                <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddXOver/img}" Command="{Binding SetSuperScriptCommand}"/>
+                <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddXUnder/img}" Command="{Binding SetSubScriptCommand}"/>
+                <!--<Button Grid.Row="4" Grid.Column="3" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddMore/img}" Command="{Binding AddMoreFormattingCommand}"/>-->
 
                 <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Margin="5 0 5 0" />
 
-                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBorder/img}" Command="{Binding OpenBorderCommand}"/>
-                    <!-- Borderhez dropdown menu kell -->
-                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddDel/img}" Command="{Binding DeleteFormattingCommand}"/>
-                <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddStyle/img}" Command="{Binding AddNewStyleCommand}"/>
-            </Grid>
-        </Border>
-
-        <Border Grid.Row="3" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="140">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.Resources>
-                    <ImageBrush x:Key="AddS/img" ImageSource="/img/spacing/sorkoz.jpg" Stretch="UniformToFill"/>
-                    <ImageBrush x:Key="AddSd/img" ImageSource="/img/spacing/sorkoz-d.png" Stretch="UniformToFill"/>
-                    <ImageBrush x:Key="AddTe/img" ImageSource="/img/spacing/terkoz_elotte.jpg" Stretch="UniformToFill"/>
-                    <ImageBrush x:Key="AddTu/img" ImageSource="/img/spacing/terkoz_utana.jpg" Stretch="UniformToFill"/>
-                    <ImageBrush x:Key="AddMore/img" ImageSource="/img/fm/more.jpg" Stretch="UniformToFill"/>
-                </Grid.Resources>
-
-                <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddS/img}" Command="{Binding AddLineHeightCommand}"/>
-                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddSd/img}" Command="{Binding LessLineHeightCommand}"/>
-                <!-- BINDING Text default sorköz -->
-
-                <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 0 5 0" />
-
-                <TextBox Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
-                <!-- BINDING Text default térköz -->
-                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTe/img}"/>
-
-                <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 0 5 0" />
-
-
-                <TextBox Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                <!-- BINDING Text default térköz -->
-                <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddTu/img}"/>
-
-
-                <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 0 5 0" />
-
-                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddMore/img}" Command="{Binding AddMoreSpacingCommand}"/>
+                <!--<Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddBorder/img}" Command="{Binding OpenBorderCommand}"/>-->
+                <!-- Borderhez dropdown menu kell -->
+                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddDel/img}" Command="{Binding DeleteFormattingCommand}"/>
+                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource FormatBtnStyle}" Background="{StaticResource AddStyle/img}" Command="{Binding AddNewStyleCommand}"/>
             </Grid>
         </Border>
 
