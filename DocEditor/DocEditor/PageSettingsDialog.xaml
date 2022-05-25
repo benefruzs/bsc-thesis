@@ -1,18 +1,18 @@
-﻿<Window x:Class="DocEditor.PageSettingsWindow"
+﻿<Window x:Class="DocEditor.PageSettingsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocEditor"
         mc:Ignorable="d"
-        Title="Oldal beállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF"  Icon="./img/ico/icon0.png">
+         Title="Oldalbeállítások" Height="400" Width="400" FontFamily="Corbel" Background="#FFFFFF"  Icon="./img/ico/icon0.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- felső -->
             <RowDefinition Height="Auto"/>
             <!--bal jobb-->
-                <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <!--alsó-->
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -81,7 +81,7 @@
             <Button Grid.Row="0" Content="Nagyon keskeny (0.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set05MarginCommand}"/>
             <Button Grid.Row="1" Content="Keskeny (1.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set15MarginCommand}"/>
             <Button Grid.Row="2" Content="Normál (2.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set25MarginCommand}"/>
-                <Button Grid.Row="3" Content="Vastag (3.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set35MarginCommand}"/>
+            <Button Grid.Row="3" Content="Vastag (3.5)" Style="{StaticResource WListButtonStlye}" Command="{Binding Set35MarginCommand}"/>
         </Grid>
 
         <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">

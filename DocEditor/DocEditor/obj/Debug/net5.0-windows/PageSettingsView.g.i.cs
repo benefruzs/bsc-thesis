@@ -54,7 +54,7 @@ namespace DocEditor {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/DocEditor;component/pagesettingsview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DocEditor;V1.0.0.0;component/pagesettingsview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\PageSettingsView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

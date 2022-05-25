@@ -53,21 +53,20 @@ namespace DocEditor.Model
         #region Constructors
         public MarginModel()
         {
-            setDefaultMargin();
+            SetDefaultMargin();
         }
         #endregion
 
-        #region Private methods
+
+        #region Public methods
         /// <summary>
         /// Setting the default page margin
         /// </summary>
-        public void setDefaultMargin()
+        public void SetDefaultMargin()
         {
             _top = _bottom = _left = _right = 50;
         }
-        #endregion
 
-        #region Public methods
         /// <summary>
         /// Setting the page margins
         /// </summary>
@@ -75,7 +74,7 @@ namespace DocEditor.Model
         /// <param name="bottom">Bottom page margin</param>
         /// <param name="right">Right page margin</param>
         /// <param name="left">Left page margin</param>
-        public void setMargin(double top, double bottom, double right, double left)
+        public void SetMargin(double top, double bottom, double right, double left)
         {
             _top = top;
             _bottom = bottom;

@@ -52,7 +52,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RichTextBox FontSize="{Binding DefaultSize}" FontFamily="{Binding DefaultFamily}" FontStyle="{Binding DefaultStyle}" FontWeight="{Binding DefaultWeight}" Foreground="{Binding DefaultColor}" Style="{StaticResource rtbStyle}">
+                    <RichTextBox FontFamily="{Binding DefaultFamily}" FontStyle="{Binding DefaultStyle}" FontWeight="{Binding DefaultWeight}" Foreground="{Binding DefaultColor}" Style="{StaticResource rtbStyle}" >
                         <FlowDocument>
                             <Paragraph TextAlignment="Center">
                                 <Run Text="{Binding RunText}" BaselineAlignment="{Binding BLineAlign}"/>

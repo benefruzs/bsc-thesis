@@ -5,12 +5,31 @@
       "DocEditor.Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DocEditor.Persistence": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/DocEditor.Model.dll": {}
         },
         "runtime": {
           "bin/placeholder/DocEditor.Model.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "DocEditor.Persistence/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DocEditor.Persistence.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DocEditor.Persistence.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       }
     }
   },
@@ -19,6 +38,11 @@
       "type": "project",
       "path": "../DocEditor.Model/DocEditor.Model.csproj",
       "msbuildProject": "../DocEditor.Model/DocEditor.Model.csproj"
+    },
+    "DocEditor.Persistence/1.0.0": {
+      "type": "project",
+      "path": "../DocEditor.Persistence/DocEditor.Persistence.csproj",
+      "msbuildProject": "../DocEditor.Persistence/DocEditor.Persistence.csproj"
     }
   },
   "projectFileDependencyGroups": {

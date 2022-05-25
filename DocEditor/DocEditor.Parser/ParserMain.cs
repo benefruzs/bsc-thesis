@@ -48,7 +48,7 @@ namespace DocEditor.Parser
 
         #region Private methods
         /// <summary>
-        /// Generate the dictionary format from the font style
+        /// Generates the dictionary format from the font style
         /// </summary>
         /// <param name="style">Font style</param>
         /// <returns></returns>
@@ -68,11 +68,11 @@ namespace DocEditor.Parser
         }
 
         /// <summary>
-        /// Generate the dictionary format from the font weight
+        /// Generates the dictionary format from the font weight
         /// </summary>
         /// <param name="weight">Font weight</param>
-        /// <returns></returns>
-        private char WeightToChar(string weight)    //TODO
+        /// <returns>The character for the format</returns>
+        private char WeightToChar(string weight)
         {
             switch (weight)
             {
@@ -93,7 +93,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="offset">Character offset</param>
         /// <returns></returns>
-        private char offsetToChar(int offset)
+        private char OffsetToChar(int offset)
         {
             switch (offset)
             {
@@ -111,7 +111,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="offset">Character offset</param>
         /// <returns></returns>
-        private int charToOffset(char offset)
+        private int CharToOffset(char offset)
         {
             switch (offset)
             {
@@ -129,7 +129,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="weight"></param>
         /// <returns></returns>
-        private string charToWeight(char weight)    //TODO
+        private string CharToWeight(char weight)    //TODO
         {
             switch (weight)
             {
@@ -149,7 +149,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="style"></param>
         /// <returns></returns>
-        private string charToStyle(char style)
+        private string CharToStyle(char style)
         {
             switch (style)
             {
@@ -168,7 +168,7 @@ namespace DocEditor.Parser
         /// Get the most frequent formatting to the first index of the format array
         /// </summary>
         /// <param name="ft_arr">The formatting for all characters of the string</param>
-        private void getTheOccurences(FormatModel[] ft_arr)
+        private void GetTheOccurences(FormatModel[] ft_arr)
         {
             var styleFreq = new Dictionary<string, int>(ft_arr.Length);
             var weightFreq = new Dictionary<string, int>(ft_arr.Length);
@@ -248,7 +248,7 @@ namespace DocEditor.Parser
             _format_array[0] += ',';
 
             mostFreqOffset = chOffsetFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-            _format_array[0] += offsetToChar(mostFreqOffset);
+            _format_array[0] += OffsetToChar(mostFreqOffset);
             _format_array[0] += ',';
 
             mostFreqSize = sizeFreq.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -265,7 +265,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="ft"></param>
         /// <returns></returns>
-        private string generateFormat(FormatModel ft)
+        private string GenerateFormat(FormatModel ft)
         {
             string res = null;
             if(!Equals(ft.Style, mostFreqStyle))
@@ -300,7 +300,7 @@ namespace DocEditor.Parser
 
             if (!Equals(ft.CharOffset, mostFreqOffset))
             {
-                res += offsetToChar(ft.CharOffset);
+                res += OffsetToChar(ft.CharOffset);
                 res += ',';
             }
             else
@@ -340,22 +340,22 @@ namespace DocEditor.Parser
             //FormatModel[n].Style    
             _format_array = new string[ft_arr.Length + 1];
 
-            getTheOccurences(ft_arr); //_format_array[0] done
+            GetTheOccurences(ft_arr); //_format_array[0] done
 
             for (int i = 0; i<ft_arr.Length; i++)
             {
-                _format_array[i+1] = generateFormat(ft_arr[i]);
+                _format_array[i+1] = GenerateFormat(ft_arr[i]);
             }
         }
 
-        private void fromStwfToDict(Stwf st)
+        private void FromStwfToDict(Stwf st)
         {
             StwfFormatToDictFormat(st.Format);
             //creating a new dictionary element for further checks
             _dict = new DictClass(st.SelectedText.SelectedString, _format_array, 1);
         }
 
-        private FormatModel generateFormatModel(string def, string df)
+        private FormatModel GenerateFormatModel(string def, string df)
         {
             //a vesszõk mentén fel kell bontani
             //arr[n]: Style[0] Weight[1] CharOffset[2] Family[3] Size[4] Color[5]
@@ -374,7 +374,7 @@ namespace DocEditor.Parser
             }
     
             //FormatModel(string family, int size, string style, string weight, string color){}
-            FormatModel res = new FormatModel(charToStyle(char.Parse(formatArray[0])), charToWeight(char.Parse(formatArray[1])), charToOffset(char.Parse(formatArray[3])), formatArray[2], int.Parse(formatArray[4]), formatArray[5]);
+            FormatModel res = new FormatModel(CharToStyle(char.Parse(formatArray[0])), CharToWeight(char.Parse(formatArray[1])), CharToOffset(char.Parse(formatArray[3])), formatArray[2], int.Parse(formatArray[4]), formatArray[5]);
             return res;
         }
 
@@ -387,13 +387,13 @@ namespace DocEditor.Parser
             
             for(int i=0; i<df.Length-1; i++)
             {
-                fm[i] = generateFormatModel(df[0], df[i+1]);
+                fm[i] = GenerateFormatModel(df[0], df[i+1]);
             }
 
             return fm;
         }
 
-        private FormatModel[] fromDictToStwf(DictClass dc)
+        private FormatModel[] FromDictToStwf(DictClass dc)
         {
             return DictFormatToStwfFormat(dc.Formatting, dc.Str.Length);
         }
@@ -452,7 +452,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="s">The selection from the document</param>
         /// <returns>The trimmed selection</returns>
-        public Selection selectionTrim(Selection s)
+        public Selection SelectionTrim(Selection s)
         {
             //setting the text pointers
             int st = s.SelectedString.Length - s.SelectedString.TrimStart(' ').Length;
@@ -470,7 +470,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="s">The selected text with its pointers</param>
         /// <returns></returns>
-        public Selection selectedTextValidation(Selection s, string strBefore, string strAfter)
+        public Selection SelectedTextValidation(Selection s, string strBefore, string strAfter)
         {
             //check if the whole word is selected
             if((strBefore == " " || strBefore == "" || strBefore.Any(c => char.IsSymbol(c)) || strBefore.Any(c => char.IsPunctuation(c)))
@@ -495,9 +495,9 @@ namespace DocEditor.Parser
         /// Adding a new element to the dictionary
         /// </summary>
         /// <param name="str"></param>
-        public void toDictionary(Stwf str)
+        public void ToDictionary(Stwf str)
         {
-            fromStwfToDict(str);
+            FromStwfToDict(str);
             //if the string, formatting and so already exists then update dictionary content
             //search + DictClass.Freq++
             int ind = Dict.FindIndex(x => String.Equals(x.Str, _dict.Str) && Enumerable.SequenceEqual(x.Formatting, _dict.Formatting));
@@ -517,7 +517,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="str"></param>
         /// <returns>The formatting applied to the text</returns>
-        public Stwf fromDictionary(Stwf str)
+        public Stwf FromDictionary(Stwf str)
         {
             if (ContainsElement(str.SelectedText.SelectedString))
             {
@@ -527,7 +527,7 @@ namespace DocEditor.Parser
 
                 //Dict[ind] is the element form the dictionary which we need to add to the text
                 //Dict[ind].formatting -> stwf formatting
-                str.Format = fromDictToStwf(Dict[ind]);
+                str.Format = FromDictToStwf(Dict[ind]);
 
                 Dict[ind].Frequency++;
             }
@@ -597,7 +597,7 @@ namespace DocEditor.Parser
         /// Remove elements from the dictionary
         /// </summary>
         /// <param name="ind"></param>
-        public void removeElementFromDictionary(int ind)
+        public void RemoveElementFromDictionary(int ind)
         {
             if (Dict.Count > ind)
             {
@@ -605,7 +605,7 @@ namespace DocEditor.Parser
             }
         }
 
-        public void removeElementFromDictionary(DictClass dc)
+        public void RemoveElementFromDictionary(DictClass dc)
         {
             if (Dict.Contains(dc))
             {
@@ -620,7 +620,7 @@ namespace DocEditor.Parser
         /// <returns></returns>
         public FormatModel[] GetFormatting(DictClass dc)
         {
-            return fromDictToStwf(dc);
+            return FromDictToStwf(dc);
         }
 
         /// <summary>
@@ -638,7 +638,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="str"></param>
         /// <returns>The list of all the possible strings and formatting</returns>
-        public List<Stwf> getFromDictByLevenshtein(Stwf str)
+        public List<Stwf> GetFromDictByLevenshtein(Stwf str)
         {
             List<Stwf> res = new List<Stwf>();
             int[] distances = LevenshteinDistanceForAll(str.SelectedText.SelectedString);
@@ -648,7 +648,7 @@ namespace DocEditor.Parser
                 //if the Levenshtein distance is less than 3, the item shoud be added to the result list
                 if(distances[i] < 2)
                 {
-                    str.Format = fromDictToStwf(Dict[i]);
+                    str.Format = FromDictToStwf(Dict[i]);
                     res.Add(str);
                 }
                 i++;
@@ -664,29 +664,8 @@ namespace DocEditor.Parser
         /// Method to write the dictionary list to a json file
         /// </summary>
         /// <param name="fileName">The name of the json file</param>
-        public void dictToJson(string fileName)
+        public void DictToJson(string fileName)
         {
-            //_dict = new DictClass(null, null, 0);
-            //Dict = new List<DictClass>();
-
-            //_dict.Str = "test";
-            ////arr[n]: Style Weight CharOffset Family Size Color
-            //_dict.Formatting = new string[5]{ "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "n,_,_,_,_,_"};
-            //_dict.Frequency = 3;
-            //Dict.Add(_dict);
-
-            //_dict.Str = "stet";
-            ////arr[n]: Style Weight CharOffset Family Size Color
-            //_dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,_,_,_,_,_" };
-            //_dict.Frequency = 6;
-            //Dict.Add(_dict);
-            //_dict.Str = "tset";
-
-            ////arr[n]: Style Weight CharOffset Family Size Color
-            //_dict.Formatting = new string[5] { "i,b,1,Arial,12,Black", "_,_,_,_,_,_", "n,n,_,_,_,_", "_,_,_,_,_,_", "_,n,_,_,_,_" };
-            //_dict.Frequency = 4;
-            //Dict.Add(_dict);
-
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonStr = JsonSerializer.Serialize(Dict, options);
             System.Diagnostics.Debug.WriteLine(jsonStr);
@@ -700,26 +679,20 @@ namespace DocEditor.Parser
         /// Method to reading from the json file to the dictionary list
         /// </summary>
         /// <param name="fileName">The name of the json file</param>
-        public void jsonToDict(string fileName)
+        public void JsonToDict(string fileName)
         {
             string jsonStr = File.ReadAllText(fileName);
             Dict = JsonSerializer.Deserialize<List<DictClass>>(jsonStr)!;
-            //System.Diagnostics.Debug.WriteLine(Dict[0].Str);
-            //System.Diagnostics.Debug.WriteLine(Dict[0].Frequency);
-            //foreach(string s in Dict[0].Formatting)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(s);
-            //}
 
             DictFileName = fileName;
             
         }
 
-        public void dictToJson()
+        public void DictToJson()
         {
             try
             {
-                dictToJson(DictFileName);
+                DictToJson(DictFileName);
             }
             catch(System.ArgumentNullException e)
             {
@@ -728,9 +701,9 @@ namespace DocEditor.Parser
                             
         }
 
-        public void jsonToDict()
+        public void JsonToDict()
         {
-            jsonToDict(DictFileName);
+            JsonToDict(DictFileName);
             
         }
         #endregion

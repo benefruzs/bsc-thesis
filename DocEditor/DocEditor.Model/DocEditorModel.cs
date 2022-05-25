@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using DocEditor.Persistence;
 
 namespace DocEditor.Model
 {
     /// <summary>
     /// Enum type for paragraph alignment
     /// </summary>
-    public enum Alignment { Left, Right, Center, Justify }
+
     public class DocEditorModel
     {
         #region Private fields and Public properties
@@ -16,10 +18,10 @@ namespace DocEditor.Model
         /// The current default formatting for the new texts
         /// </summary>
         private FormatModel _formatText;
-        public FormatModel FormatText 
+        public FormatModel FormatText
         {
             get { return _formatText; }
-            set { if(value != _formatText) { _formatText = value; } }
+            set { if (value != _formatText) { _formatText = value; } }
         }
 
         /// <summary>
@@ -49,6 +51,9 @@ namespace DocEditor.Model
         public int PageWidth;
         public double ActualPageHeight;
 
+        /// <summary>
+        /// Page line height
+        /// </summary>
         public double LineHeight;
 
         /// <summary>
@@ -56,8 +61,16 @@ namespace DocEditor.Model
         /// </summary>
         public Selection select;
 
+        /// <summary>
+        /// Selected text for formatting
+        /// </summary>
         public SelectionAndFormat SelectionAndFormat;
-        
+
+        /// <summary>
+        /// The list of the inserted images
+        /// </summary>
+        public List<ImageClass> InsertedImages;
+
         /// <summary>
         /// Property for the texts shoud stored in the model
         /// </summary>
@@ -95,11 +108,11 @@ namespace DocEditor.Model
         public List<double> FontSizes
         {
             get { return _fontSizes; }
-            set { _fontSizes = value; } 
+            set { _fontSizes = value; }
         }
 
         /// <summary>
-        /// ////////////////////////////////////////////////////////////////////
+        /// Dictionary for the format styles
         /// </summary>
         private Dictionary<string, FormatModel> _fontStyles;
         public Dictionary<string, FormatModel> FontStyles
@@ -120,8 +133,20 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// Selected text for parsing
+        /// </summary>
         public Stwf SelectForParser;
+
+        /// <summary>
+        /// Selected text list for error correcting
+        /// </summary>
         public List<Stwf> ListForErrorCorrect;
+
+        private IDocEditorDataAccess _dataAccess;
+
+        public event EventHandler FileLoaded;
+        public event EventHandler FileSaved;
 
         #endregion
 
@@ -145,7 +170,7 @@ namespace DocEditor.Model
             _fileName = "Untitled";
 
             PageWidth = 595;
-            PageHeight = PageWidth/7 * 10;
+            PageHeight = PageWidth / 7 * 10;
 
             ActualPageHeight = PageHeight - (_margin.Bottom + _margin.Top);
 
@@ -155,6 +180,8 @@ namespace DocEditor.Model
             ListForErrorCorrect = new List<Stwf>();
 
             LineHeight = 10;
+
+            InsertedImages = new List<ImageClass>();
         }
         #endregion
 
@@ -177,6 +204,7 @@ namespace DocEditor.Model
         #endregion
 
         #region Public methods
+
         /// <summary>
         /// Setting the default foratting for the document startup
         /// </summary>
@@ -184,19 +212,26 @@ namespace DocEditor.Model
         {
             _formatText.SetDefaultFormatting();
             _align = Alignment.Center;
-            _margin.setDefaultMargin();
+            _margin.SetDefaultMargin();
         }
-        
-        //save
 
         /// <summary>
         /// Loading a file
         /// </summary>
-        /// <param name="stream">memory stream</param>
-        /// <returns>Model class intance</returns>
-        public DocEditorModel Load(MemoryStream stream)
+        /// <param name="path">loaded file path</param>
+        public async Task LoadFileAsync(String path)
         {
-            return null;
+            //TODO
+        }
+
+        /// <summary>
+        /// Saving the information to a file
+        /// </summary>
+        /// <param name="path">file path</param>
+        /// <returns></returns>
+        public async Task SaveFileAsync(String path)
+        {
+            //TODO
         }
 
         /// <summary>
@@ -209,6 +244,9 @@ namespace DocEditor.Model
             _fontStyles.Add(styleName, fm);
         }
 
+        /// <summary>
+        /// Creating new selection for formatting a text
+        /// </summary>
         public void NewSelectForFormatting(Selection sel, Alignment al, FormatModel[] fm)
         {
             SelectionAndFormat = new SelectionAndFormat(sel, al, fm);
@@ -219,7 +257,8 @@ namespace DocEditor.Model
         /// </summary>
         public void GetFormatting()
         {
-            if (SelectionAndFormat != null) {
+            if (SelectionAndFormat != null)
+            {
                 int len = SelectionAndFormat.SelectedText.Format.Length;
                 var styleFreq = new Dictionary<string, int>(len);
                 var weightFreq = new Dictionary<string, int>(len);
@@ -299,27 +338,33 @@ namespace DocEditor.Model
         /// Method to reverse a string
         /// </summary>
         /// <param name="word">The string</param>
-        /// <returns></returns>
+        /// <returns>The reversed string</returns>
         public string ReverseWord(string word)
         {
             char[] strToReverse = word.ToCharArray();
             word = "";
-            for(int i=strToReverse.Length-1; i >=0; i--)
+            for (int i = strToReverse.Length - 1; i >= 0; i--)
             {
                 word += strToReverse[i];
             }
             return word;
         }
 
+        /// <summary>
+        /// Increases the LineHeight property by 2 and returns the LineHeight
+        /// </summary>
         public double LineHeightIncr()
         {
-            if(LineHeight < 49)
+            if (LineHeight < 49)
             {
                 LineHeight += 2;
             }
             return LineHeight;
         }
 
+        /// <summary>
+        /// Decreases the LineHeight property by 2 and returns the LineHeight
+        /// </summary>
         public double LineHeightDecr()
         {
             if (LineHeight > 7)
@@ -329,6 +374,9 @@ namespace DocEditor.Model
             return LineHeight;
         }
 
+        /// <summary>
+        /// Sets the value of the top margin from the user margin input
+        /// </summary>
         public double SetTopMargin(double mrgn)
         {
             if (mrgn * 20 < 101)
@@ -348,9 +396,13 @@ namespace DocEditor.Model
             }
             return _margin.Top;
         }
+
+        /// <summary>
+        /// Sets the value of the bottom margin from the user margin input
+        /// </summary>
         public double SetBottomMargin(double mrgn)
         {
-            if(mrgn * 20 < 101)
+            if (mrgn * 20 < 101)
             {
                 if (mrgn < 0)
                 {
@@ -367,6 +419,10 @@ namespace DocEditor.Model
             }
             return _margin.Bottom;
         }
+
+        /// <summary>
+        /// Sets the value of the left margin from the user margin input
+        /// </summary>
         public double SetLeftMargin(double mrgn)
         {
             if (mrgn * 20 < 101)
@@ -386,6 +442,10 @@ namespace DocEditor.Model
             }
             return _margin.Left;
         }
+
+        /// <summary>
+        /// Sets the value of the right margin from the user margin input
+        /// </summary>
         public double SetRightMargin(double mrgn)
         {
             if (mrgn * 20 < 101)
@@ -405,26 +465,46 @@ namespace DocEditor.Model
             }
             return _margin.Right;
         }
+
+        /// <summary>
+        /// Returns the bottom margin value in a form that the user can easily understand
+        /// </summary>
         public double GetBottomMargin()
         {
             return _margin.Bottom / 20;
         }
+
+        /// <summary>
+        /// Returns the top margin value in a form that the user can easily understand
+        /// </summary>
         public double GetTopMargin()
         {
             return _margin.Top / 20;
         }
+
+        /// <summary>
+        /// Returns the left margin value in a form that the user can easily understand
+        /// </summary>
         public double GetLeftMargin()
         {
             return _margin.Left / 20;
         }
+
+        /// <summary>
+        /// Returns the right margin value in a form that the user can easily understand
+        /// </summary>
         public double GetRightMargin()
         {
             return _margin.Right / 20;
         }
 
+        /// <summary>
+        /// Sets the double parameter value to all margins 
+        /// </summary>
+        /// <param name="mrgn">The value for the margins</param>
         public void SetAllMargins(double mrgn)
         {
-            if(mrgn * 20 < 101)
+            if (mrgn * 20 < 101)
             {
                 if (mrgn < 0)
                 {
@@ -451,5 +531,14 @@ namespace DocEditor.Model
         }
 
         #endregion
+
+        private void OnFileLoaded()
+        {
+            //TODO
+        }
+        private void OnFileSaved()
+        {
+            //TODO
+        }
     }
 }

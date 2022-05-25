@@ -56,6 +56,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DocEditor.Model\DocEditor.Model.csproj" />
     <ProjectReference Include="..\DocEditor.Parser\DocEditor.Parser.csproj" />
+    <ProjectReference Include="..\DocEditor.Persistence\DocEditor.Persistence.csproj" />
     <ProjectReference Include="..\DocEditor.ViewModel\DocEditor.ViewModel.csproj" />
   </ItemGroup>
 

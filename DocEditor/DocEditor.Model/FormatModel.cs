@@ -86,6 +86,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// Text decoration
+        /// </summary>
         private string _textDecoration;
         public string TextDecoration
         {

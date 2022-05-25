@@ -15,8 +15,6 @@ namespace DocEditor.ViewModel
         /// </summary>
         private DocEditorModel _model;
 
-        private int _currentPageNumber;
-
         /// <summary>
         /// The current view for the right side control
         /// </summary>
@@ -34,7 +32,7 @@ namespace DocEditor.ViewModel
             }
         }
 
-        private double _lineHeightProp;
+
         public double LineHeightProp
         {
             get { return _model.LineHeight; }
@@ -48,6 +46,8 @@ namespace DocEditor.ViewModel
             }
         }
 
+        public ImageClass InsertedImage;
+
         //FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}"
         public string FF { get; set; }
         public int SIZE { get; set; }
@@ -56,28 +56,88 @@ namespace DocEditor.ViewModel
         public string FC { get; set; }
         public Thickness PageMargins { get; set; }
         public string DefAlignment { get; set; }
+
+        private int _pageHeight;
         public int PageHeight {
-            get { return _model.PageHeight; }
-            set { _model.PageHeight = value; OnPropertyChanged(); } }
+            get { return _pageHeight = Convert.ToInt32(_model.Margin.Bottom) + 565; }
+            set
+            {
+                _pageHeight = value;
+                OnPropertyChanged();
+            }
+        }
         public int PageWidth {
             get { return _model.PageWidth; }
-            set { _model.PageWidth = value; OnPropertyChanged(); } }
+            set
+            {
+                _model.PageWidth = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string DocName { get; set; }
 
-        public int CurrentPageNumber { get; set; }
-        public int AllPageNumbers { get; set; }
 
         /// <summary>
-        /// RichTextBox list with the properties
+        /// Property for the SelectionAndFormat field from the model
         /// </summary>
-        public ObservableCollection<DocPaper> DocPages { get; private set; }
+        public SelectionAndFormat ModelSelectionAndFormat
+        {
+            get { return _model.SelectionAndFormat; }
+            set
+            {
+                _model.SelectionAndFormat = value;
+            }
+        }
 
         /// <summary>
-        /// The size of the pages
+        /// Property for the Select field from the model
         /// </summary>
-        //public Int32 SizeX { get { return _model.SizeX; } }
-        //public Int32 SizeY { get { return _model.SizeY; } }
+        public Selection ModelSelect
+        {
+            get { return _model.select; }
+            set
+            {
+                _model.select = value;
+            }
+        }
+
+        /// <summary>
+        /// Property for the Align field from the model
+        /// </summary>
+        public Alignment ModelAlign
+        {
+            get { return _model.Align; }
+            set
+            {
+                _model.Align = value;
+            }
+        }
+
+        /// <summary>
+        /// Property for the SelectForParser field from the model
+        /// </summary>
+        public Stwf ModelSelectForParser
+        {
+            get { return _model.SelectForParser; }
+            set
+            {
+                _model.SelectForParser = value;
+            }
+        }
+
+        /// <summary>
+        /// Property for the FormatText field from the model
+        /// </summary>
+        public FormatModel ModelFormatText
+        {
+            get { return _model.FormatText; }
+            set
+            {
+                _model.FormatText = value;
+            }
+        }
+
 
         /// <summary>
         /// Main window commands
@@ -122,13 +182,19 @@ namespace DocEditor.ViewModel
         public DelegateCommand UpdateRTBCommand { get; private set; }
         public DelegateCommand NewParagraphCommand { get; private set; }
 
-        /// <summary>
-        /// Page navigation commands
-        /// </summary>
-        public DelegateCommand GotoFirstPageCommand { get; private set; }
-        public DelegateCommand GotoLastPageCommand { get; private set; }
-        public DelegateCommand GotoNextPageCommand { get; private set; }
-        public DelegateCommand GotoPrevPageCommand { get; private set; }
+
+        public DelegateCommand UndoCommand { get; private set; }
+        public DelegateCommand RedoCommand { get; private set; }
+        public DelegateCommand PasteCommand { get; private set; }
+        public DelegateCommand CutCommand { get; private set; }
+        public DelegateCommand CopyCommand { get; private set; }
+        public DelegateCommand ToUpperCommand { get; private set; }
+        public DelegateCommand ToLowerCommand { get; private set; }
+
+        public DelegateCommand OpenCommand { get; private set; }
+        public DelegateCommand SaveCommand { get; private set; }
+        public DelegateCommand SaveAsCommand { get; private set; }
+        public DelegateCommand SaveToPdfCommand { get; private set; }
 
 
         #endregion
@@ -164,6 +230,14 @@ namespace DocEditor.ViewModel
         public event EventHandler GotoLastPage;
         public event EventHandler GotoNextPage;
         public event EventHandler GotoPrevPage;
+
+        public event EventHandler UndoEvent;
+        public event EventHandler RedoEvent;
+        public event EventHandler PasteEvent;
+        public event EventHandler CutEvent;
+        public event EventHandler CopyEvent;
+        public event EventHandler ToUpperEvent;
+        public event EventHandler ToLowerEvent;
 
         #endregion
 
@@ -202,31 +276,28 @@ namespace DocEditor.ViewModel
             NewParagraphCommand = new DelegateCommand(param => OnNewParagraph());
 
             UpdateRTBCommand = new DelegateCommand(param => OnTextChanged());
-            GotoFirstPageCommand = new DelegateCommand(param => OnGotoFirst());
-            GotoLastPageCommand = new DelegateCommand(param => OnGotoLast());
-            GotoNextPageCommand = new DelegateCommand(param => OnGotoNext());
-            GotoPrevPageCommand = new DelegateCommand(param => OnGotoPrev());
 
-            DocPages = new ObservableCollection<DocPaper>();
+            UndoCommand = new DelegateCommand(param => OnUndo());
+            RedoCommand = new DelegateCommand(param => OnRedo());
+            PasteCommand = new DelegateCommand(param => OnPaste());
+            CutCommand = new DelegateCommand(param => OnCut());
+            CopyCommand = new DelegateCommand(param => OnCopy());
+            ToUpperCommand = new DelegateCommand(param => OnToUpper());
+            ToLowerCommand = new DelegateCommand(param => OnToLower());
 
             PageMargins = new Thickness();
-
-            _currentPageNumber = 0;
-
-            setPageNumbers(1, 1);
 
             DocName = _model.FileName;
             OnPropertyChanged(nameof(DocName));
 
-            setDefaultFormatRtb();
+            SetDefaultFormatRtb();
 
             //7:10
             PageWidth = _model.PageWidth;
-            PageHeight = PageWidth / 7 * 10;
+            //PageHeight = PageWidth / 7 * 10;
+            _pageHeight = Convert.ToInt32(_model.Margin.Bottom) + 560;
             OnPropertyChanged(nameof(PageWidth));
-            OnPropertyChanged(nameof(PageHeight));
-
-            
+            OnPropertyChanged(nameof(PageHeight));          
 
         }
         #endregion
@@ -256,64 +327,34 @@ namespace DocEditor.ViewModel
         {
             PageMargins = new Thickness(_model.Margin.Left, _model.Margin.Top, _model.Margin.Right, _model.Margin.Bottom);
             OnPropertyChanged(nameof(PageMargins));
+            OnPropertyChanged(nameof(PageHeight));
         }
 
 
-        public void setPageNumbers(int all, int current)
+        public void SetInsertedImage(int ptr, string path, double h, double w)
         {
-            CurrentPageNumber = current;
-            AllPageNumbers = all;
-            OnPropertyChanged(nameof(CurrentPageNumber));
-            OnPropertyChanged(nameof(AllPageNumbers));
+            InsertedImage = new ImageClass(ptr, path, h, w);
         }
 
-        //public void addFirstPage()
-        //{
-        //    DocPages.Clear();
-        //    DocPages.Add(new DocPaper
-        //    {
-        //        SizeX = _model.SizeX,
-        //        SizeY = _model.SizeY,
-        //        DefaultWeight = _model.FormatText.Weight,
-        //        DefaultColor = _model.FormatText.Color,
-        //        DefaultFamily = _model.FormatText.Family,
-        //        DefaultSize = _model.FormatText.Size,
-        //        LeftMargin = _model.Margin.Left,
-        //        RightMargin = _model.Margin.Right,
-        //        TopMargin = _model.Margin.Top,
-        //        BottomMargin = _model.Margin.Bottom,
-        //        PageNumber = 0,
-        //        isMainPage = true
-        //    });
-        //}
+        public void AddToImageList()
+        {
+            _model.InsertedImages.Add(InsertedImage);
+        }
 
-        /// <summary>
-        /// Adding new page to the collection
-        /// </summary>
-        /// <param name="ind">The page index of the previous page</param>
-        //public void AddNewPage(int ind)
-        //{
-        //    //a docpages utolsója lekérdez, az ismainpaget hamisra kell állítani
-        //    DocPages.Last().isMainPage = false;
-        //    // új page a docpageshez, modellbõl kell a margin, és a default formázást beállítani
-        //    DocPages.Add(new DocPaper
-        //    {
-        //        SizeX = _model.SizeX,
-        //        SizeY = _model.SizeY,
-        //        DefaultWeight = _model.FormatText.Weight,
-        //        DefaultColor = _model.FormatText.Color,
-        //        DefaultFamily = _model.FormatText.Family,
-        //        DefaultSize = _model.FormatText.Size,
-        //        LeftMargin = _model.Margin.Left,
-        //        RightMargin = _model.Margin.Right,
-        //        TopMargin = _model.Margin.Top,
-        //        BottomMargin = _model.Margin.Bottom,
-        //        PageNumber = ind+1,
-        //        isMainPage = true
-        //    });
-            
-        //}
+        public void Model_AddNewFormatStyle()
+        {
+            _model.AddNewFormatStyle(ModelSelectionAndFormat.Formatting);
+        }
 
+        public void Model_GetFormatting()
+        {
+            _model.GetFormatting();
+        }
+
+        public string Model_ReverseWord(string wordToReverse)
+        {
+            return _model.ReverseWord(wordToReverse);
+        }
         #endregion
 
         #region Private methods
@@ -321,7 +362,7 @@ namespace DocEditor.ViewModel
         /// <summary>
         /// Default formatting for new documents
         /// </summary>
-        private void setDefaultFormatRtb()
+        private void SetDefaultFormatRtb()
         {
             _model.SetDefaultFormatting();
             SetFormattingRTB();
@@ -336,6 +377,38 @@ namespace DocEditor.ViewModel
 
 
         #region Event methods
+        private void OnUndo()
+        {
+            UndoEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnRedo()
+        {
+            RedoEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnCut()
+        {
+            CutEvent?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnCopy()
+        {
+            CopyEvent?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnPaste()
+        {
+            PasteEvent?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnToUpper()
+        {
+            ToUpperEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnToLower()
+        {
+            ToLowerEvent?.Invoke(this, EventArgs.Empty);
+        }
+
         private void OnSelectionChanged()
         {
             SelectChanged?.Invoke(this, EventArgs.Empty);
@@ -356,22 +429,6 @@ namespace DocEditor.ViewModel
             UpdateRTB?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnGotoFirst()
-        {
-            GotoFirstPage?.Invoke(this, EventArgs.Empty);
-        }
-        private void OnGotoLast()
-        {
-            GotoLastPage?.Invoke(this, EventArgs.Empty);
-        }
-        private void OnGotoNext()
-        {
-            GotoNextPage?.Invoke(this, EventArgs.Empty);
-        }
-        private void OnGotoPrev()
-        {
-            GotoPrevPage?.Invoke(this, EventArgs.Empty);
-        }
         private void OnFormatText()
         {
             OpenFormatText?.Invoke(this, EventArgs.Empty);

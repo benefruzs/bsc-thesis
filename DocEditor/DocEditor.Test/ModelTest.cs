@@ -278,8 +278,238 @@ namespace DocEditor.Test
             Assert.AreEqual(_model.Margin.Bottom, mm.Bottom);
             Assert.AreEqual(_model.Margin.Top, mm.Top);
         }
+
+        [TestMethod]
+        public void LineHeightIncrTest1()
+        {
+            Assert.AreEqual(_model.LineHeight + 2, _model.LineHeightIncr());
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(_model.LineHeight + 2, _model.LineHeightIncr());
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(_model.LineHeight + 2, _model.LineHeightIncr());
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(_model.LineHeight + 2, _model.LineHeightIncr());
+        }
+
+        [TestMethod]
+        public void LineHeightIncrTest2()
+        {
+            _model.LineHeight = 48;
+            Assert.AreEqual(_model.LineHeight + 2, _model.LineHeightIncr());
+            _model.LineHeight = _model.LineHeightIncr();
+
+            Assert.AreEqual(50, _model.LineHeight);
+
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(50, _model.LineHeight);
+
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(50, _model.LineHeight);
+        }
+
+        [TestMethod]
+        public void LineHeightDecrTest1()
+        {
+            Assert.AreEqual(_model.LineHeight - 2, _model.LineHeightDecr());
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(_model.LineHeight - 2, _model.LineHeightDecr());
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(_model.LineHeight - 2, _model.LineHeightDecr());
+            _model.LineHeight = _model.LineHeightIncr();
+            Assert.AreEqual(_model.LineHeight - 2, _model.LineHeightDecr());
+        }
+
+        [TestMethod]
+        public void LineHeightDecrTest2()
+        {
+            _model.LineHeight = 8;
+            Assert.AreEqual(_model.LineHeight - 2, _model.LineHeightDecr());
+            _model.LineHeight = _model.LineHeightDecr();
+
+            Assert.AreEqual(6, _model.LineHeight);
+
+            _model.LineHeight = _model.LineHeightDecr();
+            Assert.AreEqual(6, _model.LineHeight);
+
+            _model.LineHeight = _model.LineHeightDecr();
+            Assert.AreEqual(6, _model.LineHeight);
+        }
+
+        [TestMethod]
+        public void SetTopMarginTest()
+        {
+            _model.Margin.Top = _model.SetTopMargin(4);
+            Assert.AreEqual(80, _model.Margin.Top);
+
+            _model.Margin.Top = _model.SetTopMargin(-2);
+            Assert.AreEqual(0, _model.Margin.Top);
+
+            _model.Margin.Top = _model.SetTopMargin(-242517);
+            Assert.AreEqual(0, _model.Margin.Top);
+
+            _model.Margin.Top = _model.SetTopMargin(6);
+            Assert.AreEqual(100, _model.Margin.Top);
+
+            _model.Margin.Top = _model.SetTopMargin(17654);
+            Assert.AreEqual(100, _model.Margin.Top);
+        }
+
+        [TestMethod]
+        public void SetBottomMarginTest()
+        {
+            _model.Margin.Bottom = _model.SetBottomMargin(2);
+            Assert.AreEqual(40, _model.Margin.Bottom);
+
+            _model.Margin.Bottom = _model.SetBottomMargin(-4);
+            Assert.AreEqual(0, _model.Margin.Bottom);
+
+            _model.Margin.Bottom = _model.SetBottomMargin(-242517);
+            Assert.AreEqual(0, _model.Margin.Bottom);
+
+            _model.Margin.Bottom = _model.SetBottomMargin(8);
+            Assert.AreEqual(100, _model.Margin.Bottom);
+
+            _model.Margin.Bottom = _model.SetBottomMargin(735354);
+            Assert.AreEqual(100, _model.Margin.Bottom);
+        }
+
+        [TestMethod]
+        public void SetLeftMarginTest()
+        {
+            _model.Margin.Left = _model.SetLeftMargin(4);
+            Assert.AreEqual(80, _model.Margin.Left);
+
+            _model.Margin.Left = _model.SetLeftMargin(-2);
+            Assert.AreEqual(0, _model.Margin.Left);
+
+            _model.Margin.Left = _model.SetLeftMargin(-2517);
+            Assert.AreEqual(0, _model.Margin.Left);
+
+            _model.Margin.Left = _model.SetLeftMargin(6);
+            Assert.AreEqual(100, _model.Margin.Left);
+
+            _model.Margin.Left = _model.SetLeftMargin(1442654);
+            Assert.AreEqual(100, _model.Margin.Left);
+        }
+
+        [TestMethod]
+        public void SetRightMarginTest()
+        {
+            _model.Margin.Right = _model.SetRightMargin(3);
+            Assert.AreEqual(60, _model.Margin.Right);
+
+            _model.Margin.Right = _model.SetRightMargin(-6);
+            Assert.AreEqual(0, _model.Margin.Right);
+
+            _model.Margin.Right = _model.SetRightMargin(-1615017);
+            Assert.AreEqual(0, _model.Margin.Right);
+
+            _model.Margin.Right = _model.SetRightMargin(6);
+            Assert.AreEqual(100, _model.Margin.Right);
+
+            _model.Margin.Right = _model.SetRightMargin(11615654);
+            Assert.AreEqual(100, _model.Margin.Right);
+        }
+
+        [TestMethod]
+        public void SetAllMarginsTest1()
+        {
+            _model.SetAllMargins(3.5);
+            Assert.AreEqual(70, _model.Margin.Right);
+            Assert.AreEqual(70, _model.Margin.Left);
+            Assert.AreEqual(70, _model.Margin.Top);
+            Assert.AreEqual(70, _model.Margin.Bottom);
+
+            _model.SetAllMargins(5);
+            Assert.AreEqual(100, _model.Margin.Right);
+            Assert.AreEqual(100, _model.Margin.Left);
+            Assert.AreEqual(100, _model.Margin.Top);
+            Assert.AreEqual(100, _model.Margin.Bottom);
+        }
+
+
+        [TestMethod]
+        public void SetAllMarginsTest2()
+        {
+            _model.SetAllMargins(-3.5);
+            Assert.AreEqual(0, _model.Margin.Right);
+            Assert.AreEqual(0, _model.Margin.Left);
+            Assert.AreEqual(0, _model.Margin.Top);
+            Assert.AreEqual(0, _model.Margin.Bottom);
+
+            _model.SetAllMargins(-354323214133423);
+            Assert.AreEqual(0, _model.Margin.Right);
+            Assert.AreEqual(0, _model.Margin.Left);
+            Assert.AreEqual(0, _model.Margin.Top);
+            Assert.AreEqual(0, _model.Margin.Bottom);
+        }
+
+
+        [TestMethod]
+        public void SetAllMarginsTest3()
+        {
+            _model.SetAllMargins(7);
+            Assert.AreEqual(100, _model.Margin.Right);
+            Assert.AreEqual(100, _model.Margin.Left);
+            Assert.AreEqual(100, _model.Margin.Top);
+            Assert.AreEqual(100, _model.Margin.Bottom);
+
+            _model.SetAllMargins(88765.3);
+            Assert.AreEqual(100, _model.Margin.Right);
+            Assert.AreEqual(100, _model.Margin.Left);
+            Assert.AreEqual(100, _model.Margin.Top);
+            Assert.AreEqual(100, _model.Margin.Bottom);
+        }
         #endregion
 
+        #region Selection tests
+        [TestMethod]
+        public void UpdateSelectionTest1()
+        {
+            Selection test = new Selection(6, 12, "select");
+            test.AddToFront_Selected("add", 3);
 
+            Assert.IsNotNull(test);
+            Assert.AreEqual("addselect", test.SelectedString);
+            Assert.AreEqual(3, test.StartPointer);
+            Assert.AreEqual(12, test.EndPointer);
+        }
+
+        [TestMethod]
+        public void UpdateSelectionTest2()
+        {
+            Selection test = new Selection(6, 12, "select");
+            test.AddToEnd_Selected("add", 15);
+
+            Assert.IsNotNull(test);
+            Assert.AreEqual("selectadd", test.SelectedString);
+            Assert.AreEqual(6, test.StartPointer);
+            Assert.AreEqual(15, test.EndPointer);
+        }
+
+        [TestMethod]
+        public void UpdateSelectionTest3()
+        {
+            Selection test = new Selection(6, 12, "select");
+            test.AddToSelected("new", 3, 6);
+
+            Assert.IsNotNull(test);
+            Assert.AreEqual("new", test.SelectedString);
+            Assert.AreEqual(3, test.StartPointer);
+            Assert.AreEqual(6, test.EndPointer);
+        }
+
+        [TestMethod]
+        public void UpdateSelectionTest4()
+        {
+            Selection test = new Selection(6, 12, "select");
+            test.DeleteSelection();
+
+            Assert.IsNotNull(test);
+            Assert.IsNull(test.SelectedString);
+            Assert.AreEqual(-1, test.StartPointer);
+            Assert.AreEqual(-1, test.EndPointer);
+        }
+        #endregion
     }
 }

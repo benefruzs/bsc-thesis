@@ -99,17 +99,8 @@ namespace DocEditor.Model
         /// <param name="newEnd"> the new end pointer</param>
         public void AddToSelected(string add, int newStart, int newEnd)
         {
-            //creating new selected string
-
             //adding more selected string
-            if (newStart != _startPointer)
-            {
-                UpdateSelected(add, newStart, newEnd);
-            }
-            else
-            {
-                UpdateSelected(add, newStart, newEnd);
-            }
+            UpdateSelected(add, newStart, newEnd);
         }
 
         /// <summary>

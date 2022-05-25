@@ -140,6 +140,51 @@ namespace DocEditor.ViewModel
             OnPropertyChanged(nameof(LeftMargin));
             OnPropertyChanged(nameof(RightMargin));
         }
+
+        public double Model_GetTopMargin()
+        {
+            return _model.Margin.Top;
+        }
+
+        public double Model_GetBottomMargin()
+        {
+            return _model.Margin.Bottom;
+        }
+
+        public double Model_GetLeftMargin()
+        {
+            return _model.Margin.Left;
+        }
+
+        public double Model_GetRightMargin()
+        {
+            return _model.Margin.Right;
+        }
+
+        public void Model_SetTopMargin(double mrgn)
+        {
+            _model.SetTopMargin(mrgn);
+        }
+
+        public void Model_SetBottomMargin(double mrgn)
+        {
+            _model.SetBottomMargin(mrgn);
+        }
+
+        public void Model_SetLeftMargin(double mrgn)
+        {
+            _model.SetLeftMargin(mrgn);
+        }
+
+        public void Model_SetRightMargin(double mrgn)
+        {
+            _model.SetRightMargin(mrgn);
+        }
+
+        public void Model_SetAllMargins(double mrgn)
+        {
+            _model.SetAllMargins(mrgn);
+        }
         #endregion
 
         #region Event methods

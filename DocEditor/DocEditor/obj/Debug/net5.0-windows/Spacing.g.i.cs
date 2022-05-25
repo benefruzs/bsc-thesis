@@ -126,7 +126,7 @@ namespace DocEditor {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/DocEditor;component/spacing.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DocEditor;V1.0.0.0;component/spacing.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Spacing.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

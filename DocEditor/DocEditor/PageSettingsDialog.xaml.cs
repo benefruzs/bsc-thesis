@@ -15,11 +15,16 @@ using System.Windows.Shapes;
 namespace DocEditor
 {
     /// <summary>
-    /// Interaction logic for PageSettingsWindow.xaml
+    /// Interaction logic for PageSettingsDialog.xaml
     /// </summary>
-    public partial class PageSettingsWindow : Window
+    public partial class PageSettingsDialog : Window
     {
-        public PageSettingsWindow()
+        private double _numValueLeft = 0;
+        private double _numValueRight = 0;
+        private double _numValueTop = 0;
+        private double _numValueBottom = 0;
+
+        public PageSettingsDialog()
         {
             InitializeComponent();
             left.Text = _numValueLeft.ToString();
@@ -27,11 +32,6 @@ namespace DocEditor
             top.Text = _numValueTop.ToString();
             bottom.Text = _numValueBottom.ToString();
         }
-
-        private double _numValueLeft = 0;
-        private double _numValueRight = 0;
-        private double _numValueTop = 0;
-        private double _numValueBottom = 0;
 
         public double NumValueLeft
         {

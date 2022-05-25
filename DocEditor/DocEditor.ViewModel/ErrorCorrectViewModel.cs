@@ -83,7 +83,7 @@ namespace DocEditor.ViewModel
 
         #region Private and public methods
  
-        public void updateDictList(List<DictClass> lst)
+        public void UpdateDictList(List<DictClass> lst)
         {
             if (lst != null)
             {

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\App.xaml
-19-1835091562
+162052244478
 
-17991528303
-20657520278
-BorderSettingsWindow.xaml;CreateFileDialog.xaml;DictionaryView.xaml;ErrorCorrectDialogWindow.xaml;FontListWindow.xaml;FormatTextView.xaml;HomeWindow.xaml;InsertView.xaml;MainWindow.xaml;PageSettingsView.xaml;PageSettingsWindow.xaml;PdfViewer.xaml;Spacing.xaml;StyleResources\AllButtonStyle.xaml;StyleResources\HomeStyles.xaml;StyleResources\MenuItemStyles.xaml;StyleResources\RadioButtonStyles.xaml;StyleResources\TextBoxStyle.xaml;StyleResources\WindowStyles.xaml;
+14695178243
+207175950124
+CreateFileDialog.xaml;DictionaryView.xaml;ErrorCorrectDialog.xaml;FormatTextView.xaml;HomeWindow.xaml;InsertView.xaml;MainWindow.xaml;PageSettingsDialog.xaml;PageSettingsView.xaml;PdfViewer.xaml;StyleResources\AllButtonStyle.xaml;StyleResources\HomeStyles.xaml;StyleResources\MenuItemStyles.xaml;StyleResources\RadioButtonStyles.xaml;StyleResources\TextBoxStyle.xaml;StyleResources\WindowStyles.xaml;
 
-True
+False
 

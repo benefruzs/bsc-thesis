@@ -107,13 +107,13 @@ namespace DocEditor.ViewModel
         #endregion
 
         #region Methods
-        public void addDictElements(DictClass dc)
+        public void AddDictElements(DictClass dc)
         {
             _dictElements.Add(dc);
             OnPropertyChanged(nameof(DictionaryElements));
         }
 
-        public void updateDictList()
+        public void UpdateDictList()
         {
 
             if (_parser.Dict != null)
@@ -170,7 +170,7 @@ namespace DocEditor.ViewModel
             }
         }
 
-        public void deletePreview()
+        public void DeletePreview()
         {
             DictElements.Clear();
         }

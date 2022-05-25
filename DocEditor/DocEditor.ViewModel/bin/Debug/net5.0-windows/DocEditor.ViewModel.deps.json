@@ -16,6 +16,9 @@
         }
       },
       "DocEditor.Model/1.0.0": {
+        "dependencies": {
+          "DocEditor.Persistence": "1.0.0"
+        },
         "runtime": {
           "DocEditor.Model.dll": {}
         }
@@ -26,6 +29,11 @@
         },
         "runtime": {
           "DocEditor.Parser.dll": {}
+        }
+      },
+      "DocEditor.Persistence/1.0.0": {
+        "runtime": {
+          "DocEditor.Persistence.dll": {}
         }
       }
     }
@@ -42,6 +50,11 @@
       "sha512": ""
     },
     "DocEditor.Parser/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocEditor.Persistence/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

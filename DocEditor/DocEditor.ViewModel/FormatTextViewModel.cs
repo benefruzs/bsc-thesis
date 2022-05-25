@@ -106,10 +106,7 @@ namespace DocEditor.ViewModel
 
         #region DelegateCommands and EventHandlers
         public DelegateCommand OpenColorPickerCommand { get; private set; }
-        public DelegateCommand OpenBorderCommand { get; private set; }
-        public DelegateCommand AddMoreFormattingCommand { get; private set; }
-        public DelegateCommand AddMoreSpacingCommand { get; private set; }
-
+        
         public DelegateCommand FontFamilyChangedCmd { get; private set; }
         public DelegateCommand FontSizeChangedCmd { get; private set; }
 
@@ -134,12 +131,8 @@ namespace DocEditor.ViewModel
 
 
         public event EventHandler OpenColorPicker;
-        public event EventHandler OpenBorder;
-        public event EventHandler AddMoreFormatting;
-        public event EventHandler AddMoreSpacing;
         public event EventHandler FontFamilyChanged;
         public event EventHandler FontSizeChanged;
-        public event EventHandler RTBFocus;
         public event EventHandler SetBold;
         public event EventHandler SetItalic;
         public event EventHandler SetUnderLine;
@@ -164,10 +157,6 @@ namespace DocEditor.ViewModel
             _model = model;
 
             OpenColorPickerCommand = new DelegateCommand(param => OnColorPicker());
-            OpenBorderCommand = new DelegateCommand(param => OnOpenBorder());
-
-            AddMoreFormattingCommand = new DelegateCommand(param => OnMoreFormatting());
-            AddMoreSpacingCommand = new DelegateCommand(param => OnMoreSpacing());
             FontFamilyChangedCmd = new DelegateCommand(param => OnFontFamilyChanged());
             FontSizeChangedCmd = new DelegateCommand(param => OnFontSizeChanged());
             SetBoldCommand = new DelegateCommand(param => OnSetBold());
@@ -212,7 +201,7 @@ namespace DocEditor.ViewModel
             }
 
             //_fontStyles = _model.FontStyles.Keys.ToList<string>();
-            OnPropertyChanged("FontStyles");
+            OnPropertyChanged(nameof(FontStyles));
 
         }
 
@@ -279,21 +268,7 @@ namespace DocEditor.ViewModel
             OpenColorPicker?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnOpenBorder()
-        {
-            OpenBorder?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void OnMoreFormatting()
-        {
-            AddMoreFormatting?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void OnMoreSpacing()
-        {
-            AddMoreSpacing?.Invoke(this, EventArgs.Empty);
-        }
-
+       
         private void OnFontFamilyChanged()
         {
             FontFamilyChanged?.Invoke(this, EventArgs.Empty);

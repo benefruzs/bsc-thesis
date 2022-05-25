@@ -122,18 +122,21 @@
                     <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenDictCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Módosítás" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="_Vissza" />
-                    <MenuItem Header="_Újra" />
+                    <MenuItem Header="_Vissza" Command="{Binding UndoCommand}"/>
+                    <MenuItem Header="_Újra" Command="{Binding RedoCommand}" />
                     <Separator />
-                    <MenuItem Header="_Kivágás" />
-                    <MenuItem Header="_Másolás" />
-                    <MenuItem Header="_Beillesztés" />
+                    <MenuItem Header="_NAGYBETŰS" Command="{Binding ToUpperCommand}" />
+                    <MenuItem Header="_kisbetűs" Command="{Binding ToLowerCommand}" />
+                    <Separator />
+                    <MenuItem Header="_Kivágás" Command="{Binding CutCommand}"/>
+                    <MenuItem Header="_Másolás" Command="{Binding CopyCommand}"/>
+                    <MenuItem Header="_Beillesztés" Command="{Binding PasteCommand}"/>
                     <MenuItem Header="_Törlés" Command="{Binding DeleteSelectionCommand}"/>
                     <Separator />
                     <MenuItem Header="_Összes kijelölése" Command="{Binding SelectAllTextCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Nézet" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="_Nyomtatás" />
+                    <MenuItem Header="_Nyomtatás" Command="{Binding SaveToPdfCommand}"/>
                     <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenDictCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Súgó" Style="{StaticResource MenuItemStyle}">
@@ -173,10 +176,10 @@
         <Grid DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <!--<RowDefinition Height="Auto"/>-->
             </Grid.RowDefinitions>
-            <ScrollViewer Grid.Row="0">
-                <RichTextBox x:Name="DocPaper" Width="{Binding PageWidth}" Height="{Binding PageHeight}" FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}" Padding="{Binding PageMargins}" HorizontalContentAlignment="Center"  Foreground="{Binding FC}" IsInactiveSelectionHighlightEnabled="True"  Background="#FFFFFF" BorderThickness="0" Margin="10 10 10 0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+           
+                <RichTextBox Grid.Row="0" x:Name="DocPaper" Width="{Binding PageWidth}" Height="{Binding PageHeight}" FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}" Padding="{Binding PageMargins}" HorizontalContentAlignment="Center"  Foreground="{Binding FC}" IsInactiveSelectionHighlightEnabled="True"  Background="#FFFFFF" BorderThickness="0" Margin="10 10 10 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding SetSelectionCommand}"/>
@@ -197,8 +200,8 @@
                         
                     </FlowDocument>
                 </RichTextBox>
-            </ScrollViewer>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+           
+            <!--<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content=" ◀◀ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoFirstPageCommand}"/>
                 <Button Content=" ◀ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoNextPageCommand}"/>
                 <Label Content="{Binding CurrentPageNumber}" FontFamily="Corbel" FontSize="16" Foreground="#FFFFFF"/>
@@ -206,7 +209,7 @@
                 <Label Content="{Binding AllPageNumbers}" FontFamily="Corbel" FontSize="16" Foreground="#FFFFFF"/>
                 <Button Content=" ▶ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoPrevPageCommand}"/>
                 <Button Content=" ▶▶ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoLastPageCommand}"/>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
     </DockPanel>
 </Window>

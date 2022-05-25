@@ -67,7 +67,7 @@ namespace DocEditor {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/DocEditor;component/dictionaryview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DocEditor;V1.0.0.0;component/dictionaryview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\DictionaryView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
