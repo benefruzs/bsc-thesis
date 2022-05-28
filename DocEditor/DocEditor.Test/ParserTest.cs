@@ -30,7 +30,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "test";
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
@@ -45,7 +45,7 @@ namespace DocEditor.Test
             testSel.SelectedString = " test";
             testSel.StartPointer = 2;
             testSel.EndPointer = 7;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(3, testSel.StartPointer);
             Assert.AreEqual(7, testSel.EndPointer);
@@ -60,7 +60,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "test ";
             testSel.StartPointer = 2;
             testSel.EndPointer = 7;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
@@ -75,7 +75,7 @@ namespace DocEditor.Test
             testSel.SelectedString = " test ";
             testSel.StartPointer = 2;
             testSel.EndPointer = 8;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(3, testSel.StartPointer);
             Assert.AreEqual(7, testSel.EndPointer);
@@ -90,7 +90,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "   test   ";
             testSel.StartPointer = 2;
             testSel.EndPointer = 12;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(5, testSel.StartPointer);
             Assert.AreEqual(9, testSel.EndPointer);
@@ -105,7 +105,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "    test";
             testSel.StartPointer = 2;
             testSel.EndPointer = 10;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(6, testSel.StartPointer);
             Assert.AreEqual(10, testSel.EndPointer);
@@ -120,7 +120,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "test    ";
             testSel.StartPointer = 2;
             testSel.EndPointer = 10;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
@@ -135,7 +135,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "test test";
             testSel.StartPointer = 2;
             testSel.EndPointer = 11;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(11, testSel.EndPointer);
@@ -150,7 +150,7 @@ namespace DocEditor.Test
             testSel.SelectedString = "test  test";
             testSel.StartPointer = 2;
             testSel.EndPointer = 12;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(12, testSel.EndPointer);
@@ -165,7 +165,7 @@ namespace DocEditor.Test
             testSel.SelectedString = " test test ";
             testSel.StartPointer = 1;
             testSel.EndPointer = 12;
-            testSel = _parser.selectionTrim(testSel);
+            testSel = _parser.SelectionTrim(testSel);
 
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(11, testSel.EndPointer);
@@ -183,7 +183,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 11;
 
-            testSel = _parser.selectedTextValidation(testSel, " ", " ");
+            testSel = _parser.SelectedTextValidation(testSel, " ", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(11, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -197,7 +197,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 11;
 
-            testSel = _parser.selectedTextValidation(testSel, "a", " ");
+            testSel = _parser.SelectedTextValidation(testSel, "a", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(11, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -211,7 +211,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 11;
 
-            testSel = _parser.selectedTextValidation(testSel, " ", "a");
+            testSel = _parser.SelectedTextValidation(testSel, " ", "a");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(11, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -225,7 +225,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 11;
 
-            testSel = _parser.selectedTextValidation(testSel, "a", "a");
+            testSel = _parser.SelectedTextValidation(testSel, "a", "a");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(11, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -239,7 +239,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, "a", " ");
+            testSel = _parser.SelectedTextValidation(testSel, "a", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -253,7 +253,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, " ", "a");
+            testSel = _parser.SelectedTextValidation(testSel, " ", "a");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -268,7 +268,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, "a", "a");
+            testSel = _parser.SelectedTextValidation(testSel, "a", "a");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -282,7 +282,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, " ", " ");
+            testSel = _parser.SelectedTextValidation(testSel, " ", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual("test", testSel.SelectedString);
@@ -296,7 +296,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, "", "");
+            testSel = _parser.SelectedTextValidation(testSel, "", "");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual("test", testSel.SelectedString);
@@ -310,7 +310,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, ".", ",");
+            testSel = _parser.SelectedTextValidation(testSel, ".", ",");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual("test", testSel.SelectedString);
@@ -324,7 +324,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, " ", "-");
+            testSel = _parser.SelectedTextValidation(testSel, " ", "-");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual("test", testSel.SelectedString);
@@ -338,7 +338,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 6;
 
-            testSel = _parser.selectedTextValidation(testSel, ":", " ");
+            testSel = _parser.SelectedTextValidation(testSel, ":", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(6, testSel.EndPointer);
             Assert.AreEqual("test", testSel.SelectedString);
@@ -352,7 +352,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 9;
 
-            testSel = _parser.selectedTextValidation(testSel, ",", " ");
+            testSel = _parser.SelectedTextValidation(testSel, ",", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(9, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -366,7 +366,7 @@ namespace DocEditor.Test
             testSel.StartPointer = 2;
             testSel.EndPointer = 10;
 
-            testSel = _parser.selectedTextValidation(testSel, " ", " ");
+            testSel = _parser.SelectedTextValidation(testSel, " ", " ");
             Assert.AreEqual(2, testSel.StartPointer);
             Assert.AreEqual(10, testSel.EndPointer);
             Assert.AreEqual(null, testSel.SelectedString);
@@ -391,7 +391,7 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] {fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Assert.AreEqual(2, _parser.Dict.Count);
             Assert.AreEqual(_parser.Dict[1].Str, _parser.Dict[0].Str);
@@ -414,7 +414,7 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Assert.AreEqual(4, _parser.Dict.Count);
             Assert.AreEqual("test", _parser.Dict[3].Str);
@@ -438,7 +438,7 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Assert.AreEqual("i,b,Arial,n,12,Black", _parser.Dict[0].Formatting[0]);
             Assert.AreEqual("n,_,_,_,_,_,", _parser.Dict[0].Formatting[1]);
@@ -466,7 +466,7 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Assert.AreEqual("i,b,Arial,n,12,Black", _parser.Dict[0].Formatting[0]);
             Assert.AreEqual("n,_,_,_,_,_,", _parser.Dict[0].Formatting[1]);
@@ -495,11 +495,11 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Stwf getFromDict = new Stwf(testSel, null);
 
-            Stwf res = _parser.fromDictionary(getFromDict);
+            Stwf res = _parser.FromDictionary(getFromDict);
             Assert.AreEqual(4, _parser.Dict[0].Frequency);
             Assert.AreEqual(1, _parser.Dict[1].Frequency);
             Assert.AreEqual("test", res.SelectedText.SelectedString);
@@ -526,11 +526,11 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Assert.AreEqual(4, _parser.Dict.Count);
 
-            _parser.removeElementFromDictionary(_parser.Dict[0]);
+            _parser.RemoveElementFromDictionary(_parser.Dict[0]);
 
             Assert.AreEqual(3, _parser.Dict.Count);
         }
@@ -551,11 +551,11 @@ namespace DocEditor.Test
             FormatModel[] fm = new FormatModel[4] { fm0, fm1, fm2, fm3 };
             Stwf addToDict = new Stwf(testSel, fm);
 
-            _parser.toDictionary(addToDict);
+            _parser.ToDictionary(addToDict);
 
             Assert.AreEqual(4, _parser.Dict.Count);
 
-            _parser.removeElementFromDictionary(1);
+            _parser.RemoveElementFromDictionary(1);
 
             Assert.AreEqual(3, _parser.Dict.Count);
         }

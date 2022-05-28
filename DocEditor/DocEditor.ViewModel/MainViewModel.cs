@@ -173,6 +173,7 @@ namespace DocEditor.ViewModel
         public DelegateCommand SelectAllTextCommand { get; private set; }
         public DelegateCommand NewPlainDocumentCommand { get; private set; }
         public DelegateCommand OpenDictionaryFileCommand { get; private set; }
+        public DelegateCommand SaveDictionaryFileCommand { get; private set; }
 
         /// <summary>
         /// Commands for the RichTextBox
@@ -195,7 +196,15 @@ namespace DocEditor.ViewModel
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SaveAsCommand { get; private set; }
         public DelegateCommand SaveToPdfCommand { get; private set; }
+        public DelegateCommand OpenHelpCmd { get; private set; }
 
+        public DelegateCommand HomeOpenCommand { get; private set; }
+        public DelegateCommand HomeSaveCommand { get; private set; }
+        public DelegateCommand HomeSaveAsCommand { get; private set; }
+
+        public DelegateCommand NewNoteDictionaryCommand { get; private set; }
+        public DelegateCommand NewMathDictionaryCommand { get; private set; }
+        public DelegateCommand NewInfDictionaryCommand { get; private set; }
 
         #endregion
 
@@ -220,6 +229,7 @@ namespace DocEditor.ViewModel
         public event EventHandler SelectAllText;
         public event EventHandler NewPlainDocument;
         public event EventHandler OpenDictionaryFile;
+        public event EventHandler SaveDictionaryFile;
 
         public event EventHandler SelectChanged;
         public event EventHandler AutoFormat;
@@ -238,6 +248,20 @@ namespace DocEditor.ViewModel
         public event EventHandler CopyEvent;
         public event EventHandler ToUpperEvent;
         public event EventHandler ToLowerEvent;
+        public event EventHandler OpenHelp;
+
+        public event EventHandler OpenFile;
+        public event EventHandler SaveFile;
+        public event EventHandler SaveAsFile;
+        public event EventHandler SaveToPdf;
+
+        public event EventHandler HomeOpenFile;
+        public event EventHandler HomeSaveFile;
+        public event EventHandler HomeSaveAsFile;
+
+        public event EventHandler NewNoteDictionary;
+        public event EventHandler NewMathDictionary;
+        public event EventHandler NewInfDictionary;
 
         #endregion
 
@@ -249,6 +273,10 @@ namespace DocEditor.ViewModel
         public MainViewModel(DocEditorModel model)
         {
             _model = model;
+            _model.FileChanged += new EventHandler(Model_FileChanged);
+            _model.FileSaved += new EventHandler(Model_FileSaved);
+            _model.FileLoaded += new EventHandler(Model_FileLoaded);
+            _model.ModelFormatChanged += new EventHandler(Model_FormatChanged);
 
             ExitAppCommand = new DelegateCommand(param => OnExit());
             MinimizeAppCommand = new DelegateCommand(param => OnMinimize());
@@ -270,6 +298,7 @@ namespace DocEditor.ViewModel
             SelectAllTextCommand = new DelegateCommand(param => OnSelectAllText());
             NewPlainDocumentCommand = new DelegateCommand(param => OnNewPlainDocument());
             OpenDictionaryFileCommand = new DelegateCommand(param => OnOpenDictionaryFile());
+            SaveDictionaryFileCommand = new DelegateCommand(param => OnSaveDictionaryFile());
 
             SetSelectionCommand = new DelegateCommand(param => OnSelectionChanged());
             AutoFormattingCommand = new DelegateCommand(param => OnKeyUp());
@@ -285,11 +314,23 @@ namespace DocEditor.ViewModel
             ToUpperCommand = new DelegateCommand(param => OnToUpper());
             ToLowerCommand = new DelegateCommand(param => OnToLower());
 
+            OpenHelpCmd = new DelegateCommand(param => OnOpenHelp());
+            OpenCommand = new DelegateCommand(param => OnOpenFile());
+            SaveCommand = new DelegateCommand(param => OnSaveFile());
+            SaveAsCommand = new DelegateCommand(param => OnSaveAsFile());
+            SaveToPdfCommand = new DelegateCommand(param => OnSaveToPdf());
+
+            HomeOpenCommand = new DelegateCommand(param => OnHomeOpenFile());
+            HomeSaveCommand = new DelegateCommand(param => OnHomeSaveFile());
+            HomeSaveAsCommand = new DelegateCommand(param => OnHomeSaveAsFile());
+
+            NewNoteDictionaryCommand = new DelegateCommand(param => OnNewNoteDictionary());
+            NewMathDictionaryCommand = new DelegateCommand(param => OnNewMathDictionary());
+            NewInfDictionaryCommand = new DelegateCommand(param => OnNewInfDictionary());
+
             PageMargins = new Thickness();
 
-            DocName = _model.FileName;
-            OnPropertyChanged(nameof(DocName));
-
+            SetDocumentName();
             SetDefaultFormatRtb();
 
             //7:10
@@ -300,6 +341,33 @@ namespace DocEditor.ViewModel
             OnPropertyChanged(nameof(PageHeight));          
 
         }
+
+        private void Model_FormatChanged(object sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(LineHeightProp));
+            OnPropertyChanged(nameof(PageWidth));
+            OnPropertyChanged(nameof(PageHeight));
+
+        }
+
+        private void Model_FileLoaded(object sender, EventArgs e)
+        {
+            SetFormattingRTB();
+            SetMarginsRTB();
+            SetDocumentName();
+        }
+
+        private void Model_FileSaved(object sender, EventArgs e)
+        {
+            SetDocumentName();
+        }
+
+        private void Model_FileChanged(object sender, EventArgs e)
+        {
+            SetUnsavedFileName();
+        }
+
+
         #endregion
 
         #region Public methods
@@ -318,6 +386,18 @@ namespace DocEditor.ViewModel
             OnPropertyChanged(nameof(FS));
             OnPropertyChanged(nameof(FW));
             OnPropertyChanged(nameof(FC));
+        }
+
+        public void SetDocumentName()
+        {
+            DocName = _model.FileName;
+            OnPropertyChanged(nameof(DocName));
+        }
+
+        public void SetUnsavedFileName()
+        {
+            DocName = _model.FileName + "*";
+            OnPropertyChanged(nameof(DocName));
         }
 
         /// <summary>
@@ -372,11 +452,66 @@ namespace DocEditor.ViewModel
             DefAlignment = _model.Align.ToString();
             OnPropertyChanged(nameof(DefAlignment));
         }
-       
+
         #endregion
 
 
         #region Event methods
+        private void OnNewNoteDictionary()
+        {
+            NewNoteDictionary?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnNewMathDictionary()
+        {
+            NewMathDictionary?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnNewInfDictionary()
+        {
+            NewInfDictionary?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnHomeSaveAsFile()
+        {
+            HomeSaveAsFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnHomeSaveFile()
+        {
+            HomeSaveFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnHomeOpenFile()
+        {
+            HomeOpenFile?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnSaveDictionaryFile()
+        {
+            SaveDictionaryFile?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnSaveToPdf()
+        {
+            SaveToPdf?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnSaveAsFile()
+        {
+            SaveAsFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnSaveFile()
+        {
+            SaveFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnOpenFile()
+        {
+            OpenFile?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnOpenHelp()
+        {
+            OpenHelp?.Invoke(this, EventArgs.Empty);
+        }
         private void OnUndo()
         {
             UndoEvent?.Invoke(this, EventArgs.Empty);

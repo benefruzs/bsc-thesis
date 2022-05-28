@@ -8,21 +8,15 @@ using DocEditor.Model;
 
 namespace DocEditor.Parser
 {
+    /// <summary>
+    /// DocEditor parser class
+    /// This class is for auto formatting the text's words which are already 
+    /// stored in a data set called "dictionary" and managing the "dictionary".
+    /// Dictionary: a list of DictClass elements
+    /// Also implements a basic autocorrect algorithm by computing Levenshtein distance.
+    /// </summary>
     public class ParserMain
     {
-        //kell egy adatszerkezet, amiben benne van minden a fájlból
-
-        /*-	beírt formázott szó a formázás rárakása után odakerül az elemzõhöz, ami eldönti, hogy el kell-e tárolni 
-         * (nem kell eltárolni, ha valószínûsíthetõen egyszeri elõfordulásról van szó)
-         *-	egy szó után szóköz lenyomása után megnéz, hogy szerepel-e az eltárolt szavak között, ha igen, rárakja a formázást
-        */
-
-        //formázás után eldönteni, hogy el kell-e tárolni
-
-        //formázatlan szóról eldönteni, hogy szerepel-e a dictionaryben
-
-        //dictionary: szavak, formázásuk, színük
-
         #region Private fields and Public properties
         private DictClass _dict;
         private string[] _format_array;
@@ -331,7 +325,10 @@ namespace DocEditor.Parser
             return res;
         }
 
-
+        /// <summary>
+        /// Helper function for adding a new element to the dictionary
+        /// </summary>
+        /// <param name="ft_arr">The formatting informations for all character</param>
         private void StwfFormatToDictFormat(FormatModel[] ft_arr)
         {
             //arr[0]: the most frequent formatting, if there isnt any, then '_'
@@ -348,6 +345,10 @@ namespace DocEditor.Parser
             }
         }
 
+        /// <summary>
+        /// Adding a new element to the dictionary
+        /// </summary>
+        /// <param name="st">The element to add</param>
         private void FromStwfToDict(Stwf st)
         {
             StwfFormatToDictFormat(st.Format);
@@ -355,13 +356,17 @@ namespace DocEditor.Parser
             _dict = new DictClass(st.SelectedText.SelectedString, _format_array, 1);
         }
 
+        /// <summary>
+        /// Generating formatting for a character by comparing the default and the actual formatting
+        /// </summary>
+        /// <param name="def">Default formatting</param>
+        /// <param name="df">Actual formatting</param>
+        /// <returns></returns>
         private FormatModel GenerateFormatModel(string def, string df)
         {
-            //a vesszõk mentén fel kell bontani
             //arr[n]: Style[0] Weight[1] CharOffset[2] Family[3] Size[4] Color[5]
             string[] formatArray = df.Split(",");
-            //formatarrayba vagy df-bõl, vagy ha ott '_', akkor def-bõl
-            //a vesszõkig beolvas a str df és defbõl
+
             string[] def_arr = def.Split(",");
             int i = 0;
             foreach(string d in formatArray)
@@ -378,7 +383,12 @@ namespace DocEditor.Parser
             return res;
         }
 
-
+        /// <summary>
+        /// Helper function for getting a word's formatting from the dictionary 
+        /// </summary>
+        /// <param name="df">The formatting</param>
+        /// <param name="len">The length of the word</param>
+        /// <returns></returns>
         private FormatModel[] DictFormatToStwfFormat(string[] df, int len)
         {
             //df[0] - default formatting, where there is a '_' should be the format from here
@@ -393,12 +403,21 @@ namespace DocEditor.Parser
             return fm;
         }
 
+        /// <summary>
+        /// Getting a word's formatting from the dictionary
+        /// </summary>
+        /// <param name="dc">The dictionary element</param>
+        /// <returns></returns>
         private FormatModel[] FromDictToStwf(DictClass dc)
         {
             return DictFormatToStwfFormat(dc.Formatting, dc.Str.Length);
         }
 
-
+        /// <summary>
+        /// Levenshtein distance computing for all words from the dictionary
+        /// </summary>
+        /// <param name="str">The word</param>
+        /// <returns></returns>
         private int[] LevenshteinDistanceForAll(string str)
         {
             int[] res = new int[Dict.Count];
@@ -539,7 +558,7 @@ namespace DocEditor.Parser
         /// <summary>
         /// Get the first max 3 element with maximum edit distance 2
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="str">The word with formatting</param>
         /// <returns></returns>
         public List<DictClass> GetEditDistance(Stwf str)
         {
@@ -578,7 +597,7 @@ namespace DocEditor.Parser
         /// <summary>
         /// Check if the dictionary already contains the string
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="str">The word</param>
         /// <returns></returns>
         public bool ContainsElement(string str)
         {
@@ -594,9 +613,9 @@ namespace DocEditor.Parser
         }
 
         /// <summary>
-        /// Remove elements from the dictionary
+        /// Remove elements from the dictionary by index
         /// </summary>
-        /// <param name="ind"></param>
+        /// <param name="ind">The index</param>
         public void RemoveElementFromDictionary(int ind)
         {
             if (Dict.Count > ind)
@@ -605,6 +624,10 @@ namespace DocEditor.Parser
             }
         }
 
+        /// <summary>
+        /// Remove the given element from the dictionary
+        /// </summary>
+        /// <param name="dc"></param>
         public void RemoveElementFromDictionary(DictClass dc)
         {
             if (Dict.Contains(dc))
@@ -688,25 +711,29 @@ namespace DocEditor.Parser
             
         }
 
+        /// <summary>
+        /// Method to write the dictionary list to a json file
+        /// </summary>
         public void DictToJson()
         {
             try
             {
                 DictToJson(DictFileName);
             }
-            catch(System.ArgumentNullException e)
-            {
-
-            }
-                            
+            catch (ArgumentNullException) { }              
         }
 
+        /// <summary>
+        /// Method to reading from the json file to the dictionary list
+        /// </summary>
         public void JsonToDict()
         {
-            JsonToDict(DictFileName);
-            
+            try
+            {
+                JsonToDict(DictFileName);
+            }
+            catch (ArgumentException) { }          
         }
         #endregion
-
     }
 }

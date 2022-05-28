@@ -1,69 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
   <ItemGroup>
     <ApplicationDefinition Update="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="CreateFileDialog.xaml.cs">
+    <Compile Update="Views\CreateFileDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="DictionaryView.xaml.cs">
+    <Compile Update="Views\DictionaryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ErrorCorrectDialog.xaml.cs">
+    <Compile Update="Views\ErrorCorrectDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="FormatTextView.xaml.cs">
+    <Compile Update="Views\FormatTextView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="HomeWindow.xaml.cs">
+    <Compile Update="Views\HomeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="InsertView.xaml.cs">
+    <Compile Update="Views\InsertView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="PageSettingsDialog.xaml.cs">
+    <Compile Update="Views\PageSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="PageSettingsView.xaml.cs">
+    <Compile Update="Views\PageSettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="PdfViewer.xaml.cs">
+    <Compile Update="Views\PdfViewer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UserHelpViewer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="CreateFileDialog.xaml">
+    <Page Update="Views\CreateFileDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="DictionaryView.xaml">
+    <Page Update="Views\DictionaryView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ErrorCorrectDialog.xaml">
+    <Page Update="Views\ErrorCorrectDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="FormatTextView.xaml">
+    <Page Update="Views\FormatTextView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="HomeWindow.xaml">
+    <Page Update="Views\HomeWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="InsertView.xaml">
+    <Page Update="Views\InsertView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="PageSettingsDialog.xaml">
+    <Page Update="Views\PageSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="PageSettingsView.xaml">
+    <Page Update="Views\PageSettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="PdfViewer.xaml">
+    <Page Update="Views\PdfViewer.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="StyleResources\AllButtonStyle.xaml">
@@ -82,6 +87,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="StyleResources\WindowStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserHelpViewer.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

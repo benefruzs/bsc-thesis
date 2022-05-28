@@ -155,6 +155,7 @@ namespace DocEditor.ViewModel
         public FormatTextViewModel(DocEditorModel model)
         {
             _model = model;
+            _model.ModelFormatChanged += new EventHandler(Model_FormatChanged);
 
             OpenColorPickerCommand = new DelegateCommand(param => OnColorPicker());
             FontFamilyChangedCmd = new DelegateCommand(param => OnFontFamilyChanged());
@@ -188,12 +189,17 @@ namespace DocEditor.ViewModel
             UpdateStyleList();
             Console.WriteLine();
         }
+
+        private void Model_FormatChanged(object sender, EventArgs e)
+        {
+            UpdateStyleList();
+        }
         #endregion
 
         #region Public methods
         public void UpdateStyleList()
         {
-            System.Diagnostics.Debug.WriteLine(_model.SelectionAndFormat);
+            
             _fontStyles = new List<string>();
             foreach (var f in _model.FontStyles)
             {

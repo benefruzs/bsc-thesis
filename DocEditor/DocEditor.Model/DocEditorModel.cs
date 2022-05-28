@@ -7,10 +7,10 @@ using DocEditor.Persistence;
 
 namespace DocEditor.Model
 {
-    /// <summary>
-    /// Enum type for paragraph alignment
-    /// </summary>
 
+    /// <summary>
+    /// DocEditor model type
+    /// </summary>
     public class DocEditorModel
     {
         #region Private fields and Public properties
@@ -72,13 +72,23 @@ namespace DocEditor.Model
         public List<ImageClass> InsertedImages;
 
         /// <summary>
-        /// Property for the texts shoud stored in the model
+        /// Property for the file with the RichTextBox content
         /// </summary>
-        private string _text;
-        public string Text
+        private string _rtfFile;
+        public string RtfFile
         {
-            get { return _text; }
-            set { _text = value; }
+            get { return _rtfFile; }
+            set { _rtfFile = value; }
+        }
+
+        /// <summary>
+        /// Property for the dictionary file
+        /// </summary>
+        private string _jsonFile;
+        public string JsonFile
+        {
+            get { return _jsonFile; }
+            set { _jsonFile = value; }
         }
 
         /// <summary>
@@ -134,6 +144,11 @@ namespace DocEditor.Model
         }
 
         /// <summary>
+        /// The file was saved after the last edit or not
+        /// </summary>
+        public bool IsFileSaved{ get; private set; }
+
+        /// <summary>
         /// Selected text for parsing
         /// </summary>
         public Stwf SelectForParser;
@@ -145,8 +160,11 @@ namespace DocEditor.Model
 
         private IDocEditorDataAccess _dataAccess;
 
+
         public event EventHandler FileLoaded;
         public event EventHandler FileSaved;
+        public event EventHandler FileChanged;
+        public event EventHandler ModelFormatChanged;
 
         #endregion
 
@@ -154,7 +172,25 @@ namespace DocEditor.Model
         /// <summary>
         /// Instantiate the Model
         /// </summary>
-        public DocEditorModel()
+        public DocEditorModel(IDocEditorDataAccess dataAccess)
+        {
+            _dataAccess = dataAccess;
+            DocInitialization();
+            CreateDefaultFontStyles();
+            _margin = new MarginModel();
+            _fileName = "Untitled";
+
+            PageWidth = 595;
+            PageHeight = PageWidth / 7 * 10;
+            ActualPageHeight = PageHeight - (_margin.Bottom + _margin.Top);
+           
+            LineHeight = 10;        
+            IsFileSaved = false;
+        }
+        #endregion
+
+        #region Private methods
+        private void DocInitialization()
         {
             _formatText = new FormatModel();
             _fontSizes = new List<double>();
@@ -165,27 +201,13 @@ namespace DocEditor.Model
 
             _align = Alignment.Left;
             select = new Selection();
-            _margin = new MarginModel();
-
-            _fileName = "Untitled";
-
-            PageWidth = 595;
-            PageHeight = PageWidth / 7 * 10;
-
-            ActualPageHeight = PageHeight - (_margin.Bottom + _margin.Top);
-
-            CreateDefaultFontStyles();
-
-            //selectForParser = new Stwf();
+            
             ListForErrorCorrect = new List<Stwf>();
-
-            LineHeight = 10;
-
             InsertedImages = new List<ImageClass>();
-        }
-        #endregion
+            SelectForParser = new Stwf();
+            _fontStyles = new Dictionary<string, FormatModel>();
 
-        #region Private methods
+        }
 
         /// <summary>
         /// Create the default formatting list
@@ -221,7 +243,38 @@ namespace DocEditor.Model
         /// <param name="path">loaded file path</param>
         public async Task LoadFileAsync(String path)
         {
-            //TODO
+            DocInitialization();
+            
+            if (_dataAccess == null) return;
+            string[] values = new string[10];
+            values = await _dataAccess.LoadAsync(path);
+
+            _rtfFile = values[0];
+            _jsonFile = values[1];
+            PageWidth = Int32.Parse(values[2]);
+            PageHeight = Int32.Parse(values[3]);
+            _margin.Left = double.Parse(values[4]);
+            _margin.Right = double.Parse(values[5]);
+            _margin.Bottom = double.Parse(values[6]);
+            _margin.Top = double.Parse(values[7]);
+            LineHeight = double.Parse(values[8]);
+
+            string[] tmp = values[9].Split('|');
+            tmp = tmp.SkipLast(1).ToArray();
+            System.Diagnostics.Debug.WriteLine(tmp);
+            string[] ttmp = new string[6];
+            foreach (var t in tmp)
+            {
+                ttmp = t.Split(',');
+                //string family, int size, string style, string weight, string color
+                
+                LoadNewFormatStyle(ttmp[0], new FormatModel(ttmp[1], Int32.Parse(ttmp[2]), ttmp[3], ttmp[4], ttmp[5]));
+            }
+
+            
+            OnModelFormatChanged();
+            OnFileLoaded();
+            IsFileSaved = true;
         }
 
         /// <summary>
@@ -232,6 +285,35 @@ namespace DocEditor.Model
         public async Task SaveFileAsync(String path)
         {
             //TODO
+            if (_dataAccess == null) return;
+            string[] saveArr = new string[10];
+
+            saveArr[0] = _rtfFile;
+            saveArr[1] = _jsonFile;
+            saveArr[2] = PageWidth.ToString();
+            saveArr[3] = PageHeight.ToString();
+            saveArr[4] = _margin.Left.ToString();
+            saveArr[5] = _margin.Right.ToString();
+            saveArr[6] = _margin.Top.ToString();
+            saveArr[7] = _margin.Bottom.ToString();
+            saveArr[8] = LineHeight.ToString();
+
+            //format styles
+            foreach(var f in FontStyles)
+            {
+                //string family, int size, string style, string weight, string color
+                saveArr[9] += f.Key.ToString() + ',';
+                saveArr[9] += f.Value.Family + ',';
+                saveArr[9] += f.Value.Size.ToString() + ',';
+                saveArr[9] += f.Value.Style + ',';
+                saveArr[9] += f.Value.Weight + ',';
+                saveArr[9] += f.Value.Color + ',';
+                saveArr[9] += '|';
+            }
+
+            await _dataAccess.SaveAsync(path, saveArr);
+            OnFileSaved();
+            IsFileSaved = true;
         }
 
         /// <summary>
@@ -243,6 +325,17 @@ namespace DocEditor.Model
             string styleName = "Stílus" + (_fontStyles.Count - 3).ToString();
             _fontStyles.Add(styleName, fm);
         }
+
+        /// <summary>
+        /// Adding loaded new item to the format style list
+        /// </summary>
+        /// <param name="name">Name of the format style</param>
+        /// <param name="fm">Formatting info</param>
+        public void LoadNewFormatStyle(string name, FormatModel fm)
+        {
+            _fontStyles.Add(name, fm);
+        }
+
 
         /// <summary>
         /// Creating new selection for formatting a text
@@ -269,58 +362,61 @@ namespace DocEditor.Model
 
                 for (int i = 0; i < len; i++)
                 {
-                    if (styleFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Style))
+                    if (SelectionAndFormat.SelectedText.Format[i] != null)
                     {
-                        styleFreq[SelectionAndFormat.SelectedText.Format[i].Style]++;
-                    }
-                    else
-                    {
-                        styleFreq.Add(SelectionAndFormat.SelectedText.Format[i].Style, 1);
-                    }
+                        if (styleFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Style))
+                        {
+                            styleFreq[SelectionAndFormat.SelectedText.Format[i].Style]++;
+                        }
+                        else
+                        {
+                            styleFreq.Add(SelectionAndFormat.SelectedText.Format[i].Style, 1);
+                        }
 
-                    if (weightFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Weight))
-                    {
-                        weightFreq[SelectionAndFormat.SelectedText.Format[i].Weight]++;
-                    }
-                    else
-                    {
-                        weightFreq.Add(SelectionAndFormat.SelectedText.Format[i].Weight, 1);
-                    }
+                        if (weightFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Weight))
+                        {
+                            weightFreq[SelectionAndFormat.SelectedText.Format[i].Weight]++;
+                        }
+                        else
+                        {
+                            weightFreq.Add(SelectionAndFormat.SelectedText.Format[i].Weight, 1);
+                        }
 
-                    if (familyFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Family))
-                    {
-                        familyFreq[SelectionAndFormat.SelectedText.Format[i].Family]++;
-                    }
-                    else
-                    {
-                        familyFreq.Add(SelectionAndFormat.SelectedText.Format[i].Family, 1);
-                    }
+                        if (familyFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Family))
+                        {
+                            familyFreq[SelectionAndFormat.SelectedText.Format[i].Family]++;
+                        }
+                        else
+                        {
+                            familyFreq.Add(SelectionAndFormat.SelectedText.Format[i].Family, 1);
+                        }
 
-                    if (chOffsetFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].CharOffset))
-                    {
-                        chOffsetFreq[SelectionAndFormat.SelectedText.Format[i].CharOffset]++;
-                    }
-                    else
-                    {
-                        chOffsetFreq.Add(SelectionAndFormat.SelectedText.Format[i].CharOffset, 1);
-                    }
+                        if (chOffsetFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].CharOffset))
+                        {
+                            chOffsetFreq[SelectionAndFormat.SelectedText.Format[i].CharOffset]++;
+                        }
+                        else
+                        {
+                            chOffsetFreq.Add(SelectionAndFormat.SelectedText.Format[i].CharOffset, 1);
+                        }
 
-                    if (sizeFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Size))
-                    {
-                        sizeFreq[SelectionAndFormat.SelectedText.Format[i].Size]++;
-                    }
-                    else
-                    {
-                        sizeFreq.Add(SelectionAndFormat.SelectedText.Format[i].Size, 1);
-                    }
+                        if (sizeFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Size))
+                        {
+                            sizeFreq[SelectionAndFormat.SelectedText.Format[i].Size]++;
+                        }
+                        else
+                        {
+                            sizeFreq.Add(SelectionAndFormat.SelectedText.Format[i].Size, 1);
+                        }
 
-                    if (colorFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Color))
-                    {
-                        colorFreq[SelectionAndFormat.SelectedText.Format[i].Color]++;
-                    }
-                    else
-                    {
-                        colorFreq.Add(SelectionAndFormat.SelectedText.Format[i].Color, 1);
+                        if (colorFreq.ContainsKey(SelectionAndFormat.SelectedText.Format[i].Color))
+                        {
+                            colorFreq[SelectionAndFormat.SelectedText.Format[i].Color]++;
+                        }
+                        else
+                        {
+                            colorFreq.Add(SelectionAndFormat.SelectedText.Format[i].Color, 1);
+                        }
                     }
                 }
 
@@ -341,13 +437,27 @@ namespace DocEditor.Model
         /// <returns>The reversed string</returns>
         public string ReverseWord(string word)
         {
+            
             char[] strToReverse = word.ToCharArray();
             word = "";
             for (int i = strToReverse.Length - 1; i >= 0; i--)
             {
                 word += strToReverse[i];
             }
+            word = word.Trim('\r');
+            word = word.Trim('\n');
+            
             return word;
+        }
+
+        /// <summary>
+        /// Getting the name of the main file
+        /// </summary>
+        /// <param name="fn">File path</param>
+        public void GetFileName(string fn)
+        {
+            string[] arr = fn.Split("\\");
+            _fileName = arr[arr.Length - 1];
         }
 
         /// <summary>
@@ -530,15 +640,49 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// The file was modified after the last save
+        /// </summary>
+        public void SetFalseFileSaved()
+        {
+            IsFileSaved = false;
+            OnFileChanged();
+        }
+
         #endregion
 
+        /// <summary>
+        /// Event trigger for loading a file
+        /// </summary>
         private void OnFileLoaded()
         {
-            //TODO
+            FileLoaded?.Invoke(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// Event trigger for saving a file
+        /// </summary>
         private void OnFileSaved()
         {
-            //TODO
+            FileSaved?.Invoke(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// Event trigger for changes in the file
+        /// </summary>
+        private void OnFileChanged()
+        {
+            FileChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Event trigger for format change
+        /// </summary>
+        private void OnModelFormatChanged()
+        {
+            ModelFormatChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+
     }
 }

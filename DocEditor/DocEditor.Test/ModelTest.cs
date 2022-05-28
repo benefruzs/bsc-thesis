@@ -262,7 +262,7 @@ namespace DocEditor.Test
             FormatModel fm = new FormatModel();
             fm.SetDefaultFormatting();
             MarginModel mm = new MarginModel();
-            mm.setDefaultMargin();
+            mm.SetDefaultMargin();
 
             Assert.AreEqual(_model.FormatText.Style, fm.Style);
             Assert.AreEqual(_model.FormatText.Weight, fm.Weight);
