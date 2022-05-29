@@ -15,6 +15,9 @@ namespace DocEditor.ViewModel
         private DocEditorModel _model;
         private ParserMain _parser;
 
+        /// <summary>
+        /// The name of the dictionary file
+        /// </summary>
         private string _fileName;
         public string FileName
         {
@@ -29,6 +32,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// List of the dictionary elements
+        /// </summary>
         private List<DictClass> _dictElements;
         public List<DictClass> DictionaryElements
         {
@@ -42,6 +48,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Selected element from the dictionary
+        /// </summary>
         private DictClass _selectedDictElement;
         public DictClass SelectedDictElement
         {
@@ -56,6 +65,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// The string of the selected element
+        /// </summary>
         private string _dictString;
         public string DictString
         {
@@ -107,12 +119,19 @@ namespace DocEditor.ViewModel
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Add a new element to de dictionary list
+        /// </summary>
+        /// <param name="dc">The new element</param>
         public void AddDictElements(DictClass dc)
         {
             _dictElements.Add(dc);
             OnPropertyChanged(nameof(DictionaryElements));
         }
 
+        /// <summary>
+        /// Update the dictionary list
+        /// </summary>
         public void UpdateDictList()
         {
 
@@ -127,7 +146,10 @@ namespace DocEditor.ViewModel
             }
         }
 
-        //addnew 
+        /// <summary>
+        /// Display the preview of the selected dictionary element
+        /// </summary>
+        /// <param name="fm">The formatting</param>
         public void DisplayText(FormatModel[] fm)
         {
             if (_selectedDictElement != null)
@@ -170,6 +192,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Delete the preview of a dictionary list element
+        /// </summary>
         public void DeletePreview()
         {
             DictElements.Clear();

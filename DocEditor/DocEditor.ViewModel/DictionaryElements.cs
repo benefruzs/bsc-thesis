@@ -77,6 +77,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Top padding
+        /// </summary>
         private double _top;
         public double Top
         {
@@ -91,7 +94,9 @@ namespace DocEditor.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Baseline alignment
+        /// </summary>
         private string _bLineAlign;
         public string BLineAlign
         {
@@ -106,6 +111,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// The text for the run
+        /// </summary>
         private string _runText;
         public string RunText
         {

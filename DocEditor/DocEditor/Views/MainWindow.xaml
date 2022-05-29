@@ -169,15 +169,12 @@
             </Grid.RowDefinitions>
             <ContentControl x:Name="ContCtrl" Grid.Row="1"
                             Content="{Binding Path=CurrentView}"/>
-            <!--<local:FormatTextView/>-->
         </Grid>
 
-        <!--ide kell egy scrollable container a rtb-knek-->
         <Grid DockPanel.Dock="Bottom">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <!--<RowDefinition Height="Auto"/>-->
             </Grid.RowDefinitions>
             <ScrollViewer x:Name="rtfScrollViewer"  Grid.Row="0" VerticalScrollBarVisibility="Auto" Height="{Binding PageHeight}" Background="#FFFFFF" Margin="10 10 10 0" >
                 <RichTextBox x:Name="DocPaper" Width="{Binding PageWidth}" Height="Auto" FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}" Padding="{Binding PageMargins}" HorizontalContentAlignment="Center"  Foreground="{Binding FC}" IsInactiveSelectionHighlightEnabled="True"  Background="#FFFFFF" BorderThickness="0" Margin="10 10 10 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -200,15 +197,7 @@
                 </RichTextBox>
             </ScrollViewer>
 
-            <!--<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content=" ◀◀ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoFirstPageCommand}"/>
-                <Button Content=" ◀ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoNextPageCommand}"/>
-                <Label Content="{Binding CurrentPageNumber}" FontFamily="Corbel" FontSize="16" Foreground="#FFFFFF"/>
-                <Label Content="/" FontFamily="Corbel" FontSize="16" Foreground="#FFFFFF"/>
-                <Label Content="{Binding AllPageNumbers}" FontFamily="Corbel" FontSize="16" Foreground="#FFFFFF"/>
-                <Button Content=" ▶ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoPrevPageCommand}"/>
-                <Button Content=" ▶▶ " Style="{StaticResource DictBtnStyle}" Width="50" Command="{Binding GotoLastPageCommand}"/>
-            </StackPanel>-->
+            
         </Grid>
     </DockPanel>
 </Window>

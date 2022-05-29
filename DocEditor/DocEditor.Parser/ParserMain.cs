@@ -539,10 +539,10 @@ namespace DocEditor.Parser
         public Stwf FromDictionary(Stwf str)
         {
             if (ContainsElement(str.SelectedText.SelectedString))
-            {
+            {            
                 //same string with the maximum frequency
-                int maxFreq = Dict.Where(x => x.Str == str.SelectedText.SelectedString).Max(x => x.Frequency);
-                int ind = Dict.FindIndex(x => x.Str == str.SelectedText.SelectedString && x.Frequency == maxFreq);
+                int maxFreq = Dict.Where(x => x.Str.ToLower() == str.SelectedText.SelectedString.ToLower()).Max(x => x.Frequency);
+                int ind = Dict.FindIndex(x => x.Str.ToLower() == str.SelectedText.SelectedString.ToLower() && x.Frequency == maxFreq);
 
                 //Dict[ind] is the element form the dictionary which we need to add to the text
                 //Dict[ind].formatting -> stwf formatting

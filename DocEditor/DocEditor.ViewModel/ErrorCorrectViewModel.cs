@@ -12,6 +12,9 @@ namespace DocEditor.ViewModel
         private DocEditorModel _model;
         private ParserMain _parser;
 
+        /// <summary>
+        /// The list of the dictionary elements
+        /// </summary>
         private List<DictClass> _dictElements;
         public List<DictClass> PossibleDictionaryElements
         {
@@ -26,6 +29,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Selected list element
+        /// </summary>
         private DictClass _selectedDictElement;
         public DictClass SelectedPossibleDictElement
         {
@@ -40,6 +46,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// The string of a list element
+        /// </summary>
         private string _dictString;
         public string DictString
         {
@@ -83,6 +92,10 @@ namespace DocEditor.ViewModel
 
         #region Private and public methods
  
+        /// <summary>
+        /// Update the dictionary list
+        /// </summary>
+        /// <param name="lst">The list to display</param>
         public void UpdateDictList(List<DictClass> lst)
         {
             if (lst != null)
@@ -96,6 +109,10 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Display preview of the selected list element
+        /// </summary>
+        /// <param name="fm">The formatting</param>
         public void DisplayText(FormatModel[] fm)
         {
             if (_selectedDictElement != null)
@@ -127,7 +144,7 @@ namespace DocEditor.ViewModel
                     PossibleDictElements.Add(new DictionaryElements
                     {
                         RunText = _selectedDictElement.Str[i].ToString(),
-                        DefaultSize = 20 * fm[i].CharOffset,
+                        DefaultSize = 20 / Math.Abs(fm[i].CharOffset),
                         DefaultFamily = fm[i].Family,
                         DefaultStyle = fm[i].Style,
                         DefaultWeight = fm[i].Weight,

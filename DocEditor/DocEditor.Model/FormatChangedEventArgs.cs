@@ -34,6 +34,11 @@ namespace DocEditor.Model
         public string Color { get; set; }
 
         /// <summary>
+        /// Get and set the text decoration.
+        /// </summary>
+        public string TextDecoration { get; set; }
+
+        /// <summary>
         /// Event argumentum instantiation.
         /// </summary>
         /// <param name="s">FontStyle</param>
@@ -41,13 +46,14 @@ namespace DocEditor.Model
         /// <param name="f">FontFamily</param>
         /// <param name="size">FontSize</param>
         /// <param name="c">FontColor</param>
-        public FormatChangedEventArgs(string s, string w, string f, double size, string c)
+        public FormatChangedEventArgs(string s, string w, string f, double size, string c, string d)
         {
             Style = s;
             Weight = w;
             Family = f;
             Size = size;
             Color = c;
+            TextDecoration = d;
         }
     }
 }

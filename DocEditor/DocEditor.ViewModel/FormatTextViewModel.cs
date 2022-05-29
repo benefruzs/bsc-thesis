@@ -14,8 +14,14 @@ namespace DocEditor.ViewModel
 
         private DocEditorModel _model;
 
+        /// <summary>
+        /// Font size list
+        /// </summary>
         public List<double> FontSizes { get; private set; }
 
+        /// <summary>
+        /// The selected font size
+        /// </summary>
         private string _sFontSize;
         public string SFontSize
         {
@@ -24,13 +30,15 @@ namespace DocEditor.ViewModel
             {
                 if (value != _sFontSize)
                 {
-                    //_model.FormatText.Size = value;
                     _sFontSize = value;
                     OnPropertyChanged(nameof(SFontSize));
                 }
             }
         }
 
+        /// <summary>
+        /// The selected font family
+        /// </summary>
         private string _sFontFamily;
         public String SFontFamily
         {
@@ -39,13 +47,15 @@ namespace DocEditor.ViewModel
             {
                 if (value != _sFontFamily)
                 {
-                    //_model.FormatText.Family = value;
                     _sFontFamily = value;
                     OnPropertyChanged(nameof(SFontFamily));
                 }
             }
         }
 
+        /// <summary>
+        /// The selected font style
+        /// </summary>
         private string _selectedStyle;
         public string SelectedStyle
         {
@@ -60,6 +70,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// List of font styles
+        /// </summary>
         private List<string> _fontStyles;
         public List<string> FontStyles
         {
@@ -74,6 +87,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Selected text color
+        /// </summary>
         private string _sTextColor;
         public string STextColor
         {
@@ -88,6 +104,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Line height
+        /// </summary>
         private double _lineHeightProp;
         public double LineHeightProp
         {
@@ -179,7 +198,6 @@ namespace DocEditor.ViewModel
 
             FontSizes = new List<double>();
             FontStyles = new List<string>();
-            //FormatModel x = _model.FormatText;
             _sFontSize = _model.FormatText.Size.ToString();
             _sFontFamily = _model.FormatText.Family;
             _sTextColor = _model.FormatText.Color;
@@ -197,6 +215,9 @@ namespace DocEditor.ViewModel
         #endregion
 
         #region Public methods
+        /// <summary>
+        /// Update the list of format styles
+        /// </summary>
         public void UpdateStyleList()
         {
             
@@ -206,17 +227,22 @@ namespace DocEditor.ViewModel
                 _fontStyles.Add(f.Key);
             }
 
-            //_fontStyles = _model.FontStyles.Keys.ToList<string>();
             OnPropertyChanged(nameof(FontStyles));
 
         }
 
+        /// <summary>
+        /// Increase the line height
+        /// </summary>
         public void IncreaseLineHeight()
         {
             _lineHeightProp = _model.LineHeightIncr();
             OnPropertyChanged(nameof(LineHeightProp));
         }
 
+        /// <summary>
+        /// Decrease the line height
+        /// </summary>
         public void DecreaseLineHeight()
         {
             _lineHeightProp = _model.LineHeightDecr();

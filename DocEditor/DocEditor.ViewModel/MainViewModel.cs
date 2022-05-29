@@ -346,7 +346,6 @@ namespace DocEditor.ViewModel
 
             //7:10
             PageWidth = _model.PageWidth;
-            //PageHeight = PageWidth / 7 * 10;
             _pageHeight = Convert.ToInt32(_model.Margin.Bottom) + 560;
             OnPropertyChanged(nameof(PageWidth));
             OnPropertyChanged(nameof(PageHeight));          

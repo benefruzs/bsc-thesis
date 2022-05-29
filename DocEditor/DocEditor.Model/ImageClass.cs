@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace DocEditor.Model
 {
+    /// <summary>
+    /// Class for inserted images to a document
+    /// </summary>
     public class ImageClass
     {
         #region Public properties and private fields
+        /// <summary>
+        /// Image height
+        /// </summary>
         private double _height;
         public double Height
         {
@@ -22,6 +28,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// Image width
+        /// </summary>
         private double _width;
         public double Width
         {
@@ -35,6 +44,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// Path for the image
+        /// </summary>
         private string _imagePath;
         public string ImagePath
         {
@@ -42,6 +54,9 @@ namespace DocEditor.Model
             set { _imagePath = value; }
         }
 
+        /// <summary>
+        /// Image position in the document
+        /// </summary>
         private int _position;
         public int Position
         {

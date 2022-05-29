@@ -17,7 +17,6 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Margin="20 10 20 10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <!--<TextBlock Height="400" Background="#404146"> Dictionary</TextBlock>-->
             <ListBox Height="300" Background="#404146" BorderBrush="#404146" x:Name="dictionaryList" 
                 ItemsSource="{Binding DictionaryElements}" SelectedItem="{Binding SelectedDictElement, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
@@ -34,21 +33,7 @@
                 </i:Interaction.Triggers>
             </ListBox>
         </Border>
-        <!--<RichTextBox x:Name="PreviewRtb"
-            Grid.Row="1" 
-            IsReadOnly="True"
-            Height="50" Margin="10" 
-            Background="#FFFFFF" 
-            FontSize="20"   
-            Padding="10">
-            <FlowDocument>
-                <Paragraph x:Name="Par" TextAlignment="Center">
-                    <Run x:Name="DictRun"
-                        Text="{Binding DictString}">
-                    </Run>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>-->
+      
 
         <ScrollViewer Grid.Row="1" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10">
             <ItemsControl Background="#FFFFFF" Margin="10" Grid.Row="1" ItemsSource="{Binding DictElements}" Width="Auto" Height="50">

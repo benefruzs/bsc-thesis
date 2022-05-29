@@ -153,7 +153,7 @@ namespace DocEditor.Model
         /// </summary>
         private void OnFormatChanged()
         {
-            FormatChanged?.Invoke(this, new FormatChangedEventArgs(_fontStyle, _fontWeight, _fontFamily, _size, _color));
+            FormatChanged?.Invoke(this, new FormatChangedEventArgs(_fontStyle, _fontWeight, _fontFamily, _size, _color, _textDecoration));
         }
         #endregion
     }

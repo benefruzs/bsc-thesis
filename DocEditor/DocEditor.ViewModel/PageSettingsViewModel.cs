@@ -12,6 +12,9 @@ namespace DocEditor.ViewModel
         #region Private fields and Public properties
         private DocEditorModel _model;
 
+        /// <summary>
+        /// Right margin
+        /// </summary>
         private double _rightMargin;
         public double RightMargin
         {
@@ -25,6 +28,10 @@ namespace DocEditor.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// Left margin
+        /// </summary>
         private double _leftMargin;
         public double LeftMargin
         {
@@ -38,6 +45,10 @@ namespace DocEditor.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// Top margin
+        /// </summary>
         private double _topMargin;
         public double TopMargin
         {
@@ -51,6 +62,10 @@ namespace DocEditor.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// Bottom margin
+        /// </summary>
         private double _bottomMargin;
         public double BottomMargin
         {
@@ -129,6 +144,9 @@ namespace DocEditor.ViewModel
         #endregion
 
         #region Public methods
+        /// <summary>
+        /// Update the margins
+        /// </summary>
         public void UpdateMargins()
         {
             _bottomMargin = _model.GetBottomMargin();

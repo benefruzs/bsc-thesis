@@ -10,25 +10,6 @@
         <Setter Property="Foreground" Value="#FFFFFF"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <!--<Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="3" BorderThickness="1" Padding="2" BorderBrush="#FFFFFF">
-                        <Grid>
-                            <Rectangle StrokeThickness="1"/>
-                            <TextBox Margin="1"
-                                         Text="{TemplateBinding Text}"
-                                         BorderThickness="0"
-                                         Background="Transparent"
-                                         VerticalAlignment="Center"
-                                         Padding="0"
-                                         Foreground="#FFFFFF"
-                                         x:Name="MarginBox"/>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">

@@ -94,7 +94,7 @@
 
             <StackPanel Grid.Row="0" Grid.Column="1">
                 <TextBlock Text="Új dokumentum kész szótárral" Style="{StaticResource HomeTextBlockStyle}"/>
-                <!--lista a fájlokkal-->
+                
                 <Button Content="Szótár jegyzeteléshez" Style="{StaticResource LoadDictBtnStyle}" Command="{Binding NewNoteDictionaryCommand}"/>
                 <Button Content="Matematikai szótár" Style="{StaticResource LoadDictBtnStyle}" Command="{Binding NewMathDictionaryCommand}"/>
                 <Button Content="Informatikai szótár" Style="{StaticResource LoadDictBtnStyle}" Command="{Binding NewInfDictionaryCommand}"/>

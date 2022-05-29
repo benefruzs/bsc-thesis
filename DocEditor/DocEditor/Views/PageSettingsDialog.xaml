@@ -9,14 +9,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- felső -->
+            <!-- top -->
             <RowDefinition Height="Auto"/>
-            <!--bal jobb-->
+            <!--left right-->
             <RowDefinition Height="Auto"/>
-            <!--alsó-->
+            <!--bottom-->
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <!-- alapértelmezett -->
+            <!-- default -->
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

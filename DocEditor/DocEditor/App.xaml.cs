@@ -1293,7 +1293,7 @@ namespace DocEditor
             }
             else
             {
-
+                _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, value: _ftViewModel.SFontFamily);
             }
         }
 
@@ -1316,7 +1316,7 @@ namespace DocEditor
             }
             else
             {
-
+                _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, _ftViewModel.SFontSize);
             }
         }
 
@@ -1372,7 +1372,7 @@ namespace DocEditor
             }
             else
             {
-                if (_viewModel.ModelSelectionAndFormat != null && _viewModel.ModelSelectionAndFormat.Formatting.Weight == "Bold")
+                if (_view.DocPaper.Selection.GetPropertyValue(TextElement.FontWeightProperty).ToString() == "Bold")
                 {
                     _viewModel.ModelSelectionAndFormat.DeleteWeight();
                     _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, value: _viewModel.ModelSelectionAndFormat.Formatting.Weight);
@@ -1405,8 +1405,18 @@ namespace DocEditor
             }
             else
             {
-                _viewModel.ModelSelectionAndFormat.DeleteStyle();
-                _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: _viewModel.ModelSelectionAndFormat.Formatting.Style);
+                if(_view.DocPaper.Selection.GetPropertyValue(TextElement.FontStyleProperty).ToString() == "Italic")
+                {
+                    _viewModel.ModelSelectionAndFormat.DeleteStyle();
+                    _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: _viewModel.ModelSelectionAndFormat.Formatting.Style);
+                }
+                else
+                {
+                    _viewModel.ModelFormatText.Style = "Italic";
+                    TextPointer ptr = _view.DocPaper.CaretPosition;
+                    _view.DocPaper.Selection.Select(ptr, ptr);
+                    _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, value: _viewModel.ModelFormatText.Style);
+                }
             }
         }
 
@@ -1898,6 +1908,7 @@ namespace DocEditor
         {
             _view.DocPaper.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, _viewModel.ModelSelectionAndFormat.Formatting.Color);
         }
+
         #endregion
 
     }

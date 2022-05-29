@@ -12,6 +12,9 @@ namespace DocEditor.ViewModel
         #region Private fields and Public properties
         private DocEditorModel _model;
 
+        /// <summary>
+        /// The path of the inserted image
+        /// </summary>
         private string _imagePath;
         public string ImagePath
         {
@@ -26,6 +29,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// The height of the inserted image
+        /// </summary>
         private double _imageHeight;
         public double ImageHeight
         {
@@ -39,6 +45,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// The width of the inserted image
+        /// </summary>
         private double _imageWidth;
         public double ImageWidth
         {

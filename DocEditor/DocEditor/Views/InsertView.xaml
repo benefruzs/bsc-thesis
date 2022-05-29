@@ -11,7 +11,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
-           <!-- <RowDefinition Height="Auto"/>-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -29,7 +28,6 @@
                 <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddImgImg}"  Height="50" Width="50" Command="{Binding InsertImageCommand}"/>
 
                 <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="30" Text="{Binding ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <!--képre kattintva felhoz a képek választása, képhez path beírni, enterrel beszúr -->
             </Grid>
         </Border>
 
@@ -45,42 +43,6 @@
                 </Grid>
         </Border>
 
-       <!-- <Border Grid.Row="1" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="60">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.Resources>
-                    <ImageBrush x:Key="AddTableImg" ImageSource="/img/ins/table.jpg" Stretch="UniformToFill"/>
-                </Grid.Resources>
-
-                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddTableImg}"  Height="50" Width="50"/>
-
-                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="30"/>
-                <TextBox Grid.Column="2" Style="{StaticResource TextBoxStyle}" Height="30"/>-->
-                <!-- táblázat dimensionjei -->
-            <!--</Grid>
-        </Border>
-
-        <Border Grid.Row="2" Margin="10" BorderBrush="#404146" BorderThickness="2" CornerRadius="5">
-            <Grid Background="#404146" Height="60">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.Resources>
-                    <ImageBrush x:Key="AddSymbolImg" ImageSource="/img/ins/symbol.jpg" Stretch="UniformToFill"/>
-                </Grid.Resources>
-
-                <Button Grid.Column="0" Style="{StaticResource InsertButtonStyle}" Background="{StaticResource AddSymbolImg}"  Height="50" Width="50"/>
-                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Height="30"/>-->
-
-                <!-- képre kattintva felhoz a symbol ablak, enterrel beszúr, amit beírtunk -->
-           <!-- </Grid>
-        </Border>-->
+      
     </Grid>
 </UserControl>
