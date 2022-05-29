@@ -188,16 +188,13 @@
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding UpdateRTBCommand}"/>
                         </i:EventTrigger>
-                        <!--<i:EventTrigger EventName="KeyUp">
-                            <i:InvokeCommandAction Command="{Binding AutoFormattingCommand}" PassEventArgsToCommand="True"/>
-                        </i:EventTrigger>-->
+   
                     </i:Interaction.Triggers>
                     <RichTextBox.InputBindings>
                         <KeyBinding Key="Space" Command="{Binding AutoFormattingCommand}"/>
                         <KeyBinding Key="Return" Command="{Binding NewParagraphCommand}"/>
                     </RichTextBox.InputBindings>
                     <FlowDocument PagePadding="50" LineHeight="{Binding LineHeightProp}">
-                        <!--paragraph binding-->
 
                     </FlowDocument>
                 </RichTextBox>

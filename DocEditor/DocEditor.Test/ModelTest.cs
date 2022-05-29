@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DocEditor.Model;
 using DocEditor.Parser;
+using DocEditor.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DocEditor.Test
@@ -16,7 +17,7 @@ namespace DocEditor.Test
         [TestInitialize]
         public void Initialize()
         {
-            _model = new DocEditorModel();
+            _model = new DocEditorModel(new DocEditorFileDataAccess());
             _model.select = new Selection(1, 5, "test selection");
             _model.SelectionAndFormat = new SelectionAndFormat(_model.select);
         }

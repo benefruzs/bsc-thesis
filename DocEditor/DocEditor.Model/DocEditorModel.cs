@@ -261,7 +261,7 @@ namespace DocEditor.Model
 
             string[] tmp = values[9].Split('|');
             tmp = tmp.SkipLast(1).ToArray();
-            System.Diagnostics.Debug.WriteLine(tmp);
+
             string[] ttmp = new string[6];
             foreach (var t in tmp)
             {
@@ -284,7 +284,6 @@ namespace DocEditor.Model
         /// <returns></returns>
         public async Task SaveFileAsync(String path)
         {
-            //TODO
             if (_dataAccess == null) return;
             string[] saveArr = new string[10];
 

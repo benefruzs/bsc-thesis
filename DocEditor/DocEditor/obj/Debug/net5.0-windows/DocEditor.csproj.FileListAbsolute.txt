@@ -31,6 +31,7 @@ C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\PageSettingsDialog.g.cs
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\PageSettingsView.g.cs
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\PdfViewer.g.cs
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\UserHelpViewer.g.cs
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\App.g.cs
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\DocEditor_MarkupCompile.cache
@@ -46,6 +47,7 @@ C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\PageSettingsDialog.baml
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\PageSettingsView.baml
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\PdfViewer.baml
+C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\UserHelpViewer.baml
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\DocEditor.g.resources
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\DocEditor.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\DocEditor.AssemblyInfoInputs.cache
@@ -56,5 +58,3 @@ C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\ref\DocEditor.dll
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\DocEditor.pdb
 C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\DocEditor.genruntimeconfig.cache
-C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\UserHelpViewer.g.cs
-C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\Views\UserHelpViewer.baml

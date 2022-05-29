@@ -798,7 +798,6 @@ namespace DocEditor
                 if (_dictViewModel.FileName != "")
                 {
                     _parser.DictFileName = _dictViewModel.FileName + ".json";
-                    System.Diagnostics.Debug.WriteLine(_parser.DictFileName);
                     _createJsonDialog.Close();
                 }
             }
@@ -1441,30 +1440,36 @@ namespace DocEditor
 
         private void Selection_SetSuperScript(object sender, EventArgs e)
         {
-            SetFocus();
-            if (_viewModel.ModelSelectionAndFormat != null && _viewModel.ModelSelectionAndFormat.Formatting.CharOffset != 2)
+            BaselineAlignment curr = (BaselineAlignment)_view.DocPaper.Selection.GetPropertyValue(Inline.BaselineAlignmentProperty);
+
+            if (_model.SelectionAndFormat != null)
             {
-                _viewModel.ModelSelectionAndFormat.SetSuperscript();
+                _viewModel.ModelSelectionAndFormat.Formatting.CharOffset = (curr == BaselineAlignment.Center) ? 1 : ((curr == BaselineAlignment.Subscript) ? -2 : 2);
+            }
+
+            SetFocus();
+            if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.CharOffset != 2)
+            {
+                _model.SelectionAndFormat.SetSuperscript();
                 _model.FormatText.Size = _viewModel.ModelSelectionAndFormat.Formatting.Size;
-                double newSize = (double)_viewModel.ModelSelectionAndFormat.Formatting.Size / 2;
+                double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: newSize);
 
             }
-            else if (_viewModel.ModelSelect.SelectedString != null && _viewModel.ModelSelectionAndFormat == null)
+            else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
-                _viewModel.ModelSelectionAndFormat = new SelectionAndFormat(_viewModel.ModelSelect, _viewModel.ModelAlign, null);
+                _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _viewModel.ModelSelectionAndFormat.SetSuperscript();
+                _model.SelectionAndFormat.SetSuperscript();
                 _model.FormatText.Size = _viewModel.ModelSelectionAndFormat.Formatting.Size;
-                double newSize = (double)_viewModel.ModelSelectionAndFormat.Formatting.Size / 2;
+                double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: newSize);
-
             }
             else
             {
-                _viewModel.ModelSelectionAndFormat.DeleteSubSuperscript();
+                _model.SelectionAndFormat.DeleteSubSuperscript();
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.FormatText.Size);
             }
@@ -1473,28 +1478,34 @@ namespace DocEditor
         private void Selection_SetSubScript(object sender, EventArgs e)
         {
             SetFocus();
-            if (_viewModel.ModelSelectionAndFormat != null && _viewModel.ModelSelectionAndFormat.Formatting.CharOffset != -2)
+            BaselineAlignment curr = (BaselineAlignment)_view.DocPaper.Selection.GetPropertyValue(Inline.BaselineAlignmentProperty);
+
+            if (_model.SelectionAndFormat != null)
             {
-                _viewModel.ModelSelectionAndFormat.SetSubscript();
+                _viewModel.ModelSelectionAndFormat.Formatting.CharOffset = (curr == BaselineAlignment.Center) ? 1 : ((curr == BaselineAlignment.Subscript) ? -2 : 2);
+            }
+            if (_model.SelectionAndFormat != null && _model.SelectionAndFormat.Formatting.CharOffset != -2)
+            {
+                _model.SelectionAndFormat.SetSubscript();
                 _model.FormatText.Size = _viewModel.ModelSelectionAndFormat.Formatting.Size;
-                double newSize = (double)_viewModel.ModelSelectionAndFormat.Formatting.Size / 2;
+                double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: newSize);
 
             }
-            else if (_viewModel.ModelSelect.SelectedString != null && _viewModel.ModelSelectionAndFormat == null)
+            else if (_model.select.SelectedString != null && _model.SelectionAndFormat == null)
             {
-                _viewModel.ModelSelectionAndFormat = new SelectionAndFormat(_viewModel.ModelSelect, _viewModel.ModelAlign, null);
+                _model.SelectionAndFormat = new SelectionAndFormat(_model.select, _model.Align, null);
 
-                _viewModel.ModelSelectionAndFormat.SetSubscript();
+                _model.SelectionAndFormat.SetSubscript();
                 _model.FormatText.Size = _viewModel.ModelSelectionAndFormat.Formatting.Size;
-                double newSize = (double)_viewModel.ModelSelectionAndFormat.Formatting.Size / 2;
+                double newSize = (double)_model.SelectionAndFormat.Formatting.Size / 2;
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: newSize);
             }
             else
             {
-                _viewModel.ModelSelectionAndFormat.DeleteSubSuperscript();
+                _model.SelectionAndFormat.DeleteSubSuperscript();
                 _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
                 _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.FormatText.Size);
             }
@@ -1509,11 +1520,6 @@ namespace DocEditor
             SetFocus();
 
             _view.DocPaper.CaretPosition = _view.DocPaper.CaretPosition.InsertParagraphBreak();
-
-            _view.DocPaper.Selection.Select(_view.DocPaper.CaretPosition, _view.DocPaper.CaretPosition);
-            _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
-            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.FormatText.Size);
-
         }
         #endregion
 
@@ -1542,10 +1548,6 @@ namespace DocEditor
             {
             }
             
-            //delete subscript and superscript
-            _view.DocPaper.Selection.Select(_view.DocPaper.CaretPosition, _view.DocPaper.CaretPosition);
-            _view.DocPaper.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Center);
-            _view.DocPaper.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, value: (double)_model.FormatText.Size);
 
             TextPointer ptr = _view.DocPaper.CaretPosition.GetNextInsertionPosition(LogicalDirection.Backward);
             TextPointer ptrEnd = ptr;
@@ -1583,7 +1585,6 @@ namespace DocEditor
                 
                 //calling the parser algorithms
                 _viewModel.ModelSelectForParser = new Stwf(new Selection(selectionOffsets.Start, selectionOffsets.End, _viewModel.ModelSelectionAndFormat.SelectedText.SelectedText.SelectedString), new FormatModel[wordToFormat.Length]);
-               System.Diagnostics.Debug.WriteLine(_viewModel.ModelSelectForParser.SelectedText.SelectedString);
                 if (_parser.ContainsElement(wordToFormat))
                 {
                     _viewModel.ModelSelectForParser = _parser.FromDictionary(_viewModel.ModelSelectForParser);
@@ -1611,11 +1612,7 @@ namespace DocEditor
         /// </summary>
         private void AddToDictionary_EventHandler(object sender, EventArgs e)
         {
-            foreach (var f in _parser.Dict)
-            {
-                System.Diagnostics.Debug.WriteLine(f.Str);
-                System.Diagnostics.Debug.WriteLine(f.Frequency.ToString());
-            }
+
             //the selected text to an stwf instance
             if (_viewModel.ModelSelect.SelectedString != null)
             {
@@ -1758,12 +1755,19 @@ namespace DocEditor
 
                         //add font charoffset
                         object offs = tr.GetPropertyValue(Inline.BaselineAlignmentProperty);
-                        _viewModel.ModelSelectionAndFormat.SelectedText.Format[textp].CharOffset = offs.ToString() switch
+                        //_viewModel.ModelSelectionAndFormat.SelectedText.Format[textp].CharOffset = offs.ToString() switch
+                        switch (offs.ToString())
                         {
-                            "Subscript" => -2,
-                            "Superscript" => 2,
-                            _ => 1,
-                        };
+                            case "Subscript":
+                                _model.SelectionAndFormat.SelectedText.Format[textp].CharOffset = -2;
+                                break;
+                            case "Superscript":
+                                _model.SelectionAndFormat.SelectedText.Format[textp].CharOffset = 2;
+                                break;
+                            default:
+                                _model.SelectionAndFormat.SelectedText.Format[textp].CharOffset = 1;
+                                break;
+                        }
 
                         //add color
                         object clr = tr.GetPropertyValue(TextElement.ForegroundProperty);
@@ -1796,9 +1800,6 @@ namespace DocEditor
             TextPointer st = contentStart.GetPositionAtOffset(str.SelectedText.StartPointer);
             TextPointer nd = contentStart.GetPositionAtOffset(str.SelectedText.EndPointer);
 
-            System.Diagnostics.Debug.WriteLine(contentStart.GetOffsetToPosition(st));
-            System.Diagnostics.Debug.WriteLine(contentStart.GetOffsetToPosition(nd));
-
             TextPointer ptr = st;
 
             int prevOffsetToPos = contentStart.GetOffsetToPosition(ptr)-1;
@@ -1814,7 +1815,6 @@ namespace DocEditor
                     {
                         ptr = ptr.GetNextInsertionPosition(LogicalDirection.Forward);
                     }
-                    System.Diagnostics.Debug.WriteLine(contentStart.GetOffsetToPosition(ptr));
                     //Style
                     tr.ApplyPropertyValue(TextElement.FontStyleProperty, value: str.Format[fi].Style);
 

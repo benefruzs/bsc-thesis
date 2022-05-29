@@ -147,18 +147,18 @@ namespace DocEditor.ViewModel
                             top = 10;
                             break;
                         case -2:
-                            bLAlignment = "Subscript";
+                            bLAlignment = "TextBottom";
                             top = 20;
                             break;
                         case 2:
-                            bLAlignment = "Superscript";
+                            bLAlignment = "TextTop";
                             top = 10;
                             break;
                     }
                     DictElements.Add(new DictionaryElements
                     {
                         RunText = _selectedDictElement.Str[i].ToString(),
-                        DefaultSize = 20*fm[i].CharOffset,
+                        DefaultSize = Math.Abs(20/fm[i].CharOffset),
                         DefaultFamily = fm[i].Family,
                         DefaultStyle = fm[i].Style,
                         DefaultWeight = fm[i].Weight,

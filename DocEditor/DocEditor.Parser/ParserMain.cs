@@ -123,7 +123,7 @@ namespace DocEditor.Parser
         /// </summary>
         /// <param name="weight"></param>
         /// <returns></returns>
-        private string CharToWeight(char weight)    //TODO
+        private string CharToWeight(char weight)
         {
             switch (weight)
             {
@@ -691,11 +691,8 @@ namespace DocEditor.Parser
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonStr = JsonSerializer.Serialize(Dict, options);
-            System.Diagnostics.Debug.WriteLine(jsonStr);
 
             File.WriteAllText(fileName, jsonStr);
-            System.Diagnostics.Debug.WriteLine(File.ReadAllText(fileName));
-
         }
 
         /// <summary>

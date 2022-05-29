@@ -32,7 +32,9 @@ namespace DocEditor.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Line height for the document
+        /// </summary>
         public double LineHeightProp
         {
             get { return _model.LineHeight; }
@@ -46,6 +48,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// Inserted image to the document
+        /// </summary>
         public ImageClass InsertedImage;
 
         //FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}"
@@ -57,6 +62,9 @@ namespace DocEditor.ViewModel
         public Thickness PageMargins { get; set; }
         public string DefAlignment { get; set; }
 
+        /// <summary>
+        /// Document page height
+        /// </summary>
         private int _pageHeight;
         public int PageHeight {
             get { return _pageHeight = Convert.ToInt32(_model.Margin.Bottom) + 565; }
@@ -66,6 +74,10 @@ namespace DocEditor.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Document page width
+        /// </summary>
         public int PageWidth {
             get { return _model.PageWidth; }
             set
@@ -75,6 +87,9 @@ namespace DocEditor.ViewModel
             }
         }
 
+        /// <summary>
+        /// The name of the document to display
+        /// </summary>
         public string DocName { get; set; }
 
 
@@ -154,7 +169,12 @@ namespace DocEditor.ViewModel
         public DelegateCommand MinimizeHomeCommand { get; private set; }
         public DelegateCommand MaximizeHomeCommand { get; private set; }
         public DelegateCommand NewEmptyFileCommand { get; private set; }
-
+        public DelegateCommand HomeOpenCommand { get; private set; }
+        public DelegateCommand HomeSaveCommand { get; private set; }
+        public DelegateCommand HomeSaveAsCommand { get; private set; }
+        public DelegateCommand NewNoteDictionaryCommand { get; private set; }
+        public DelegateCommand NewMathDictionaryCommand { get; private set; }
+        public DelegateCommand NewInfDictionaryCommand { get; private set; }
 
 
         /// <summary>
@@ -165,15 +185,6 @@ namespace DocEditor.ViewModel
         public DelegateCommand OpenDictCommand { get; private set; }
         public DelegateCommand OpenEditPageCommand { get; private set; }
 
-        /// <summary>
-        /// Menu commands
-        /// </summary>
-        public DelegateCommand OpenDictionaryHelpCmd { get; private set; }
-        public DelegateCommand DeleteSelectionCommand { get; private set; }
-        public DelegateCommand SelectAllTextCommand { get; private set; }
-        public DelegateCommand NewPlainDocumentCommand { get; private set; }
-        public DelegateCommand OpenDictionaryFileCommand { get; private set; }
-        public DelegateCommand SaveDictionaryFileCommand { get; private set; }
 
         /// <summary>
         /// Commands for the RichTextBox
@@ -183,7 +194,15 @@ namespace DocEditor.ViewModel
         public DelegateCommand UpdateRTBCommand { get; private set; }
         public DelegateCommand NewParagraphCommand { get; private set; }
 
-
+        /// <summary>
+        /// Menu commands
+        /// </summary>
+        public DelegateCommand OpenDictionaryHelpCmd { get; private set; }
+        public DelegateCommand DeleteSelectionCommand { get; private set; }
+        public DelegateCommand SelectAllTextCommand { get; private set; }
+        public DelegateCommand NewPlainDocumentCommand { get; private set; }
+        public DelegateCommand OpenDictionaryFileCommand { get; private set; }
+        public DelegateCommand SaveDictionaryFileCommand { get; private set; }
         public DelegateCommand UndoCommand { get; private set; }
         public DelegateCommand RedoCommand { get; private set; }
         public DelegateCommand PasteCommand { get; private set; }
@@ -197,14 +216,6 @@ namespace DocEditor.ViewModel
         public DelegateCommand SaveAsCommand { get; private set; }
         public DelegateCommand SaveToPdfCommand { get; private set; }
         public DelegateCommand OpenHelpCmd { get; private set; }
-
-        public DelegateCommand HomeOpenCommand { get; private set; }
-        public DelegateCommand HomeSaveCommand { get; private set; }
-        public DelegateCommand HomeSaveAsCommand { get; private set; }
-
-        public DelegateCommand NewNoteDictionaryCommand { get; private set; }
-        public DelegateCommand NewMathDictionaryCommand { get; private set; }
-        public DelegateCommand NewInfDictionaryCommand { get; private set; }
 
         #endregion
 
@@ -341,7 +352,9 @@ namespace DocEditor.ViewModel
             OnPropertyChanged(nameof(PageHeight));          
 
         }
+        #endregion
 
+        #region Model event handlers
         private void Model_FormatChanged(object sender, EventArgs e)
         {
             OnPropertyChanged(nameof(LineHeightProp));
@@ -367,7 +380,6 @@ namespace DocEditor.ViewModel
             SetUnsavedFileName();
         }
 
-
         #endregion
 
         #region Public methods
@@ -388,12 +400,18 @@ namespace DocEditor.ViewModel
             OnPropertyChanged(nameof(FC));
         }
 
+        /// <summary>
+        /// Set and display the document name
+        /// </summary>
         public void SetDocumentName()
         {
             DocName = _model.FileName;
             OnPropertyChanged(nameof(DocName));
         }
 
+        /// <summary>
+        /// Set the document name for displaying unsaved changes
+        /// </summary>
         public void SetUnsavedFileName()
         {
             DocName = _model.FileName + "*";
@@ -452,7 +470,6 @@ namespace DocEditor.ViewModel
             DefAlignment = _model.Align.ToString();
             OnPropertyChanged(nameof(DefAlignment));
         }
-
         #endregion
 
 
