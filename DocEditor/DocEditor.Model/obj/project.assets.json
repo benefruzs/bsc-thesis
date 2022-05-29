@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
+      "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
       "projectName": "DocEditor.Model",
-      "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
+      "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
       "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\obj\\",
+      "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -61,8 +61,8 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
-              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
+            "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
             }
           }
         }

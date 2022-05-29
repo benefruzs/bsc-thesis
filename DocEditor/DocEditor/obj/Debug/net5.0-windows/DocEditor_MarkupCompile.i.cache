@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\
+C:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\obj\Debug\net5.0-windows\
 DocEditor
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\App.xaml
+C:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\App.xaml
 171719834792
 
 152113918133
-207-265892195
+2071546742788
 StyleResources\AllButtonStyle.xaml;StyleResources\HomeStyles.xaml;StyleResources\MenuItemStyles.xaml;StyleResources\RadioButtonStyles.xaml;StyleResources\TextBoxStyle.xaml;StyleResources\WindowStyles.xaml;Views\CreateFileDialog.xaml;Views\DictionaryView.xaml;Views\ErrorCorrectDialog.xaml;Views\FormatTextView.xaml;Views\HomeWindow.xaml;Views\InsertView.xaml;Views\MainWindow.xaml;Views\PageSettingsDialog.xaml;Views\PageSettingsView.xaml;Views\PdfViewer.xaml;Views\UserHelpViewer.xaml;
 
-True
+False
 

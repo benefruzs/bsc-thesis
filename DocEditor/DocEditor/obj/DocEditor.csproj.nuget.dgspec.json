@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj": {}
+    "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
+    "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
+        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
         "projectName": "DocEditor.Model",
-        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
+        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj",
         "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\obj\\",
+        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
               }
             }
           }
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+    "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj",
+        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj",
         "projectName": "DocEditor.Parser",
-        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj",
+        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj",
         "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\obj\\",
+        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -97,8 +97,8 @@
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
               }
             }
           }
@@ -134,14 +134,14 @@
         }
       }
     },
-    "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
+    "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj",
         "projectName": "DocEditor.Persistence",
-        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj",
+        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj",
         "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\obj\\",
+        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -195,14 +195,14 @@
         }
       }
     },
-    "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
+    "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj",
+        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj",
         "projectName": "DocEditor.ViewModel",
-        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj",
+        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj",
         "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\obj\\",
+        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -223,11 +223,11 @@
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
               },
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
               }
             }
           }
@@ -263,14 +263,14 @@
         }
       }
     },
-    "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj": {
+    "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+        "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj",
         "projectName": "DocEditor",
-        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+        "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj",
         "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\obj\\",
+        "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -291,17 +291,17 @@
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
               },
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
               },
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
               },
-              "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
-                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj"
+              "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
+                "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj"
               }
             }
           }

@@ -461,6 +461,7 @@ namespace DocEditor
                     //json load
                     _parser.DictFileName = _model.JsonFile;
                     _parser.JsonToDict();
+                    _dictViewModel.UpdateDictList();
                 }
                 else
                 {
@@ -1908,7 +1909,6 @@ namespace DocEditor
         {
             _view.DocPaper.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, _viewModel.ModelSelectionAndFormat.Formatting.Color);
         }
-
         #endregion
 
     }
