@@ -9,6 +9,9 @@ namespace DocEditor.Model
     public class MarginModel
     {
         #region Private fields and Public properties
+        /// <summary>
+        /// Left page margin
+        /// </summary>
         private double _left;
         public double Left
         {
@@ -16,6 +19,9 @@ namespace DocEditor.Model
             set { if (value != _left) { _left = value; } }
         }
 
+        /// <summary>
+        /// Right page margin
+        /// </summary>
         private double _right;
         public double Right
         {
@@ -23,6 +29,9 @@ namespace DocEditor.Model
             set { if (value != _right) { _right = value; } }
         }
 
+        /// <summary>
+        /// Top page margin
+        /// </summary>
         private double _top;
         public double Top
         {
@@ -30,6 +39,9 @@ namespace DocEditor.Model
             set { if (value != _top) { _top = value; } }
         }
 
+        /// <summary>
+        /// Bottom page margin
+        /// </summary>
         private double _bottom;
         public double Bottom
         {
@@ -41,19 +53,28 @@ namespace DocEditor.Model
         #region Constructors
         public MarginModel()
         {
-            setDefaultMargin();
+            SetDefaultMargin();
         }
         #endregion
 
-        #region Private methods
-        public void setDefaultMargin()
+
+        #region Public methods
+        /// <summary>
+        /// Setting the default page margin
+        /// </summary>
+        public void SetDefaultMargin()
         {
             _top = _bottom = _left = _right = 50;
         }
-        #endregion
 
-        #region Public methods
-        public void setMargin(double top, double bottom, double right, double left)
+        /// <summary>
+        /// Setting the page margins
+        /// </summary>
+        /// <param name="top">Top page margin</param>
+        /// <param name="bottom">Bottom page margin</param>
+        /// <param name="right">Right page margin</param>
+        /// <param name="left">Left page margin</param>
+        public void SetMargin(double top, double bottom, double right, double left)
         {
             _top = top;
             _bottom = bottom;

@@ -5,6 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
 	  <UseWindowsForms>true</UseWindowsForms>
+	  <ApplicationIcon>icon0.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,7 @@
     <None Remove="img\arrow_w.jpg" />
     <None Remove="img\dict.jpg" />
     <None Remove="img\doc.jpg" />
+    <None Remove="img\fm\add_style.jpg" />
     <None Remove="img\fm\bold.jpg" />
     <None Remove="img\fm\border.jpg" />
     <None Remove="img\fm\del.jpg" />
@@ -31,6 +33,8 @@
     <None Remove="img\format.jpg" />
     <None Remove="img\home.jpg" />
     <None Remove="img\homew.jpg" />
+    <None Remove="img\ico\icon.png" />
+    <None Remove="img\ico\icon0.png" />
     <None Remove="img\insert.jpg" />
     <None Remove="img\ins\image.jpg" />
     <None Remove="img\ins\symbol.jpg" />
@@ -39,6 +43,7 @@
     <None Remove="img\margin\left.jpg" />
     <None Remove="img\margin\right.jpg" />
     <None Remove="img\margin\top.jpg" />
+    <None Remove="img\spacing\sorkoz-d.png" />
     <None Remove="img\spacing\sorkoz.jpg" />
     <None Remove="img\spacing\terkoz_elotte.jpg" />
     <None Remove="img\spacing\terkoz_utana.jpg" />
@@ -51,8 +56,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocEditor.Model\DocEditor.Model.csproj" />
+    <ProjectReference Include="..\DocEditor.Parser\DocEditor.Parser.csproj" />
+    <ProjectReference Include="..\DocEditor.Persistence\DocEditor.Persistence.csproj" />
     <ProjectReference Include="..\DocEditor.ViewModel\DocEditor.ViewModel.csproj" />
-    <ProjectReference Include="..\DocEditor.View\DocEditor.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +72,7 @@
     <Resource Include="img\arrow_w.jpg" />
     <Resource Include="img\dict.jpg" />
     <Resource Include="img\doc.jpg" />
+    <Resource Include="img\fm\add_style.jpg" />
     <Resource Include="img\fm\bold.jpg" />
     <Resource Include="img\fm\border.jpg" />
     <Resource Include="img\fm\del.jpg" />
@@ -79,6 +86,8 @@
     <Resource Include="img\format.jpg" />
     <Resource Include="img\home.jpg" />
     <Resource Include="img\homew.jpg" />
+    <Resource Include="img\ico\icon.png" />
+    <Resource Include="img\ico\icon0.png" />
     <Resource Include="img\insert.jpg" />
     <Resource Include="img\ins\image.jpg" />
     <Resource Include="img\ins\symbol.jpg" />
@@ -87,6 +96,7 @@
     <Resource Include="img\margin\left.jpg" />
     <Resource Include="img\margin\right.jpg" />
     <Resource Include="img\margin\top.jpg" />
+    <Resource Include="img\spacing\sorkoz-d.png" />
     <Resource Include="img\spacing\sorkoz.jpg" />
     <Resource Include="img\spacing\terkoz_elotte.jpg" />
     <Resource Include="img\spacing\terkoz_utana.jpg" />

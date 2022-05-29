@@ -1,0 +1,203 @@
+﻿<Window x:Class="DocEditor.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:DocEditor"
+        xmlns:viewModel="clr-namespace:DocEditor.ViewModel;assembly=DocEditor.ViewModel" xmlns:views="clr-namespace:DocEditor.Views"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="CanResize"     
+        Title="DocEditor" FontFamily="Corbel" Height="600" Width="895"
+        Icon="../img/ico/icon0.png"
+        >
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:FormatTextViewModel}">
+            <views:FormatTextView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:InsertViewModel}">
+            <views:InsertView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:DictionaryViewModel}">
+            <views:DictionaryView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:PageSettingsViewModel}">
+            <views:PageSettingsView/>
+        </DataTemplate>
+
+        <Style x:Key="SepStyle" TargetType="Separator">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Separator}">
+                        <Rectangle Height="3"        
+                           Fill="#6c6e74" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <DockPanel Background="#414147" >
+        <Grid DockPanel.Dock="Left" Background="#232325" Width="60">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <ImageBrush x:Key="AddHomeImg" ImageSource="../img/home.jpg" Stretch="UniformToFill"/>
+                <ImageBrush x:Key="AddDocImg" ImageSource="../img/doc.jpg" Stretch="UniformToFill"/>
+                <ImageBrush x:Key="AddFormatImg" ImageSource="../img/format.jpg" Stretch="UniformToFill"/>
+                <ImageBrush x:Key="AddInsertImg" ImageSource="../img/insert.jpg" Stretch="UniformToFill"/>
+                <ImageBrush x:Key="AddDictImg" ImageSource="../img/dict.jpg" Stretch="UniformToFill"/>
+            </Grid.Resources>
+
+            <Button Grid.Row="0" 
+                    x:Name="_HomeBtn"
+                    Background="{StaticResource AddHomeImg}"
+                    Style="{StaticResource HomeButtonStyle}"
+                    Command="{Binding OpenHomeWindowCommand}"/>
+
+            <Separator Grid.Row="1" Margin="10 10 10 10" Style="{StaticResource SepStyle}"/>
+
+            <RadioButton Grid.Row="2" 
+                    x:Name="_editDocBtn"
+                    Background="{StaticResource AddDocImg}"
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding OpenEditPageCommand}"/>
+
+            <RadioButton Grid.Row="3" 
+                    x:Name="_formatTextBtn"
+                    Background="{StaticResource AddFormatImg}"
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding OpenFormatTextCommand}"/>
+
+            <RadioButton Grid.Row="4" 
+                    x:Name="_insertBtn"
+                    Background="{StaticResource AddInsertImg}"
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding OpenInsertCommand}"/>
+
+            <RadioButton Grid.Row="5" 
+                    x:Name="_dictBtn"
+                    Background="{StaticResource AddDictImg}"
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding OpenDictCommand}"/>
+        </Grid>
+        <Grid x:Name="TitleGrid" DockPanel.Dock="Top" Background="#6d6e74" Height="23" MouseLeftButtonDown="moveWindow">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Menu Grid.Column="0" Background="#6d6e75" VerticalAlignment="Center">
+                <MenuItem Header="_Fájl" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Új létrehozása" Command="{Binding NewPlainDocumentCommand}"/>
+                    <MenuItem Header="_Megnyitás" Command="{Binding OpenCommand}"/>
+                    <MenuItem Header="_Mentés" Command="{Binding SaveCommand}"/>
+                    <MenuItem Header="_Mentés másként" Command="{Binding SaveAsCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Kilépés" Command="{Binding ExitAppCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Szótár" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Szótár betöltése" Command="{Binding OpenDictionaryFileCommand}"/>
+                    <MenuItem Header="_Szótár mentése" Command="{Binding SaveDictionaryFileCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenDictCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Módosítás" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Vissza" Command="{Binding UndoCommand}"/>
+                    <MenuItem Header="_Újra" Command="{Binding RedoCommand}" />
+                    <Separator />
+                    <MenuItem Header="_NAGYBETŰS" Command="{Binding ToUpperCommand}" />
+                    <MenuItem Header="_kisbetűs" Command="{Binding ToLowerCommand}" />
+                    <Separator />
+                    <MenuItem Header="_Kivágás" Command="{Binding CutCommand}"/>
+                    <MenuItem Header="_Másolás" Command="{Binding CopyCommand}"/>
+                    <MenuItem Header="_Beillesztés" Command="{Binding PasteCommand}"/>
+                    <MenuItem Header="_Törlés" Command="{Binding DeleteSelectionCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Összes kijelölése" Command="{Binding SelectAllTextCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Nézet" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Nyomtatás" Command="{Binding SaveToPdfCommand}"/>
+                    <MenuItem Header="_Szótár megnyitása" Command="{Binding OpenDictCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Súgó" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="_Felhasználói súgó" Command="{Binding OpenHelpCmd}"/>
+                    <MenuItem Header="_Szótár súgó" Command="{Binding OpenDictionaryHelpCmd}" />
+                </MenuItem>
+            </Menu>
+
+            <TextBlock Grid.Column="1" Text="{Binding DocName}" Foreground="#FFFFFF" Margin="50 0 50 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Corbel" FontWeight="Light"/>
+
+            <Button Grid.Column="2"
+                    Content="_"
+                    Style="{StaticResource AppButtonStyle}"
+                    Command="{Binding MinimizeAppCommand}" />
+
+            <Button Grid.Column="3"
+                    Content="[ ]"
+                    Style="{StaticResource AppButtonStyle}"
+                    Command="{Binding MaximizeAppCommand}" />
+
+            <Button Grid.Column="4"
+                    Content="X"
+                    Style="{StaticResource AppButtonStyle}"
+                    Command="{Binding ExitAppCommand}" />
+        </Grid>
+
+        <Grid x:Name="ToolGrid" DockPanel.Dock="Right" Background="#2e2f34" Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ContentControl x:Name="ContCtrl" Grid.Row="1"
+                            Content="{Binding Path=CurrentView}"/>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer x:Name="rtfScrollViewer"  Grid.Row="0" VerticalScrollBarVisibility="Auto" Height="{Binding PageHeight}" Background="#FFFFFF" Margin="10 10 10 0" >
+                <RichTextBox x:Name="DocPaper" Width="{Binding PageWidth}" Height="Auto" FontFamily="{Binding FF}" FontSize="{Binding SIZE}" FontStyle="{Binding FS}" FontWeight="{Binding FW}" Padding="{Binding PageMargins}" HorizontalContentAlignment="Center"  Foreground="{Binding FC}" IsInactiveSelectionHighlightEnabled="True"  Background="#FFFFFF" BorderThickness="0" Margin="10 10 10 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SetSelectionCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding UpdateRTBCommand}"/>
+                        </i:EventTrigger>
+   
+                    </i:Interaction.Triggers>
+                    <RichTextBox.InputBindings>
+                        <KeyBinding Key="Space" Command="{Binding AutoFormattingCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding NewParagraphCommand}"/>
+                    </RichTextBox.InputBindings>
+                    <FlowDocument PagePadding="50" LineHeight="{Binding LineHeightProp}">
+
+                    </FlowDocument>
+                </RichTextBox>
+            </ScrollViewer>
+
+            
+        </Grid>
+    </DockPanel>
+</Window>

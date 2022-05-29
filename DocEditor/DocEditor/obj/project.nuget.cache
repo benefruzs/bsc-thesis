@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DOGjp2XjUklyi7cg+KvskSrsSV65SbmDgsGyUizRyOVwgbbnFU3HDQeM3sddWKXcY49FV6yLFq/r7pjmb8B6nw==",
+  "dgSpecHash": "XJvBFQ5zMCNfzy9K8f+Jn9IFxS7jmli+d7L4sHCyTkV0BZ7v2Zo229ihhDmTVF7LD6WNWIYOquovAmaf0FCF9A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+  "projectFilePath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fruzs\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
   ],

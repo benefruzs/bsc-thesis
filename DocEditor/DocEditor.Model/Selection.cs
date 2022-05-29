@@ -12,6 +12,10 @@ namespace DocEditor.Model
         /// Class for selecting texts.
         /// </summary>
         #region Private fields and Public properties
+
+        /// <summary>
+        /// The start of the selection
+        /// </summary>
         private int _startPointer;
         public int StartPointer
         {
@@ -22,6 +26,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// The end of the selection
+        /// </summary>
         private int _endPointer;
         public int EndPointer
         {
@@ -32,6 +39,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// The selected string
+        /// </summary>
         private string _selectedString;
         public string SelectedString
         {
@@ -49,33 +59,53 @@ namespace DocEditor.Model
             _startPointer = _endPointer = -1;
             _selectedString = null;
         }
+
+        public Selection(int st, int nd, string txt)
+        {
+            _startPointer = st;
+            _endPointer = nd;
+            _selectedString = txt;
+        }
         #endregion
 
         #region Public methods
+        /// <summary>
+        /// Adding more selected text to the beginning
+        /// </summary>
+        /// <param name="add">the selected string</param>
+        /// <param name="newStart">the new start pointer</param>
         public void AddToFront_Selected(string add, int newStart)
         {
-            _selectedString.Insert(0, add);
+            _selectedString = _selectedString.Insert(0, add);
             _startPointer = newStart;
         }
 
+        /// <summary>
+        /// Adding more selected text to the end
+        /// </summary>
+        /// <param name="add">the selected string</param>
+        /// <param name="newEnd">the new end pointer</param>
         public void AddToEnd_Selected(string add, int newEnd)
         {
             _selectedString += add;
             _endPointer = newEnd;
         }
 
+        /// <summary>
+        /// Update the selection
+        /// </summary>
+        /// <param name="add">the selected string</param>
+        /// <param name="newStart">the new start pointer</param>
+        /// <param name="newEnd"> the new end pointer</param>
         public void AddToSelected(string add, int newStart, int newEnd)
         {
-            if (newStart != _startPointer)
-            {
-                AddMore(add, newStart, newEnd, 0);
-            }
-            else
-            {
-                AddMore(add, newStart, newEnd, _selectedString.Length);
-            }
+            //adding more selected string
+            UpdateSelected(add, newStart, newEnd);
         }
 
+        /// <summary>
+        /// Delete all selection
+        /// </summary>
         public void DeleteSelection()
         {
             _startPointer = _endPointer = -1;
@@ -84,9 +114,15 @@ namespace DocEditor.Model
         #endregion
 
         #region Private methods
-        private void AddMore(string add, int newStart, int newEnd, int ind)
+        /// <summary>
+        /// Private method for updating the selected text
+        /// </summary>
+        /// <param name="add">the selected text</param>
+        /// <param name="newStart">new start pointer</param>
+        /// <param name="newEnd">new end pointer</param>
+        private void UpdateSelected(string add, int newStart, int newEnd)
         {
-            _selectedString.Insert(ind, add);
+            _selectedString = add;
             _startPointer = newStart;
             _endPointer = newEnd;
         }

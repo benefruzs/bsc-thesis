@@ -17,25 +17,43 @@
       "DocEditor.Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DocEditor.Persistence": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/DocEditor.Model.dll": {}
         },
         "runtime": {
           "bin/placeholder/DocEditor.Model.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       },
-      "DocEditor.View/1.0.0": {
+      "DocEditor.Parser/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "DocEditor.Model": "1.0.0",
-          "DocEditor.ViewModel": "1.0.0"
+          "DocEditor.Model": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/DocEditor.View.dll": {}
+          "bin/placeholder/DocEditor.Parser.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DocEditor.View.dll": {}
+          "bin/placeholder/DocEditor.Parser.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "DocEditor.Persistence/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DocEditor.Persistence.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DocEditor.Persistence.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -45,7 +63,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "DocEditor.Model": "1.0.0"
+          "DocEditor.Model": "1.0.0",
+          "DocEditor.Parser": "1.0.0"
         },
         "compile": {
           "bin/placeholder/DocEditor.ViewModel.dll": {}
@@ -90,10 +109,15 @@
       "path": "../DocEditor.Model/DocEditor.Model.csproj",
       "msbuildProject": "../DocEditor.Model/DocEditor.Model.csproj"
     },
-    "DocEditor.View/1.0.0": {
+    "DocEditor.Parser/1.0.0": {
       "type": "project",
-      "path": "../DocEditor.View/DocEditor.View.csproj",
-      "msbuildProject": "../DocEditor.View/DocEditor.View.csproj"
+      "path": "../DocEditor.Parser/DocEditor.Parser.csproj",
+      "msbuildProject": "../DocEditor.Parser/DocEditor.Parser.csproj"
+    },
+    "DocEditor.Persistence/1.0.0": {
+      "type": "project",
+      "path": "../DocEditor.Persistence/DocEditor.Persistence.csproj",
+      "msbuildProject": "../DocEditor.Persistence/DocEditor.Persistence.csproj"
     },
     "DocEditor.ViewModel/1.0.0": {
       "type": "project",
@@ -104,7 +128,8 @@
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
       "DocEditor.Model >= 1.0.0",
-      "DocEditor.View >= 1.0.0",
+      "DocEditor.Parser >= 1.0.0",
+      "DocEditor.Persistence >= 1.0.0",
       "DocEditor.ViewModel >= 1.0.0",
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.39"
     ]
@@ -116,11 +141,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+      "projectUniqueName": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj",
       "projectName": "DocEditor",
-      "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\DocEditor.csproj",
+      "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\DocEditor.csproj",
       "packagesPath": "C:\\Users\\fruzs\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor\\obj\\",
+      "outputPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -141,14 +166,17 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
-              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
+            "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Model\\DocEditor.Model.csproj"
             },
-            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
-              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj"
+            "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Parser\\DocEditor.Parser.csproj"
             },
-            "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.View\\DocEditor.View.csproj": {
-              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgozat\\DocEditor\\DocEditor.View\\DocEditor.View.csproj"
+            "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.Persistence\\DocEditor.Persistence.csproj"
+            },
+            "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj": {
+              "projectPath": "C:\\Users\\fruzs\\Desktop\\szakdolgell\\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\\DocEditor\\DocEditor.ViewModel\\DocEditor.ViewModel.csproj"
             }
           }
         }
@@ -186,7 +214,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

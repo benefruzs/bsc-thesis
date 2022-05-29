@@ -14,22 +14,27 @@ namespace DocEditor.Model
         /// <summary>
         /// Get and set the font style.
         /// </summary>
-        String Style { get; set; }
+        string Style { get; set; }
 
         /// <summary>
         /// Get and set the font weight.
         /// </summary>
-        String Weight { get; set; }
+        string Weight { get; set; }
 
         /// <summary>
         /// Get and set the font family.
         /// </summary>
-        String Family { get; set; }
+        string Family { get; set; }
 
         /// <summary>
         /// Get and set the font size.
         /// </summary>
         int Size { get; set; }
+
+        /// <summary>
+        /// Get and set the text decoration.
+        /// </summary>
+        string TextDecoration { get; set; }
 
         /// <summary>
         /// Setting the default formatting.
@@ -40,7 +45,5 @@ namespace DocEditor.Model
         ///The event for the formatting changing.
         ///</summary>
         event EventHandler<FormatChangedEventArgs> FormatChanged;
-
-
     }
 }

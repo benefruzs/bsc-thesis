@@ -8,25 +8,10 @@
         <Setter Property="IsReadOnly" Value="False"/>
         <Setter Property="IsEnabled" Value="True"/>
         <Setter Property="Background" Value="#FFFFFF"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="3" BorderThickness="1" Padding="2" BorderBrush="#FF767680">
-                        <Grid>
-                            <Rectangle StrokeThickness="1"/>
-                            <TextBox Margin="1"
-                                         Text="{TemplateBinding Text}"
-                                         BorderThickness="0"
-                                         Background="Transparent"
-                                         VerticalAlignment="Center"
-                                         Padding="0"
-                                         Foreground="#FF414147"
-                                         x:Name="MarginBox"/>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="BorderBrush" Value="#FF414147"/>
+        <Setter Property="Foreground" Value="#FF414147"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
     
@@ -44,7 +29,6 @@
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="#2e2f34"/>
-        <!--<Setter Property="Background" Value="#FF9DA2AE"/>-->
     </Style>
 
     <Style x:Key="WLabelStyle2" TargetType="{x:Type Label}">
@@ -66,7 +50,6 @@
         </Setter>
     </Style>
 
-    <!--#232325-->
 
     
     <!--updown button style-->

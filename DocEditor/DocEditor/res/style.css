@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body,
+html {
+  background-color:white;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "Source Code Pro", sans-serif;
+  scroll-behavior: smooth;
+}
+
+h1 {
+    background-color: #1a1a1b;
+    color: white;
+    padding: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: 0px;
+    font-family: Corbel;
+    font-weight: lighter;
+    font-size: 3em;
+    font-variant-caps: small-caps;
+    letter-spacing: 5px;
+    left: 0;
+    right: 0;
+    /*transform: translateY(-50%);*/
+    text-align: center;
+}
+
+.maindiv{
+    background-color: #252629;
+    color: white;
+    padding: 20px;
+    margin: 0px;
+    font-family: Corbel;
+}
+
+.maindiv h2{
+    font-size: 2em;
+    font-variant-caps: small-caps;
+    font-weight: 400;
+    letter-spacing: 5px;
+    padding: 5 px;
+}
+
+.maindiv h3{
+    font-size: 1.5em;
+    font-variant-caps: small-caps;
+    font-weight: 400;
+    letter-spacing: 5px;
+    padding: 5 px;
+    padding-left: 20px;
+}
+
+.maindiv p{
+    font-family: Corbel;
+    font-weight: lighter;
+    font-size: 1.1em;
+    padding-left: 20px;
+}
+
+.maindiv a{
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
+
+.maindiv .tdpic {
+    width: 50%;
+    text-align: center;
+    padding-left: 0px;
+}
+
+.maindiv .tdpic .imgimg {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 60px;
+}
+
+
+
+.center {
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centerbig {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centersm {
+    display: block;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centermedium {
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centersmall{
+    display: block;
+    width: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.summ {
+    font-family: Corbel;
+    color: white;
+    font-weight: lighter;
+    font-size: 1.5em;
+    background-color: #454557;
+    padding: 25px;
+}
+
+.summ a{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.summ h2 {
+    font-size: 1.5em;
+    font-variant-caps: small-caps;
+    font-weight: 400;
+    letter-spacing: 5px;
+    padding: 5 px;
+}

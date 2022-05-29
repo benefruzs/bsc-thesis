@@ -10,19 +10,24 @@ namespace DocEditor.Model
     public class FormatModel : IFormatModel
     {
         #region Private fields and Public properties
-        //Italic, Normal, Oblique
+        /// <summary>
+        /// Font style: Italic, Normal, Oblique
+        /// </summary>
         private string _fontStyle;
         public string Style
         {
             get { return _fontStyle; }
-            //set { OnPropertyChanged(ref _fontStyle, value); }
             set
             {
                 if (_fontStyle != value) { _fontStyle = value; OnFormatChanged(); }
             }
         }
 
-        //black, bold, demiBold, extraBlack, extraLight, heavy, light, medium, normal, regular, semiBold, thin, ultraBlack, ultraBold, ultraLight 
+        /// <summary>
+        /// Font weight: black, bold, demiBold, extraBlack, extraLight, 
+        /// heavy, light, medium, normal, regular, semiBold, 
+        /// thin, ultraBlack, ultraBold, ultraLight 
+        /// </summary>
         private string _fontWeight;
         public string Weight
         {
@@ -32,6 +37,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// Font family
+        /// </summary>
         private string _fontFamily;
         public string Family
         {
@@ -41,7 +49,10 @@ namespace DocEditor.Model
             }
         }
 
-        private int _charOffset; //-10 subscript, 10 superscript, 0 normal
+        /// <summary>
+        /// Character offset: -2 subscript, 2 superscript, 1 normal
+        /// </summary>
+        private int _charOffset;
         public int CharOffset
         {
             get { return _charOffset; }
@@ -50,6 +61,9 @@ namespace DocEditor.Model
             }
         }
 
+        /// <summary>
+        /// Font size
+        /// </summary>
         private int _size;
         public int Size
         {
@@ -58,6 +72,10 @@ namespace DocEditor.Model
                 if (_size != value) { _size = value; OnFormatChanged(); }
             }
         }
+
+        /// <summary>
+        /// Font color
+        /// </summary>
         private string _color;
         public string Color
         {
@@ -65,6 +83,19 @@ namespace DocEditor.Model
             set
             {
                 if(_color != value) { _color = value; OnFormatChanged(); }
+            }
+        }
+
+        /// <summary>
+        /// Text decoration
+        /// </summary>
+        private string _textDecoration;
+        public string TextDecoration
+        {
+            get { return _textDecoration; }
+            set
+            {
+                if (_textDecoration != value) { _textDecoration = value; OnFormatChanged(); }
             }
         }
         #endregion
@@ -78,6 +109,27 @@ namespace DocEditor.Model
         {
             SetDefaultFormatting();
         }
+
+        public FormatModel(string family, int size, string style, string weight, string color)
+        {
+            _fontFamily = family;
+            _size = size;
+            _fontStyle = style;
+            _fontWeight = weight;
+            _color = color;
+            _charOffset = 1;
+        }
+
+        //arr[n]: Style Weight CharOffset Family Size Color
+        public FormatModel(string style, string weight, int charoff, string family, int size, string color)
+        {
+            _fontFamily = family;
+            _size = size;
+            _fontStyle = style;
+            _fontWeight = weight;
+            _color = color;
+            _charOffset = charoff;
+        }
         #endregion
 
         #region Public methods
@@ -86,12 +138,12 @@ namespace DocEditor.Model
         /// </summary>
         public void SetDefaultFormatting()
         {
-            _size = 48;
+            _size = 14;
             _fontWeight = "Normal";
-            _fontFamily = "Courier new";
+            _fontFamily = "Arial";
             _fontStyle = "Normal";
-            _color = "Red";
-            _charOffset = 0;
+            _color = "#000000";
+            _charOffset = 1;
         }
         #endregion
 
@@ -101,8 +153,7 @@ namespace DocEditor.Model
         /// </summary>
         private void OnFormatChanged()
         {
-            if (FormatChanged != null)
-                FormatChanged(this, new FormatChangedEventArgs(_fontStyle, _fontWeight, _fontFamily, _size, _color));
+            FormatChanged?.Invoke(this, new FormatChangedEventArgs(_fontStyle, _fontWeight, _fontFamily, _size, _color, _textDecoration));
         }
         #endregion
     }

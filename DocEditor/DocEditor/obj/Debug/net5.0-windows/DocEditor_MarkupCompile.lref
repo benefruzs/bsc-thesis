@@ -1,13 +1,14 @@
 ﻿
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\App.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\DictionaryView.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\FontListWindow.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\FormatTextView.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\HomeWindow.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\InsertView.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\MainWindow.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\PageSettingsView.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\PageSettingsWindow.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\PdfViewer.xaml;;
-FC:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\Spacing.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\App.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\CreateFileDialog.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\DictionaryView.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\ErrorCorrectDialog.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\FormatTextView.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\HomeWindow.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\InsertView.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\MainWindow.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\PageSettingsDialog.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\PageSettingsView.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\PdfViewer.xaml;;
+FC:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\Views\UserHelpViewer.xaml;;
 

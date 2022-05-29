@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro');
+        </style>
+    <title>Felhasználói súgó</title>
+</head>
+<body>
+
+     
+    <h1 class="maintitle" id="mid">
+        Felhasználói súgó
+    </h1>
+    <div class="summ">
+        <h2> Tartalom </h2>
+        <a href="#section1">A program ismertetése</a><br />
+        <a href="#section2">Rendszerkövetelmények</a><br />
+        <a href="#section3">Telepítés és indítás</a><br />
+        <a href="#section4">Kezdőoldal</a><br />
+        <a href="#section5">Főoldal</a><br />
+        <a href="#section6">Szótár</a><br />
+        <a href="#section7">Egyéb információk</a><br />
+        <a href="#section8">Gombok jegyzéke</a><br />
+    </div>
+
+  
+<div class="maindiv">
+    <p>Az alábbi felhasználói dokumentáció egy útmutató a program beszerzéséhez, telepítéséhez, indításához és használatához.</p>
+    <h2 id="section1"> A program ismertetése </h2>
+    <p> A program egy szövegszerkesztő alkalmazás, ami megfelelő környezetet kínál dokumentumok, szövegek, jegyzetek gyors és kényelmes szerkesztéséhez. 
+        Bizonyos dokumentumok szerkesztése közben előfordul, hogy adott szavakra ugyanazt a formázási stílust szeretnénk alkalmazni a szó összes vagy szinte összes előfordulásakor. Ilyenkor sok ismételt műveletet jelent a szóra beállítani mindig újra és újra a formázásokat, ami jelentősen megnöveli a szövegírás idejét. Ez például egy egyetemi órai jegyzet készítése közben különösen rosszul tud jönni, mivel ilyenkor fontos, hogy minél gyorsabban írjuk a jegyzetünket, ne maradjunk le. </p>
+    <p> Erre a problémára kínál megoldást a jelen program. A dokumentum szerkesztése közben fel tudunk venni az úgynevezett szótárba készre formázott szavakat, és ezután egy elemző figyeli a amit begépelünk. Ha egyezést talál a szótár szavaival, akkor automatikusan alkalmazza rá a korábban beállított formázási stílust. Így a dokumentumunk jól formázott lesz, szinte gépelési sebességgel, csak a szerkesztés kezdetekor kell a szótárba felvennünk elemeket. Emellett az elemző az egyes elgépeléseinket is ki tudja szűrni, ekkor a szótárból ajánl fel csere lehetőségeket. </p>
+    
+    <h2 id="section2"> Rendszerkövetelmények </h2>
+    <p> A program platformspecifikus, csak Windows operációs rendszeren futtatható. Az alkalmazás futtatásához optimális a Windows 7,  vagy annál újabb operációs rendszer. A futtatható állomány x32 és x64-es architektúrájú rendszerekkel is használható. 
+        <br/>
+        Az alkalmazás hardware követelményeit a Visual Studio Diagnostic Tool segítségével állapítottam meg. Az alkalmazás alacsony erőforrásigényű, átlagos felszereltségű számítógépeken is jól működik.
+    </p>
+    <p><b>Minimális hardware követelmények:</b></p>
+    <ul>
+        <li>1024×768-as felbontású kijelző</li>
+        <li>200 MB szabad RAM</li>
+        <li>50 MB szabad háttértár</li>
+        <li>Windows 7 x32 operációs rendszer</li>
+    </ul>
+    <p><b>Ajánlott hardware követelmények</b></p>
+    <ul>
+        <li>1024×768-as felbontású kijelző</li>
+        <li>8 GB RAM</li>
+        <li>200 MB szabad háttértár</li>
+        <li>Legalább Windows 7 x64 operációs rendszer</li>
+    </ul>
+    
+    <h2 id="section3"> Telepítés és indítás </h2>
+    <p> A program futtatásához szükséges fájlokat  egy zip tömörített archívumként lehet letölteni. A fájlok kicsomagolása után a <b>DocEditor.exe</b> állományt kell elindítani. </p>
+    <p>A szoftver futtatásához szükséges, hogy a számítógép rendelkezzen telepített .NET 5 keretrendszerrel. Ennek a telepítése a következő linkkel érhető el.</p>
+    <a href="https://download.visualstudio.microsoft.com/download/pr/14ccbee3-e812-4068-af47-1631444310d1/3b8da657b99d28f1ae754294c9a8f426/dotnet-sdk-5.0.408-win-x64.exe">.NET 5 telepítése</a>
+    
+    <h2 id="section4"> Az alklamazás kezdőoldala </h2>
+    <p>
+      A program indítása után először a kezdőképernyőt látjuk magunk előtt. Ez az oldal új dokumentum létrehozására, betöltésére szolgál. A felület tartalmaz egy oldalsó menüt és egy listát, ami betölthető fájlokat tartalmaz.
+        <br/>
+        A kezdőoldalról elérhető a felhasználói súgó is, ami rögtön segítséget nyújt az első lépésekben.
+    </p>
+    <img src="./imgs/kezdooldal.jpg" class="centerbig"/>
+    <p>
+      Az "Új üres" gombra kattintva létrehozunk egy új üres dokumentumot, szótár nélkül. Így "tiszta lappal" kezdhetünk neki a dokumentumunk szerkesztésének, és a hozzá tartozó szótárat is teljes mértékben személyre szabhatjuk.    </p>
+    <p>Az megnyitás gombot választva betölthetünk egyet a korábban szerkesztett fájlok közül, ennek segítségével könnyen tudjuk folytatni a legutóbb félbehagyott munkánkat. 
+          <br/>
+          A mentés és mentés másként gombok az alkalmazás indításkor nem használhatók, ezek csak a főoldalról megnyitott kezdőoldalról elérhetők.
+    </p>
+    <p>A kezdőoldalon levő listából egy korábban létrehozott szótárat választhatunk ki, amit egy új üres dokumentum mellé töltünk be. <br/>
+      A program kínál előre elkészített szótárakat is, amik adott témakörhöz hasznos formázott szavakkal vannak feltöltve. Ezekkel egy jó alappal tudjuk elkezdeni a dokumentumunknak a szerkesztését. Három betölthető szótár közül választhatunk, ezek általános jegyzetek készítéséhez, matematikai és informatikai jegyzetekhez alkalmazhatók.</p>
+    <p>Miután kiválasztunk a listából egy betöltendő fájlt, vagy a bal oldalon található menüsor segítségével új üres fájlt hozunk létre, vagy megnyitunk egy korábbi fájlt, a kezdőoldalról az alkalmazás főoldalára jutunk. A kezdőoldalt később is bármikor el tudjuk érni a főoldalról.</p>
+        
+
+    <h2 id="section5"> Az alkalmazás főoldala </h2>
+    <p>A főoldalon bal oldalon az alkalmazás menüjét láthatjuk, a szerkesztéssel kapcsolatos funkciókat nyithatjuk meg a segítségével. A főoldalon található gombok, vezérlők többségben ikonok alapján tájékoztatják a felhasználót az adott gomb funkcióját illetően. A főoldalon található vezérlők használata egyértelmű és könnyen értelmezhető bárki számára, emellett a gombokról és funkciójukról a későbbiekben részletes leírást is találunk.</p>
+    <img src="./imgs/fooldal.png" class="centerbig"/>
+    
+    <p>A bal oldali menüben választhatjuk ki azt, hogy melyik szerkesztési menüpont nyíljon meg a jobb oldalon erre fenntartott területen. Ez a dokumentumszerkesztés menüje.</p>
+    <img src="./imgs/bal-menu.jpg" class="centersmall"/>
+    <p>A menüpontok között rájuk kattintva lehet navigálni. A felső menüpont kiválasztásával az oldalbeállítások nyílnak meg, a második menüpont a formázási lehetőségeket nyitja meg, a harmadik felel a képek beillesztéséhez tartozó felület megjelenítéséért, az utolsó pedig a szótárért. Egyszerre egy menüpont választható ki.</p>
+    <p>A felső házikót ábrázoló ikonra kattintással megnyithatjuk a kezdőoldalt. Ilyenkor csak a kezdőoldalon tudunk kattintani, azt bezárva visszajutunk a főoldalra, ami változatlan maradt a kezdőoldal megnyitása óta. </p>
+    <p>Az alkalmazás felső menüsorában találhatók az alkalmazáshoz tartozó általános műveletek, mint a mentés, betöltés, szöveg módosítása, súgók.</p>
+    <img src="./imgs/fajl.jpg" class="centermedium"/>
+    <p>A fájl menüpontban a fájlhoz tartozó felsorolt műveletek elvégzésére van lehetőségünk.</p>
+    <img src="./imgs/szotar.jpg" class="centermedium"/>
+    <p>Az éppen szerkesztett dokumentumhoz lehetőségünk van szótárat betölteni, vagy az aktuálisan használt szótárunkat elmenteni új fájlba. A szótár megnyitása menüpontra való kattintással a jobb oldalon nyílik meg a szótár szerkesztéséhez tartozó felület. </p>
+    <img src="./imgs/modositas.jpg" class="centermedium"/>
+    <p>A papíron található szöveg módosítására szolgál ez a menüpont. Kijelölhetjük az összes, a papíron található szöveget (<b>ctrl+a</b>), törölhetjük a kijelölt szövegrészt(<b>delete</b>), kivágás (<b>ctrl+x</b>), másolás (<b>ctrl+c</b>), beillesztés (<b>ctrl+v</b>) műveleteket végezhetünk el. Emellett a legutóbbi módosításainkat vissza is vonhatjuk (<b>ctrl+z</b>), a visszavont lépéseket újra alkalmazhatjuk(<b>ctrl+y</b>). Ezekre a műveletekre a zárójelekben megadott billentyűkombinációk is használhatók. Ezeken felül a kijelölt szöveget a megfelelő menüpontokra kattintva átállíthatjuk kis- és nagybetűsre is.</p>
+    <img src="./imgs/nezet.jpg" class="centermedium"/>
+    <p>A nyomtatás menüponttal megnyitjuk a nyomtatási beállításokat. Ennek a dialógusablaknak a segítségével van lehetőségünk a dokumentum elmentésére pdf fájlként. A szótár megnyitása menüpont a szótár kezelő felületét nyitja meg</p> <br/>
+    <img src="./imgs/sugo.jpg" class="centermedium"/>
+    <p>Az általános felhasználói segédletet és a szótár használatához tartozó segédletet is meg tudjuk nyitni a súgó menüpontból.</p> 
+    <p>Az ablak jobb felső sarkában található három gombbal az alkalmazást letehetjük a tálcára ("_"), kinagyíthatjuk ("[ ]") és bezárhatjuk ("X"). Az ablaknak két mérete közül tudunk választani, és a méreteket kinagyítás gombbal tudjuk váltogatni. Nagyobb méretre váltáskor a jobb oldali felület nő meg, így a rajta található gombok és más elemek könnyebben használhatók, olvashatók lesznek azok számára is, akiknek nagyobb betűmérettel kell használniuk a számítógépet. </p>
+
+    <h3> Oldalbeállítások menüpont </h3>
+    <p>Az itt található szövegdobozok segítségével adhatjuk meg a dokumentumunkra alkalmazni kívánt margók értékeit. A szövegdobozban mindig az aktuálisan beállított érték szerepel. A beírt új értéket a mellette levő gombra kattintással tudjuk érvényesíteni. A gombok a következő sorrendben felelnek meg az oldalmargóknak: felső, alsó, bal, jobb.</p>
+    <p>Az ábra külön funkcióval nem rendelkezik, csak a margóbeállítás egyértelműsítésére szolgál.</p>
+    <img src="./imgs/oldalbeallitasok.jpg" class="centermedium"/>
+    <p>A "..." gombra kattintva megnyitjuk a további oldalbeállítási lehetőségekhez tartozó párbeszédablakot.</p>
+    <img src="./imgs/oldal.jpg" class="centersm"/>
+    <p>Az alsó listából előre elkészített margók közül választhatunk. Amint rájuk kattintunk, a párbeszédablak bezáródik, és megtörténik a kiválasztott margó beállítása a dokumentumra.</p>
+    <p>A nyilakra kattintva növelhetjük vagy csökkenthetjük az adott margót 0.1-gyel. Az "OK" gombra kattintáskor az itt beállított értékek alkalmazódnak a dokumentumra, a párbeszédablak bezáródik. A mégsem gombra kattintva elvetjük a módosításokat, visszatérünk a dokumentumunkhoz.</p>
+
+    <h3> Formázás menüpont</h3>
+    <img src="./imgs/formazas.jpg" class="centermedium"/>
+    <p>
+        A legtöbb funkcióval rendelkező menüpont a formázásához nyújt lehetőségeket.
+        </p>
+        <p>A felső lenyíló listából egy elemet kiválasztva a kijelölésre alkalmazhatunk az ott szereplő stílusok közül.
+        </p>
+        <p> Az alatta található gombokkal a bekezdések igazítását állíthatjuk be. Balra, középre, sorkizártra és jobbra tudjuk igazítani a kijelölt, vagy az aktuális bekezdésünket. Az ez alatt található gombokkal a sorközt tudjuk növelni és csökkenteni.
+        </p>
+        <img src="./imgs/color-dialog.jpg" class="center"/>
+        <p>A betűszín kiválasztásához egy párbeszédablak nyílik meg. Itt lehetőségünk van előre megadott színek közül választani, vagy saját színt keverni az erre kialakított felületen.</p>
+        <p>Emellett a kijelölt szöveget formázhatjuk még a felületen található gombok segítségével, felvehetünk új stílusokat is. Új stílus felvételekor a kijelölt szöveg legtöbb karakterére felvett formázási információkat mentjük el. Törölhetjük az alkalmazott formázásokat is, ilyenkor a dokumentumhoz tartozó alapvető betűszín, betűméret, betűtípusig csupaszítjuk le a kijelölt szövegrészt.
+        </p> 
+        <img src="./imgs/szerkesztes.jpg" class="centerbig"/>
+
+
+    <h3> Beszúrás menüpont </h3>
+    <img src="./imgs/kep.jpg" class="centermedium"/>
+    <p>Lehetőségünk van képeket is beszúrni a dokumentumunkba. A kép ikonra való kattintással előjön egy ablak, ahol kiválaszthatjuk a beszúrni kívánt képet. Az elérési útvonala a mellette levő szövegdobozba kerül.</p>
+    <p>Az alsó két egymás melletti szövegdobozban a beszúrandó kép méreteit (szélesség, magasság) adhatjuk meg, ezt még a kép ikonra kattintás előtt be kell állítanunk. Ha nem adunk meg méretezést, akkor a kép alapértelmezett méretével kerül beszúrásra, egy sor hosszának megfelelő maximális mérettel.</p>
+
+    <h3>Szótár menüpont</h3>
+    <img src="./imgs/dolt.jpg" class="centermedium"/>
+    <img src="./imgs/xi.jpg" class="centermedium"/>
+    <p>A szótárhoz tartozó felületen a szótárba felvett szavak listája, azok előnézetének megjelenítő felülete és a szótár műveleteinek gombjai találhatók.</p>
+    <p>A listából amikor kiválasztunk egy elemet, akkor alatta megjelenik a szóra eltárolt formázás előnézete. Ilyenkor lehetőségünk van a törlés gombbal eltávolítani a kiválasztott elemet. Ilyenkor a törölt elem a háttérben tárolt szótárunkból is eltávolításra kerül.</p>
+    <p>Lehetőségünk van a szótárhoz új elemeket is hozzáadni. Ehhez ki kell jelölnünk pontosan egy szót a dokumentumban, majd a hozzáadás gombra kattintva elmentjük a szótárba a kijelölt szót, és a rá alkalmazott formázásokat karakterről karakterre.</p>
+
+    <h2 id="section6">Szótár</h2>
+    <p>A korábban taglalt szótár funkciók mellett az automatikus formázás működéséről és tudnivalóiról is érdemes néhány szót ejteni.</p>
+    <p>A szöveg begépelése közben, szóköz lenyomása után az utoljára beírt szóra az elemző alkalmazza a leggyakrabban használt elmentett formázást, amennyiben talált a szótárban a vizsgált szóval megegyező elemet. Ilyenkor a szótárban az elem gyakorisága eggyel nő. Ez azért fontos, mert egy adott szóhoz több különböző formázási stílust is fel tudunk venni a szótárba, de valahonnan tudnunk kell azt is a szótár elemeihez, hogy melyiket milyen valószínűséggel szeretné a felhasználó alkalmazni. </p>
+    
+    <h3>"Erre gondolt?" funkció</h3>
+    <img src="./imgs/erre.jpg" class="centersm"/>
+    <p>Sok esetben hasznos lehet, és megkönnyítheti a begépelt hibák javítását az "Erre gondolt?" funkció. Minden begépelt, de a szótárban nem található szóra megvizsgálja, hogy található-e a szótárban hozzá nagyon hasonló elmentett szó. Ha igen, akkor az első maximum három lehetőséget felajánlja a nekünk, és választhatunk közülük egyet, vagy elutasíthatjuk az ajánlatot. Az ajánlat elutasításakor onnan folytathatjuk a dokumentum írását, ahol abbahagytuk. Ha kiválasztunk egy szót, akkor a szót, amit legutoljára begépeltünk, kijavítja a kiválasztott szóra, és a hozzá elmentett formázást is alkalmazza rá a program.  </p>
+    
+    <h3>Szótár létrehozása</h3>
+    <p>Amikor üres dokumentumot kezdünk szerkeszteni, a szótár menüpontra kattintáskor először egy felugró ablakkal találkozunk, ha nincsen betöltött szótárunk. Itt megadhatjuk a szótár nevét, és az "OK" gombra kattintással létrehozzuk a JSON fájlt, és betöltjük az üres szótárunkat, amennyiben helyes fájlnevet adtunk meg. </p>
+    
+    <h3>Szótár betöltése</h3>
+    <p>A szótárt JSON fájlként tároljuk, így megfelelő tartalmú JSON fájlok betöltésére van lehetőségünk, amikor egy új szótárat szeretnénk betölteni az aktuális dokumentumunkhoz. A betöltés után az elemző az új szótárat fogja használni, az abban található formázásokat fogja automatikusan alkalmazni a begépelt szavakra.</p>
+    
+    <h3>Mentés, betöltés</h3>
+    <p>A szerkesztett dokumentumunkat a program futása során bármikor el tudjuk menteni. A főoldal bezárása előtt az alkalmazás egy felugró ablakban jelzi, ha mentés nélkül szeretnénk kilépni. Ilyenkor lehetőségünk van visszalépni, és kilépés előtt elmenteni az éppen szerkesztett fájlt.</p>
+    <p>Az alkalmazás indításakor betölthetünk korábbi fájlokat, és folytathatjuk azoknak a szerkesztését. Ilyenkor a hozzá tartozó szótárat is betöltjük a dokumentummal együtt.</p>
+    <p>A mentés és a betöltés is külön dialógus ablak segítségével történik.</p>
+    <p>A dokumentum (<b>.xaml</b>) és a szótár (<b>.json</b>) külön, önmagukban is használható fájlokként vannak elmentve, ezekhez tartozik még egy összekötő fájl, aminek a kiterjesztése <b>.doced</b>. Betöltéskor ezt a fájlt kell megkeresni. Amennyiben mentés után nem lettek a fájlok másik mappákba mozgatva és/vagy átnevezve, úgy mindhárom fájl betöltését biztosítja az összekötő fájl.</p>
+    <h2 id="section7">Egyéb információk</h2>
+    <p>A program magyar nyelvű verzióval készült el. A felhasználói segédlet és a szótár súgó is magyar nyelven érhető el.</p>
+    
+    <h2 id="section8">Gombok jegyzéke</h2>
+    <p>Mivel sok gomb csak ikonnal jelzi a felhasználó számára, hogy mi a funkciója, így sok esetben intuitív használatot követelnek meg. Ezt hivatott megkönnyíteni az alábbi táblázat, ahol a gombok ikonjai és a funkciói fel vannak tüntetve.</p>
+
+    <table>
+        <tr>
+        <td class="tdpic"><img src="./imgs/format.jpg" class="imgimg"/> </td><td> Formázás menüpont </td>
+		</tr>
+        <tr>
+			<td class="tdpic"><img src="./imgs/insert.jpg" class="imgimg"/> </td><td> Kép beillesztése menüpont </td>
+        </tr>
+        <tr>
+            <td class="tdpic"><img src="./imgs/dict.jpg" class="imgimg"/> </td><td> Szótár menüpont </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/home.jpg" class="imgimg"/> </td><td> Kezdőoldal megnyitásaa </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/top.jpg" class="imgimg"/> </td><td> Felső margó beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/bottom.jpg" class="imgimg"/> </td><td> Alsó margó beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/left-marg.jpg" class="imgimg"/> </td><td> Bal margó beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/right-marg.jpg" class="imgimg"/> </td><td> Jobb margó beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/image.jpg" class="imgimg"/> </td><td> Kép beillesztése </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/leftalign.jpg" class="imgimg"/> </td><td> Balra zárt szövegigazítás beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/rightalign.jpg" class="imgimg"/> </td><td> Jobbra zárt szövegigazítás beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/center.jpg" class="imgimg"/> </td><td> Középre zárt szövegigazítás beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/just.jpg" class="imgimg"/> </td><td> Sorkizárt szövegigazítás beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/sorkoz.jpg" class="imgimg"/> </td><td> Sorköz növelése </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/sorkoz-d.png" class="imgimg"/> </td><td> Sorköz csökkentése </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/bold.jpg" class="imgimg"/> </td><td> Félkövér formázás beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/italic.jpg" class="imgimg"/> </td><td> Dőlt formázás beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/underline.jpg" class="imgimg"/> </td><td> Szöveg aláhúzása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/line.jpg" class="imgimg"/> </td><td> Szöveg áthúzása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/x_over.jpg" class="imgimg"/> </td><td> Felső index beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/x_under.jpg" class="imgimg"/> </td><td> Alsó index beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/text_color.jpg" class="imgimg"/> </td><td> Szöveg színének beállítása </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/del.jpg" class="imgimg"/> </td><td> Formázások törlése </td>
+		</tr>
+            <tr>
+            <td class="tdpic"><img src="./imgs/add_style.jpg" class="imgimg"/> </td><td> Új stílus felvétele </td>
+    </tr>
+        </table>
+</div>
+
+
+
+    </body>

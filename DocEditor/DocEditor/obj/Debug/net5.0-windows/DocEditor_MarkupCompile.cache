@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\obj\Debug\net5.0-windows\
+C:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\obj\Debug\net5.0-windows\
 DocEditor
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-C:\Users\fruzs\Desktop\szakdolgozat\DocEditor\DocEditor\App.xaml
-161642482236
+C:\Users\fruzs\Desktop\szakdolgell\BENE_FRUZSINA_AOO2ZV_SZAKDOLGOZAT\DocEditor\DocEditor\App.xaml
+171719834792
 
-12697826270
-206408857603
-DictionaryView.xaml;FontListWindow.xaml;FormatTextView.xaml;HomeWindow.xaml;InsertView.xaml;MainWindow.xaml;PageSettingsView.xaml;PageSettingsWindow.xaml;PdfViewer.xaml;Spacing.xaml;StyleResources\AllButtonStyle.xaml;StyleResources\HomeStyles.xaml;StyleResources\MenuItemStyles.xaml;StyleResources\RadioButtonStyles.xaml;StyleResources\TextBoxStyle.xaml;StyleResources\WindowStyles.xaml;
+13-1761622151
+2071546742788
+StyleResources\AllButtonStyle.xaml;StyleResources\HomeStyles.xaml;StyleResources\MenuItemStyles.xaml;StyleResources\RadioButtonStyles.xaml;StyleResources\TextBoxStyle.xaml;StyleResources\WindowStyles.xaml;Views\CreateFileDialog.xaml;Views\DictionaryView.xaml;Views\ErrorCorrectDialog.xaml;Views\FormatTextView.xaml;Views\HomeWindow.xaml;Views\InsertView.xaml;Views\MainWindow.xaml;Views\PageSettingsDialog.xaml;Views\PageSettingsView.xaml;Views\PdfViewer.xaml;Views\UserHelpViewer.xaml;
 
 False
 

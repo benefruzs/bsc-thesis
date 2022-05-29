@@ -11,7 +11,12 @@ namespace DocEditor.Model
     {
         #region Private fields and Public properties
         //the string itself
-        private String _text;
+        private Selection _selectedText;
+        public Selection SelectedText
+        {
+            get { return _selectedText; }
+            set { if (_selectedText != value) { _selectedText = value; } }
+        }
 
         //fromatting
         private FormatModel[] _textFormatting; //for every charachter of the string a formatting
@@ -22,14 +27,21 @@ namespace DocEditor.Model
             set { if (_textFormatting != value) { _textFormatting = value; } }
         }
 
-        public string Text
-        {
-            get { return _text; }
-            set { if (_text != value) { _text = value; } }
-        }
         #endregion
 
         #region Constructors
+
+        public Stwf()
+        {
+            _selectedText = new Selection();
+            _textFormatting = null;
+        }
+
+        public Stwf(Selection sel, FormatModel[] fm)
+        {
+            _selectedText = sel;
+            _textFormatting = fm;
+        }
 
         #endregion
     }
